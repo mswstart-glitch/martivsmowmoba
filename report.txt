@@ -1,0 +1,10 @@
+There's no link to send yet — nothing has been built or deployed. To recap where things stand:
+
+- No files created or modified
+- No images generated
+- No questions.json/image-map.json updated
+- No DB changes
+
+Since I never got confirmation on the two open decisions (target system: Laravel DB vs. static demo vs. both; execution engine: Python vs. PHP), I haven't started implementation, so there's nothing live to open in a browser yet.
+
+If you want me to proceed now with my proposed defaults (populate driving_questions.image in this app and regenerate the static demo at public_html/public/autoschool-demo/index.html, using the Python venv for extraction), say so and I'll implement it — then I'll give you the exact file paths and a real URL to test.

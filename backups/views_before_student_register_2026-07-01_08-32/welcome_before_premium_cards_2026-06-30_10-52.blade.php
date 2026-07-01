@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+<title>AutoSchool — Driving Academy</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+*{box-sizing:border-box}
+:root{
+    --bg:#070707;
+    --cream:#f4efe5;
+    --muted:#9d988f;
+    --gold:#c7a45a;
+    --gold2:#efd89a;
+    --line:rgba(255,255,255,.12);
+}
+html.lenis{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto}
+body{
+    margin:0;
+    font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    background:var(--bg);
+    color:var(--cream);
+    overflow-x:hidden;
+}
+a{text-decoration:none;color:inherit}
+.hero{
+    min-height:100vh;
+    position:relative;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at 70% 40%,rgba(199,164,90,.18),transparent 28%),
+        radial-gradient(circle at 20% 20%,rgba(255,255,255,.045),transparent 28%),
+        linear-gradient(120deg,#070707,#11100d 48%,#050505);
+}
+.noise{
+    position:absolute;
+    inset:0;
+    opacity:.14;
+    background-image:
+        linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px),
+        linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px);
+    background-size:80px 80px;
+    mask-image:linear-gradient(to bottom,#000,transparent 88%);
+}
+.road{
+    position:absolute;
+    right:-180px;
+    bottom:-320px;
+    width:920px;
+    height:900px;
+    transform:perspective(760px) rotateX(66deg) rotateZ(-10deg);
+    background:linear-gradient(90deg,#030303,#151515 48%,#2a2a2a 50%,#151515 52%,#030303);
+    border-left:2px solid rgba(255,255,255,.18);
+    border-right:2px solid rgba(255,255,255,.18);
+}
+.road:after{
+    content:"";
+    position:absolute;
+    left:50%;
+    top:0;
+    width:9px;
+    height:100%;
+    transform:translateX(-50%);
+    background:repeating-linear-gradient(to bottom,var(--gold) 0 44px,transparent 44px 94px);
+    filter:drop-shadow(0 0 18px rgba(199,164,90,.75));
+}
+.car{
+    position:absolute;
+    right:120px;
+    bottom:190px;
+    width:540px;
+    height:190px;
+    border-radius:150px 150px 38px 38px;
+    background:linear-gradient(180deg,#202020,#070707 62%,#000);
+    box-shadow:0 70px 150px rgba(0,0,0,.75), inset 0 2px 0 rgba(255,255,255,.08);
+}
+.car:before{
+    content:"";
+    position:absolute;
+    left:18%;
+    right:18%;
+    top:-78px;
+    height:124px;
+    border-radius:115px 115px 16px 16px;
+    background:linear-gradient(180deg,#2a2a2a,#090909);
+    border:1px solid rgba(255,255,255,.08);
+}
+.car:after{
+    content:"AUTOSCHOOL";
+    position:absolute;
+    left:50%;
+    bottom:18px;
+    transform:translateX(-50%);
+    background:linear-gradient(135deg,var(--gold2),var(--gold));
+    color:#111;
+    padding:8px 22px;
+    border-radius:7px;
+    font-weight:950;
+    letter-spacing:1px;
+}
+.light-left,.light-right{
+    position:absolute;
+    top:70px;
+    width:155px;
+    height:42px;
+    background:linear-gradient(90deg,#fff4c4,var(--gold));
+    box-shadow:0 0 45px rgba(199,164,90,.85),0 0 130px rgba(199,164,90,.38);
+    z-index:2;
+}
+.light-left{left:54px;border-radius:34px 8px 28px 12px;transform:skewX(-14deg)}
+.light-right{right:54px;border-radius:8px 34px 12px 28px;transform:skewX(14deg)}
+.beam{
+    position:absolute;
+    left:-90px;
+    right:-90px;
+    bottom:40px;
+    height:260px;
+    background:radial-gradient(ellipse at center,rgba(199,164,90,.26),transparent 68%);
+    filter:blur(18px);
+}
+.wrap{
+    max-width:1280px;
+    margin:auto;
+    padding:0 34px;
+    position:relative;
+    z-index:3;
+}
+.nav{
+    height:94px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-weight:950;
+    font-size:24px;
+}
+.logo-mark{
+    width:44px;
+    height:44px;
+    border-radius:15px;
+    background:linear-gradient(180deg,#171717,#080808);
+    border:1px solid rgba(199,164,90,.35);
+    color:var(--gold);
+    display:grid;
+    place-items:center;
+}
+.logo b{color:var(--gold)}
+.menu{
+    display:flex;
+    gap:38px;
+    color:#d9d4cb;
+    font-weight:800;
+    font-size:15px;
+}
+.nav-cta{
+    background:linear-gradient(135deg,var(--gold2),var(--gold));
+    color:#111;
+    padding:15px 24px;
+    border-radius:16px;
+    font-weight:950;
+    box-shadow:0 18px 45px rgba(199,164,90,.18);
+}
+.hero-grid{
+    min-height:calc(100vh - 94px);
+    display:grid;
+    grid-template-columns:.9fr 1.1fr;
+    align-items:center;
+    padding-bottom:80px;
+}
+.eyebrow{
+    color:var(--gold);
+    font-weight:950;
+    margin-bottom:18px;
+    letter-spacing:.4px;
+}
+.title{
+    font-size:84px;
+    line-height:.9;
+    letter-spacing:-4px;
+    margin:0 0 26px;
+    max-width:720px;
+}
+.title span{
+    background:linear-gradient(90deg,var(--cream),var(--gold2),var(--gold));
+    -webkit-background-clip:text;
+    color:transparent;
+}
+.split-line{
+    display:block;
+    overflow:hidden;
+}
+.lead{
+    max-width:590px;
+    color:#b8b1a5;
+    font-size:20px;
+    line-height:1.75;
+    margin:0 0 34px;
+}
+.actions{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+}
+.btn{
+    display:inline-flex;
+    align-items:center;
+    gap:12px;
+    padding:17px 28px;
+    border-radius:17px;
+    font-weight:950;
+    transition:.28s cubic-bezier(.2,.8,.2,1);
+}
+.btn:hover{transform:translateY(-4px) scale(1.015)}
+.primary{
+    background:linear-gradient(135deg,var(--gold2),var(--gold));
+    color:#111;
+    box-shadow:0 22px 60px rgba(199,164,90,.22);
+}
+.secondary{
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.055);
+    backdrop-filter:blur(14px);
+}
+.trust{
+    display:flex;
+    gap:12px;
+    align-items:center;
+    margin-top:46px;
+    color:#b8b1a5;
+    font-weight:850;
+}
+.avatars{display:flex}
+.avatar{
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#2c2c2c,var(--gold));
+    border:2px solid #070707;
+    margin-left:-8px;
+}
+.avatar:first-child{margin-left:0}
+.next-section{
+    min-height:70vh;
+    background:#0b0b0b;
+    padding:90px 34px;
+}
+.placeholder{
+    max-width:1280px;
+    margin:auto;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:34px;
+    padding:48px;
+    background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.025));
+}
+.placeholder h2{
+    font-size:48px;
+    margin:0 0 12px;
+    letter-spacing:-1.7px;
+}
+.placeholder p{
+    color:#aaa;
+    font-size:18px;
+    line-height:1.7;
+    max-width:650px;
+}
+@media(max-width:980px){
+    .menu,.nav-cta{display:none}
+    .hero-grid{grid-template-columns:1fr}
+    .title{font-size:50px;letter-spacing:-2px}
+    .car{opacity:.28;right:-160px;bottom:130px}
+    .road{opacity:.4}
+    .wrap{padding:0 22px}
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+    <div class="noise"></div>
+    <div class="road"></div>
+    <div class="car">
+        <div class="beam"></div>
+        <div class="light-left"></div>
+        <div class="light-right"></div>
+    </div>
+
+    <div class="wrap">
+        <nav class="nav">
+            <a class="logo" href="/autoschool">
+                <span class="logo-mark">⌁</span>
+                <span>Auto<b>School</b></span>
+            </a>
+
+            <div class="menu">
+                <a href="#">მთავარი</a>
+                <a href="#">კურსები</a>
+                <a href="#">ონლაინ სწავლა</a>
+                <a href="/autoschool/exam">ტესტები</a>
+                <a href="#">კონტაქტი</a>
+            </div>
+
+            <a class="nav-cta" href="/autoschool/exam">უფასო ტესტი</a>
+        </nav>
+
+        <div class="hero-grid">
+            <div>
+                <div class="eyebrow hero-reveal">Driving Academy</div>
+
+                <h1 class="title">
+                    შენი გზა<br>
+                    მართვის<br>
+                    <span>მოწმობამდე.</span>
+                </h1>
+
+                <p class="lead hero-reveal">
+                    ფიზიკური და ონლაინ თეორიის კურსები, რეალური გამოცდის სიმულაცია
+                    და მარტივი ახსნა თითოეულ შეცდომაზე.
+                </p>
+
+                <div class="actions hero-reveal">
+                    <a class="btn primary" href="#">კურსის არჩევა →</a>
+                    <a class="btn secondary" href="/autoschool/exam">უფასო ტესტი</a>
+                </div>
+
+                <div class="trust hero-reveal">
+                    <div class="avatars">
+                        <span class="avatar"></span>
+                        <span class="avatar"></span>
+                        <span class="avatar"></span>
+                    </div>
+                    <span>სწავლა, რომელიც გამოცდისთვის რეალურად გამზადებს</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="next-section">
+    <div class="placeholder reveal">
+        <h2>შემდეგი ეტაპი — Premium cards section</h2>
+        <p>თუ hero მოგვეწონა, შემდეგ დავამატებთ ფიზიკური კურსების, ონლაინ სწავლის, გამოცდის რეჟიმისა და პროგრესის სექციებს იგივე GSAP სტილით.</p>
+    </div>
+</section>
+
+<script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+const lenis = new Lenis({
+    duration: 1.05,
+    smoothWheel: true,
+    wheelMultiplier: 0.72
+});
+
+lenis.on('scroll', ScrollTrigger.update);
+
+gsap.ticker.add((time) => {
+    lenis.raf(time * 1000);
+});
+
+gsap.ticker.lagSmoothing(0);
+
+document.querySelectorAll('.title').forEach(title => {
+    const html = title.innerHTML.trim();
+    title.innerHTML = html
+        .split('<br>')
+        .map(line => `<span class="split-line"><span>${line.trim()}</span></span>`)
+        .join('');
+});
+
+gsap.set('.split-line span', {yPercent: 110});
+gsap.set('.hero-reveal', {y: 26, opacity: 0});
+gsap.set('.car', {x: 120, scale: 1.04, opacity: 0});
+gsap.set('.road', {y: 40, opacity: .75});
+
+const intro = gsap.timeline({defaults:{ease:'expo.out'}});
+intro
+    .from('.nav', {y:-28, opacity:0, duration:.7})
+    .to('.split-line span', {yPercent:0, duration:.9, stagger:.08}, '-=.25')
+    .to('.hero-reveal', {y:0, opacity:1, duration:.75, stagger:.08}, '-=.45')
+    .to('.car', {x:0, scale:1, opacity:1, duration:.9}, '-=.75');
+
+gsap.to('.car', {
+    y:-18,
+    scale:1.025,
+    ease:'none',
+    scrollTrigger:{
+        trigger:'.hero',
+        start:'top top',
+        end:'bottom top',
+        scrub:1
+    }
+});
+
+gsap.to('.road', {
+    y:70,
+    scale:1.035,
+    ease:'none',
+    scrollTrigger:{
+        trigger:'.hero',
+        start:'top top',
+        end:'bottom top',
+        scrub:1
+    }
+});
+
+gsap.utils.toArray('.reveal').forEach((el) => {
+    gsap.from(el, {
+        y:34,
+        opacity:0,
+        scale:.985,
+        duration:.75,
+        ease:'expo.out',
+        scrollTrigger:{
+            trigger:el,
+            start:'top 86%',
+            toggleActions:'play none none reverse'
+        }
+    });
+});
+</script>
+
+</body>
+</html>

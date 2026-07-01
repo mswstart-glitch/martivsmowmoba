@@ -1,0 +1,31 @@
+@props(['type'])
+
+@php
+    $type = strtoupper((string) $type);
+@endphp
+
+<span class="ast-license-icon" aria-hidden="true">
+@if($type === 'AM')
+<svg viewBox="0 0 64 44" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="35" r="8"/><circle cx="14" cy="35" r="3.5" fill="#fff"/><circle cx="46" cy="35" r="8"/><circle cx="46" cy="35" r="3.5" fill="#fff"/><path d="M8,30 Q8,20 16,19 L20,19 Q20,14 27,13 L33,13 Q34,17 34,21 L40,21 Q46,21 46,27 L46,30 Z"/><rect x="30" y="5" width="3" height="9" rx="1.5"/><circle cx="31.5" cy="5" r="2.2"/><circle cx="43" cy="25" r="1.8" fill="#fff"/></svg>
+@elseif($type === 'A, A1' || $type === 'A')
+<svg viewBox="0 0 64 44" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="35" r="7"/><circle cx="14" cy="35" r="3" fill="#fff"/><circle cx="49" cy="35" r="7"/><circle cx="49" cy="35" r="3" fill="#fff"/><path d="M18,17 Q30,11 42,16 Q49,19 53,24 L47,28 Q42,24 34,25 Q26,26 22,27 L16,26 Q15,21 18,17 Z"/><circle cx="50" cy="23" r="1.8" fill="#fff"/><line x1="20" y1="26" x2="14" y2="32" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><line x1="46" y1="27" x2="49" y2="32" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg>
+@elseif($type === 'B, B1' || $type === 'B')
+<svg viewBox="0 0 64 44" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="35" r="7"/><circle cx="16" cy="35" r="3" fill="#fff"/><circle cx="47" cy="35" r="7"/><circle cx="47" cy="35" r="3" fill="#fff"/><path d="M6 32 L6 25 Q6 21 10 21 L16 14 Q18 12 22 12 L38 12 Q42 12 44 15 L49 21 Q56 21 57 27 L57 32 L52 32 L52 29 L11 29 L11 32 Z"/><path d="M20 21 L23 15 L36 15 L41 21 Z" fill="#fff"/><line x1="29" y1="15" x2="29" y2="21" stroke="#fff" stroke-width="1.4"/></svg>
+@elseif($type === 'C')
+<svg viewBox="0 0 64 44" xmlns="http://www.w3.org/2000/svg"><circle cx="13" cy="35" r="7"/><circle cx="13" cy="35" r="3" fill="#fff"/><circle cx="27" cy="35" r="7"/><circle cx="27" cy="35" r="3" fill="#fff"/><circle cx="53" cy="35" r="7"/><circle cx="53" cy="35" r="3" fill="#fff"/><path d="M4 30 L4 12 L38 12 L38 30 Z"/><rect x="8" y="15" width="26" height="9" fill="#fff"/><path d="M40 19 L50 19 Q56 19 58 25 L60 30 L40 30 Z"/><rect x="43" y="21" width="7" height="6" fill="#fff"/></svg>
+@elseif($type === 'C1')
+<svg viewBox="0 0 64 44" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="35" r="7"/><circle cx="16" cy="35" r="3" fill="#fff"/><circle cx="48" cy="35" r="7"/><circle cx="48" cy="35" r="3" fill="#fff"/><path d="M6,30 L6,15 Q6,13 8,13 L40,13 L40,17 Q48,17 52,23 Q54,25 54,28 L54,30 Z"/><rect x="43" y="20" width="8" height="7" fill="#fff"/></svg>
+@elseif($type === 'D')
+<svg viewBox="0 0 64 44" xmlns="http://www.w3.org/2000/svg"><circle cx="15" cy="35" r="7"/><circle cx="15" cy="35" r="3" fill="#fff"/><circle cx="49" cy="35" r="7"/><circle cx="49" cy="35" r="3" fill="#fff"/><rect x="4" y="12" width="56" height="20" rx="4"/><rect x="8" y="16" width="8" height="8" fill="#fff"/><rect x="19" y="16" width="8" height="8" fill="#fff"/><rect x="30" y="16" width="8" height="8" fill="#fff"/><rect x="41" y="16" width="8" height="8" fill="#fff"/><rect x="52" y="16" width="5" height="8" fill="#fff"/></svg>
+@elseif($type === 'D1')
+<svg viewBox="0 0 64 44" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="35" r="7"/><circle cx="16" cy="35" r="3" fill="#fff"/><circle cx="46" cy="35" r="7"/><circle cx="46" cy="35" r="3" fill="#fff"/><path d="M6 30 L6 15 Q6 13 9 13 L52 13 Q57 13 57 18 L57 30 Z"/><rect x="10" y="16" width="8" height="8" fill="#fff"/><rect x="21" y="16" width="8" height="8" fill="#fff"/><rect x="32" y="16" width="8" height="8" fill="#fff"/><rect x="43" y="16" width="9" height="8" fill="#fff"/></svg>
+@elseif($type === 'T, S' || $type === 'T')
+<svg viewBox="0 0 64 44" xmlns="http://www.w3.org/2000/svg"><circle cx="46" cy="34" r="10"/><circle cx="46" cy="34" r="4.5" fill="#fff"/><circle cx="14" cy="37" r="6"/><circle cx="14" cy="37" r="2.6" fill="#fff"/><path d="M10 31 L10 26 Q10 23 13 23 L30 23 L30 31 Z"/><rect x="30" y="11" width="17" height="18" rx="2"/><rect x="33" y="14" width="11" height="9" fill="#fff"/><rect x="39" y="3" width="3" height="9" rx="1.5"/><rect x="47" y="32" width="12" height="3" rx="1.5"/></svg>
+@elseif($type === 'TRAM')
+<svg viewBox="0 0 64 44" xmlns="http://www.w3.org/2000/svg"><line x1="30" y1="2" x2="30" y2="9" stroke="currentColor" stroke-width="2"/><line x1="18" y1="9" x2="42" y2="9" stroke="currentColor" stroke-width="2"/><line x1="18" y1="9" x2="18" y2="12" stroke="currentColor" stroke-width="2"/><line x1="42" y1="9" x2="42" y2="12" stroke="currentColor" stroke-width="2"/><rect x="4" y="12" width="56" height="20" rx="4"/><rect x="8" y="16" width="9" height="8" fill="#fff"/><rect x="20" y="16" width="9" height="8" fill="#fff"/><rect x="35" y="16" width="9" height="8" fill="#fff"/><rect x="47" y="16" width="9" height="8" fill="#fff"/><circle cx="14" cy="36" r="4"/><circle cx="50" cy="36" r="4"/></svg>
+@elseif($type === 'MIL')
+<svg viewBox="0 0 64 44" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="35" r="7"/><circle cx="16" cy="35" r="3" fill="#fff"/><circle cx="47" cy="35" r="7"/><circle cx="47" cy="35" r="3" fill="#fff"/><path d="M6 30 L6 22 Q6 18 10 18 L18 18 L23 12 Q25 10 28 10 L44 10 Q47 10 49 13 L53 18 Q59 18 59 24 L59 30 Z"/><path d="M22 18 L27 13 L34 13 L34 18 Z" fill="#fff"/><rect x="36" y="13" width="10" height="5" fill="#fff"/><line x1="35" y1="13" x2="35" y2="18" stroke="currentColor" stroke-width="1.5"/><line x1="50" y1="11" x2="55" y2="3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+@else
+<svg viewBox="0 0 64 44" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="35" r="7"/><circle cx="16" cy="35" r="3" fill="#fff"/><circle cx="47" cy="35" r="7"/><circle cx="47" cy="35" r="3" fill="#fff"/><path d="M6 32 L6 25 Q6 21 10 21 L16 14 Q18 12 22 12 L38 12 Q42 12 44 15 L49 21 Q56 21 57 27 L57 32 L52 32 L52 29 L11 29 L11 32 Z"/></svg>
+@endif
+</span>

@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Driving Academy</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --dark:#07111F;
+    --bg:#F8FAFC;
+    --card:#FFFFFF;
+    --text:#0F172A;
+    --muted:#64748B;
+    --line:#E2E8F0;
+    --green:#4F8EF7;
+    --green-soft:#EEF6FF;
+}
+*{box-sizing:border-box}
+html,body{margin:0;font-family:"Noto Sans Georgian",Arial,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+.container{width:min(1180px,calc(100% - 42px));margin:0 auto}
+
+.nav{
+    position:fixed;top:22px;left:50%;transform:translateX(-50%);
+    z-index:50;width:min(1180px,calc(100% - 42px));
+    display:flex;justify-content:space-between;align-items:center;
+    padding:14px 16px;border-radius:22px;
+    border:1px solid rgba(255,255,255,.18);
+    background:rgba(7,17,31,.62);backdrop-filter:blur(18px);color:#fff;
+}
+.logo{display:flex;align-items:center;gap:10px;font-weight:900}
+.logo-mark{width:38px;height:38px;border-radius:13px;display:grid;place-items:center;background:var(--green);color:#06111F;font-weight:900}
+.nav-links{display:flex;gap:30px;font-size:14px;font-weight:800;color:rgba(255,255,255,.76)}
+.nav-links a:hover{color:#fff}
+
+.btn{
+    display:inline-flex;align-items:center;justify-content:center;
+    min-height:52px;padding:0 22px;border-radius:15px;
+    font-weight:900;border:1px solid transparent;transition:.25s ease;
+}
+.btn-primary{background:var(--green);color:#06111F;border-color:var(--green);box-shadow:0 14px 32px rgba(34,197,94,.22)}
+.btn-white{background:#fff;color:var(--text);border-color:#fff}
+.btn-outline{background:#fff;color:var(--text);border-color:var(--line)}
+.btn:hover{transform:translateY(-3px)}
+
+
+.hero{
+    min-height:100vh;
+    padding:150px 0 70px;
+    position:relative;
+    overflow:hidden;
+    color:#fff;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(7,17,31,.88) 0%,
+            rgba(7,17,31,.58) 45%,
+            rgba(7,17,31,.78) 100%
+        ),
+        url("https://images.unsplash.com/photo-1492144534655-ae79c964c9d?auto=format&fit=crop&w=2200&q=90");
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+}
+
+.hero:after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,transparent 0%,rgba(7,17,31,.10) 72%,var(--bg) 100%);
+    pointer-events:none;
+}
+.hero-content{
+    position:relative;z-index:3;
+    display:grid;grid-template-columns:1fr 420px;
+    gap:56px;align-items:center;
+}
+.kicker{
+    display:inline-flex;align-items:center;gap:9px;
+    padding:9px 13px;border-radius:999px;
+    background:rgba(255,255,255,.10);
+    border:1px solid rgba(255,255,255,.18);
+    color:#fff;font-size:13px;font-weight:900;margin-bottom:26px;
+}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 0 6px rgba(34,197,94,.16)}
+h1{
+    margin:0;max-width:720px;
+    font-size:clamp(40px,5vw,68px);
+    line-height:1.05;letter-spacing:-.06em;font-weight:900;
+}
+h1 span{color:var(--green)}
+.hero-text{
+    max-width:610px;margin:24px 0 0;
+    color:rgba(255,255,255,.76);
+    font-size:17px;line-height:1.8;font-weight:600;
+}
+.actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+
+.exam-card{
+    background:rgba(7,17,31,.72);
+    border:1px solid rgba(255,255,255,.16);
+    border-radius:28px;padding:26px;
+    backdrop-filter:blur(20px);
+    box-shadow:0 30px 80px rgba(0,0,0,.34);
+}
+.exam-top{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:26px}
+.exam-top span{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:9px 12px;border-radius:999px;
+    border:1px solid rgba(255,255,255,.14);
+    font-size:13px;font-weight:900;
+}
+.exam-card h3{margin:0;font-size:23px;line-height:1.45;letter-spacing:-.035em}
+.option{
+    display:flex;align-items:center;justify-content:space-between;gap:15px;
+    margin-top:13px;padding:17px 18px;border-radius:16px;
+    border:1px solid rgba(255,255,255,.14);
+    background:rgba(255,255,255,.04);
+    color:rgba(255,255,255,.66);font-weight:900;
+}
+.option.active{background:var(--green);color:#06111F;border-color:var(--green)}
+.radio{width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,.26)}
+.option.active .radio{background:#fff;border-color:#fff;position:relative}
+.option.active .radio:after{content:"✓";position:absolute;left:4px;top:-1px;color:var(--green);font-size:13px}
+
+.stats{
+    position:relative;z-index:4;margin-top:58px;
+    display:grid;grid-template-columns:repeat(3,1fr);
+    background:rgba(255,255,255,.94);color:var(--text);
+    border:1px solid rgba(255,255,255,.55);
+    border-radius:24px;overflow:hidden;
+    box-shadow:0 24px 70px rgba(15,23,42,.16);
+}
+.stat{padding:25px 30px;display:flex;gap:18px;align-items:center;border-right:1px solid var(--line)}
+.stat:last-child{border-right:none}
+.stat-icon{width:46px;height:46px;border-radius:15px;border:3px solid var(--green)}
+.stat strong{display:block;font-size:28px;letter-spacing:-.04em}
+.stat span{display:block;margin-top:3px;color:var(--muted);font-size:13px;line-height:1.45;font-weight:700}
+
+.section{padding:82px 0;background:var(--bg)}
+.section h2{
+    margin:0 0 14px;max-width:760px;
+    font-size:clamp(30px,4vw,48px);
+    line-height:1.08;letter-spacing:-.055em;color:var(--text);
+}
+.section-desc{max-width:650px;margin:0 0 34px;color:var(--muted);line-height:1.75;font-weight:600}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.card,.package,.result-card{
+    background:#fff;border:1px solid var(--line);
+    border-radius:22px;box-shadow:0 14px 34px rgba(15,23,42,.055);
+}
+.card{min-height:220px;padding:26px;transition:.28s ease}
+.card:hover,.package:hover{transform:translateY(-6px);box-shadow:0 22px 50px rgba(15,23,42,.09)}
+.card-top{display:flex;justify-content:space-between;align-items:center;color:#CBD5E1;font-size:32px;font-weight:900;margin-bottom:32px}
+.card-icon{width:46px;height:46px;border-radius:15px;background:var(--green-soft);color:var(--green);display:grid;place-items:center;font-size:16px}
+.card h3,.package h3{margin:0 0 10px;color:var(--text);font-size:18px}
+.card p,.package p{margin:0;color:var(--muted);line-height:1.65;font-size:14px;font-weight:600}
+
+.packages{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.package{padding:28px;transition:.28s ease}
+.package.featured{border-color:rgba(34,197,94,.45);box-shadow:0 20px 55px rgba(34,197,94,.12)}
+.badge{display:inline-flex;padding:7px 11px;border-radius:999px;background:var(--green-soft);color:#2F80ED;font-size:12px;font-weight:900;margin-bottom:16px}
+.package ul{list-style:none;padding:0;margin:22px 0;display:grid;gap:10px;color:#475569;font-size:14px;font-weight:700}
+.package li:before{content:"✓";color:var(--green);margin-right:8px}
+
+.results{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.result-card{padding:30px}
+.result-card strong{display:block;color:var(--text);font-size:42px;letter-spacing:-.05em}
+.result-card span{display:block;margin-top:8px;color:var(--muted);font-size:14px;line-height:1.55;font-weight:700}
+
+.final-cta{
+    padding:100px 0;
+    background:
+        linear-gradient(90deg,rgba(7,17,31,.88),rgba(7,17,31,.48)),
+        url("/autoschool/images/hero-driving-school.webp");
+    background-size:cover;
+    background-position:center;
+    color:#fff;
+}
+.cta-box{
+    background:rgba(7,17,31,.72);
+    border:1px solid rgba(255,255,255,.16);
+    backdrop-filter:blur(18px);
+    border-radius:32px;padding:58px;text-align:center;
+}
+.cta-box h2{margin:0 auto;max-width:760px;font-size:clamp(32px,4.8vw,58px);line-height:1.05;letter-spacing:-.055em}
+.cta-box p{max-width:630px;margin:18px auto 0;color:rgba(255,255,255,.72);line-height:1.75;font-weight:600}
+.cta-box .actions{justify-content:center}
+
+.footer{padding:42px 0;background:#fff;border-top:1px solid var(--line);color:var(--muted)}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;gap:20px;font-size:14px;font-weight:700}
+.footer .logo{color:var(--text)}
+.footer-links{display:flex;gap:24px}
+.footer-links a:hover{color:var(--text)}
+
+@media(max-width:980px){
+    .nav-links{display:none}
+    .hero-content{grid-template-columns:1fr}
+    .stats,.grid-4,.packages,.results{grid-template-columns:1fr}
+    .stat{border-right:none;border-bottom:1px solid var(--line)}
+    .stat:last-child{border-bottom:none}
+}
+@media(max-width:620px){
+    .container,.nav{width:calc(100% - 24px)}
+    
+.hero{
+    min-height:100vh;
+    padding:150px 0 70px;
+    position:relative;
+    overflow:hidden;
+    color:#fff;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(7,17,31,.88) 0%,
+            rgba(7,17,31,.58) 45%,
+            rgba(7,17,31,.78) 100%
+        ),
+        url("https://images.unsplash.com/photo-1492144534655-ae79c964c9d?auto=format&fit=crop&w=2200&q=90");
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+}
+
+</style>
+
+<style id="after-hero-road-bg">
+.after-hero-road-bg{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    opacity:0;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(248,250,252,.86) 0%,
+            rgba(248,250,252,.62) 18%,
+            rgba(248,250,252,.58) 72%,
+            rgba(248,250,252,.88) 100%
+        ),
+        url("/autoschool/images/hero-driving-school.webp");
+    background-size:cover;
+    background-position:center 35%;
+    transform:scale(1.04);
+}
+
+
+.hero{
+    min-height:100vh;
+    padding:150px 0 70px;
+    position:relative;
+    overflow:hidden;
+    color:#fff;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(7,17,31,.88) 0%,
+            rgba(7,17,31,.58) 45%,
+            rgba(7,17,31,.78) 100%
+        ),
+        url("https://images.unsplash.com/photo-1492144534655-ae79c964c9d?auto=format&fit=crop&w=2200&q=90");
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+}
+
+
+.hero:before{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:0;
+    background:
+        radial-gradient(circle at 22% 20%,rgba(34,197,94,.18),transparent 28%),
+        radial-gradient(circle at 76% 24%,rgba(59,130,246,.12),transparent 30%),
+        linear-gradient(180deg,#07111F 0%,#07111F 100%);
+    pointer-events:none;
+}
+
+.hero-content,
+.stats{
+    position:relative;
+    z-index:5;
+}
+
+main,
+.section,
+.final-cta,
+.footer{
+    position:relative;
+    z-index:2;
+}
+
+.section,
+.final-cta{
+    background:transparent !important;
+}
+
+.section:before{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:-1;
+    background:rgba(248,250,252,.62);
+    backdrop-filter:blur(2px);
+}
+
+.section:nth-of-type(odd):before{
+    background:rgba(248,250,252,.72);
+}
+
+.card,
+.package,
+.result-card,
+.cta-box{
+    position:relative;
+    z-index:4;
+}
+
+.final-cta{
+    background:transparent !important;
+}
+
+.final-cta:before{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:-1;
+    background:rgba(7,17,31,.74);
+    backdrop-filter:blur(2px);
+}
+
+.footer{
+    background:rgba(255,255,255,.92) !important;
+    backdrop-filter:blur(10px);
+}
+
+@media(max-width:700px){
+    .after-hero-road-bg{
+        background-position:center;
+        transform:scale(1.08);
+    }
+}
+</style>
+
+
+<style id="smooth-fast-premium-motion">
+.card,
+.package,
+.result-card,
+.cta-box,
+.exam-card,
+.stats{
+    will-change:transform, opacity;
+}
+
+.card,
+.package,
+.result-card{
+    transition:
+        transform .28s cubic-bezier(.2,.8,.2,1),
+        box-shadow .28s cubic-bezier(.2,.8,.2,1),
+        border-color .28s cubic-bezier(.2,.8,.2,1);
+}
+
+.card:hover,
+.package:hover,
+.result-card:hover{
+    transform:translateY(-5px);
+}
+</style>
+
+
+<style id="force-hero-photo-visible">
+.hero{
+    min-height:100vh !important;
+    padding:150px 0 70px !important;
+    position:relative !important;
+    overflow:hidden !important;
+    color:#fff !important;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(7,17,31,.88) 0%,
+            rgba(7,17,31,.58) 46%,
+            rgba(7,17,31,.70) 100%
+        ),
+        url("/autoschool/images/hero-driving-school.webp") !important;
+    background-size:cover !important;
+    background-position:center !important;
+    background-repeat:no-repeat !important;
+}
+
+.hero:before{
+    display:none !important;
+}
+
+.hero:after{
+    content:"" !important;
+    position:absolute !important;
+    inset:0 !important;
+    background:linear-gradient(
+        180deg,
+        rgba(7,17,31,0) 0%,
+        rgba(7,17,31,.08) 70%,
+        #F8FAFC 100%
+    ) !important;
+    pointer-events:none !important;
+    z-index:1 !important;
+}
+
+.hero-content,
+.hero .stats{
+    position:relative !important;
+    z-index:5 !important;
+}
+</style>
+
+
+<style id="premium-polish-v2">
+    :root{
+        --blue:#2f80ff;
+        --blue2:#0b5cff;
+        --deep:#101b2b;
+        --glass:rgba(255,255,255,.82);
+    }
+
+    body{
+        background:#f7fbff !important;
+    }
+
+    .nav,
+    header,
+    .navbar{
+        transition: all .34s cubic-bezier(.2,.8,.2,1) !important;
+    }
+
+    .nav:hover,
+    header:hover,
+    .navbar:hover{
+        transform: translateY(-1px) !important;
+        box-shadow: 0 24px 70px rgba(39,111,255,.18) !important;
+    }
+
+    .hero::before,
+    .hero-bg::before,
+    .hero-section::before{
+        opacity:.72 !important;
+    }
+
+    h1{
+        text-shadow:0 18px 55px rgba(0,0,0,.28) !important;
+    }
+
+    .hero h1{
+        letter-spacing:-2.8px !important;
+    }
+
+    .hero p{
+        text-shadow:0 12px 35px rgba(0,0,0,.22) !important;
+    }
+
+    .btn,
+    button,
+    .cta,
+    .nav-cta{
+        transition: transform .24s ease, box-shadow .24s ease, background .24s ease !important;
+    }
+
+    .btn:hover,
+    button:hover,
+    .cta:hover,
+    .nav-cta:hover{
+        transform: translateY(-3px) !important;
+        box-shadow:0 22px 55px rgba(47,128,255,.32) !important;
+    }
+
+    .quiz-card,
+    .exam-card,
+    .hero-card,
+    .simulator-card{
+        position:relative !important;
+        overflow:hidden !important;
+        border:1px solid rgba(92,162,255,.32) !important;
+        box-shadow:
+            0 30px 90px rgba(0,0,0,.34),
+            0 0 0 1px rgba(255,255,255,.06) inset,
+            0 0 65px rgba(47,128,255,.22) !important;
+        backdrop-filter: blur(18px) !important;
+        transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease !important;
+    }
+
+    .quiz-card:hover,
+    .exam-card:hover,
+    .hero-card:hover,
+    .simulator-card:hover{
+        transform: translateY(-6px) scale(1.01) !important;
+        box-shadow:
+            0 38px 105px rgba(0,0,0,.38),
+            0 0 0 1px rgba(255,255,255,.08) inset,
+            0 0 90px rgba(47,128,255,.34) !important;
+    }
+
+    .quiz-card::after,
+    .exam-card::after,
+    .hero-card::after,
+    .simulator-card::after{
+        content:"";
+        position:absolute;
+        inset:-1px;
+        pointer-events:none;
+        background:
+            radial-gradient(circle at 20% 0%, rgba(92,162,255,.22), transparent 35%),
+            linear-gradient(135deg, rgba(255,255,255,.10), transparent 42%);
+        opacity:.9;
+    }
+
+    .option,
+    .answer,
+    .quiz-option{
+        transition: transform .22s ease, border-color .22s ease, background .22s ease, box-shadow .22s ease !important;
+    }
+
+    .option:hover,
+    .answer:hover,
+    .quiz-option:hover{
+        transform: translateX(4px) !important;
+        border-color:rgba(47,128,255,.72) !important;
+        box-shadow:0 14px 34px rgba(47,128,255,.18) !important;
+    }
+
+    .stats,
+    .stat-box,
+    .stats-card,
+    .hero-stats{
+        backdrop-filter: blur(22px) !important;
+        background:rgba(255,255,255,.90) !important;
+        border:1px solid rgba(47,128,255,.13) !important;
+        box-shadow:0 30px 80px rgba(21,71,140,.14) !important;
+    }
+
+    .stat,
+    .stat-item{
+        transition: transform .25s ease, background .25s ease, box-shadow .25s ease !important;
+        border-radius:22px !important;
+    }
+
+    .stat:hover,
+    .stat-item:hover{
+        transform: translateY(-5px) !important;
+        background:rgba(240,247,255,.86) !important;
+        box-shadow:0 18px 45px rgba(47,128,255,.14) !important;
+    }
+
+    .card,
+    .feature-card,
+    .service-card{
+        transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease !important;
+        border-color:rgba(47,128,255,.13) !important;
+    }
+
+    .card:hover,
+    .feature-card:hover,
+    .service-card:hover{
+        transform: translateY(-7px) !important;
+        border-color:rgba(47,128,255,.32) !important;
+        box-shadow:0 28px 70px rgba(47,128,255,.14) !important;
+    }
+
+    .icon,
+    .feature-icon,
+    .stat-icon{
+        background:linear-gradient(135deg,#2f80ff,#0b5cff) !important;
+        box-shadow:0 16px 34px rgba(47,128,255,.28) !important;
+    }
+
+    @media(max-width:900px){
+        .hero h1{
+            letter-spacing:-1.5px !important;
+        }
+    }
+</style>
+
+
+
+
+<style id="creative-premium-navbar-v10">
+    .nav{
+        position:fixed !important;
+        top:22px !important;
+        left:50% !important;
+        right:auto !important;
+        transform:translateX(-50%) !important;
+
+        width:min(1080px, calc(100% - 48px)) !important;
+        height:72px !important;
+        min-height:72px !important;
+        padding:8px 10px 8px 18px !important;
+
+        display:flex !important;
+        align-items:center !important;
+        justify-content:space-between !important;
+        gap:18px !important;
+
+        border-radius:999px !important;
+        z-index:999999 !important;
+
+        background:
+            linear-gradient(135deg, rgba(255,255,255,.86), rgba(238,247,255,.74)) !important;
+
+        border:1px solid rgba(52,120,255,.20) !important;
+
+        backdrop-filter:blur(26px) saturate(180%) !important;
+        -webkit-backdrop-filter:blur(26px) saturate(180%) !important;
+
+        box-shadow:
+            0 24px 70px rgba(23,78,155,.18),
+            0 8px 24px rgba(10,35,80,.08),
+            inset 0 1px 0 rgba(255,255,255,.95) !important;
+
+        transition:none !important;
+        animation:none !important;
+        will-change:auto !important;
+    }
+
+    .nav::before{
+        content:"" !important;
+        position:absolute !important;
+        inset:6px !important;
+        border-radius:999px !important;
+        pointer-events:none !important;
+        background:
+            linear-gradient(135deg, rgba(255,255,255,.72), rgba(255,255,255,.18)) !important;
+        border:1px solid rgba(255,255,255,.58) !important;
+        z-index:-1 !important;
+    }
+
+    .nav:hover{
+        transform:translateX(-50%) !important;
+    }
+
+    .brand{
+        display:flex !important;
+        align-items:center !important;
+        gap:11px !important;
+        height:54px !important;
+        padding:0 13px 0 6px !important;
+        border-radius:999px !important;
+        color:#0d2442 !important;
+        font-size:16px !important;
+        font-weight:950 !important;
+        letter-spacing:-.45px !important;
+        background:rgba(255,255,255,.56) !important;
+        border:1px solid rgba(47,128,255,.10) !important;
+    }
+
+    .brand-mark{
+        width:42px !important;
+        height:42px !important;
+        border-radius:15px !important;
+        background:
+            radial-gradient(circle at 30% 22%, rgba(255,255,255,.70), transparent 30%),
+            linear-gradient(135deg,#69b8ff,#2368ff) !important;
+        box-shadow:
+            0 14px 28px rgba(47,128,255,.30),
+            inset 0 1px 0 rgba(255,255,255,.42) !important;
+        flex:0 0 auto !important;
+    }
+
+    .nav-links{
+        display:flex !important;
+        align-items:center !important;
+        gap:6px !important;
+        height:54px !important;
+        padding:5px !important;
+        border-radius:999px !important;
+        background:rgba(255,255,255,.52) !important;
+        border:1px solid rgba(47,128,255,.10) !important;
+    }
+
+    .nav-links a{
+        height:44px !important;
+        padding:0 17px !important;
+        display:flex !important;
+        align-items:center !important;
+        justify-content:center !important;
+        border-radius:999px !important;
+
+        color:#45627f !important;
+        font-size:14px !important;
+        font-weight:900 !important;
+        letter-spacing:-.15px !important;
+
+        background:transparent !important;
+        box-shadow:none !important;
+        transform:none !important;
+        transition:background .18s ease, color .18s ease, box-shadow .18s ease !important;
+    }
+
+    .nav-links a:hover{
+        color:#0d47a1 !important;
+        background:rgba(232,242,255,.95) !important;
+        transform:none !important;
+        box-shadow:inset 0 0 0 1px rgba(47,128,255,.10) !important;
+    }
+
+    .nav-links .nav-cta,
+    .nav-cta{
+        height:50px !important;
+        padding:0 23px !important;
+        margin-left:3px !important;
+        border-radius:999px !important;
+
+        color:#ffffff !important;
+        font-size:14px !important;
+        font-weight:1000 !important;
+
+        background:
+            radial-gradient(circle at 28% 18%, rgba(255,255,255,.42), transparent 32%),
+            linear-gradient(135deg,#3b8dff,#1557e8) !important;
+
+        box-shadow:
+            0 14px 34px rgba(47,128,255,.34),
+            inset 0 1px 0 rgba(255,255,255,.32) !important;
+
+        transform:none !important;
+    }
+
+    .nav-links .nav-cta:hover,
+    .nav-cta:hover{
+        color:#ffffff !important;
+        background:
+            radial-gradient(circle at 28% 18%, rgba(255,255,255,.48), transparent 32%),
+            linear-gradient(135deg,#4b98ff,#1d63ff) !important;
+        box-shadow:
+            0 18px 42px rgba(47,128,255,.43),
+            inset 0 1px 0 rgba(255,255,255,.35) !important;
+        transform:none !important;
+    }
+
+    @media(max-width:900px){
+        .nav{
+            top:12px !important;
+            width:calc(100% - 22px) !important;
+            height:66px !important;
+            min-height:66px !important;
+            padding:7px 8px 7px 12px !important;
+        }
+
+        .brand{
+            font-size:14px !important;
+            height:50px !important;
+            padding-right:10px !important;
+        }
+
+        .brand-mark{
+            width:38px !important;
+            height:38px !important;
+            border-radius:13px !important;
+        }
+
+        .nav-links{
+            background:transparent !important;
+            border:0 !important;
+            padding:0 !important;
+        }
+
+        .nav-links a:not(.nav-cta){
+            display:none !important;
+        }
+
+        .nav-cta{
+            height:46px !important;
+            padding:0 16px !important;
+            font-size:13px !important;
+        }
+    }
+</style>
+
+</head>
+
+<body>
+<div class="after-hero-road-bg"></div>
+<nav class="nav">
+    <a href="/autoschool" class="logo">
+        <span class="logo-mark">A</span>
+        <span>Driving Academy</span>
+    </a>
+
+    <div class="nav-links">
+        <a href="#features">უპირატესობები</a>
+        <a href="#packages">კურსები</a>
+        <a href="/autoschool/exam">გამოცდა</a>
+        <a href="#contact">კონტაქტი</a>
+    </div>
+
+    <a href="/autoschool/exam" class="btn btn-primary">ტესტის დაწყება</a>
+</nav>
+
+<main>
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <div>
+                <div class="kicker"><span class="dot"></span> ფიზიკური + ონლაინ თეორიის კურსი</div>
+                <h1>ისწავლე მართვა <span>უფრო მარტივად</span></h1>
+                <p class="hero-text">ავტოსკოლის ფიზიკური კურსი, ონლაინ თეორია და გამოცდის რეალური სიმულაცია ერთ premium სასწავლო სივრცეში.</p>
+                <div class="actions">
+                    <a href="/autoschool/exam" class="btn btn-primary">გამოცდის სიმულაცია →</a>
+                    <a href="#packages" class="btn btn-white">კურსების ნახვა</a>
+                </div>
+            </div>
+
+            <div class="exam-card">
+                <div class="exam-top">
+                    <span><span class="dot"></span> Exam Simulator</span>
+                    <span><span class="dot"></span> სწორი პასუხი</span>
+                </div>
+                <h3>რას ნიშნავს მოცემული საგზაო ნიშანი?</h3>
+                <div class="option"><span>სიჩქარის შეზღუდვა</span><span class="radio"></span></div>
+                <div class="option active"><span>მოძრაობა აკრძალულია</span><span class="radio"></span></div>
+                <div class="option"><span>გასწრება ნებადართულია</span><span class="radio"></span></div>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat"><div class="stat-icon"></div><div><strong>30წთ</strong><span>რეალური გამოცდის ფორმატი</span></div></div>
+            <div class="stat"><div class="stat-icon"></div><div><strong>5K+</strong><span>სავარჯიშო კითხვა და პასუხი</span></div></div>
+            <div class="stat"><div class="stat-icon"></div><div><strong>24/7</strong><span>სწავლა ნებისმიერი მოწყობილობიდან</span></div></div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="features">
+    <div class="container">
+        <h2>ერთი სისტემა სრული მომზადებისთვის</h2>
+        <p class="section-desc">თეორია, პრაქტიკული მიდგომა, გამოცდის რეჟიმი და შეცდომების მარტივი ახსნა.</p>
+
+        <div class="grid-4">
+            <div class="card"><div class="card-top"><span class="card-icon">01</span><span>01</span></div><h3>ფიზიკური კურსი</h3><p>ინსტრუქტორთან სწავლა და გამოცდაზე ორიენტირებული ახსნა.</p></div>
+            <div class="card"><div class="card-top"><span class="card-icon">02</span><span>02</span></div><h3>ონლაინ თეორია</h3><p>ისწავლე სახლიდან, გზაში ან შესვენებაზე — ნებისმიერ მოწყობილობაზე.</p></div>
+            <div class="card"><div class="card-top"><span class="card-icon">03</span><span>03</span></div><h3>გამოცდის სიმულაცია</h3><p>რეალურ გამოცდასთან მიახლოებული დრო, კითხვები და შედეგები.</p></div>
+            <div class="card"><div class="card-top"><span class="card-icon">04</span><span>04</span></div><h3>შეცდომის ახსნა</h3><p>არასწორ პასუხზე მარტივი განმარტება ადამიანურ ენაზე.</p></div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="packages">
+    <div class="container">
+        <h2>აირჩიე შენზე მორგებული კურსი</h2>
+        <p class="section-desc">დაიწყე ონლაინით ან აიღე სრული premium პაკეტი ფიზიკური მომზადებით.</p>
+
+        <div class="packages">
+            <div class="package">
+                <span class="badge">A</span>
+                <h3>ფიზიკური კურსი</h3>
+                <p>სრული მომზადება ავტოსკოლაში ინსტრუქტორთან ერთად.</p>
+                <ul><li>თეორიის ახსნა</li><li>პრაქტიკული მაგალითები</li><li>გამოცდაზე ორიენტირება</li></ul>
+                <a href="#" class="btn btn-outline">დეტალურად</a>
+            </div>
+
+            <div class="package featured">
+                <span class="badge">ყველაზე მოთხოვნადი</span>
+                <h3>ონლაინ + გამოცდა</h3>
+                <p>ონლაინ თეორია და გამოცდის სიმულაცია პროგრესის კონტროლით.</p>
+                <ul><li>ტესტები 24/7</li><li>AI განმარტება შეცდომაზე</li><li>პროგრესის ნახვა</li></ul>
+                <a href="/autoschool/exam" class="btn btn-primary">დაწყება</a>
+            </div>
+
+            <div class="package">
+                <span class="badge">C</span>
+                <h3>ინდივიდუალური</h3>
+                <p>მორგებული სწავლა მათთვის, ვისაც სწრაფად უნდა მომზადება.</p>
+                <ul><li>პირადი მიდგომა</li><li>სუსტი თემების გაძლიერება</li><li>სწრაფი მომზადება</li></ul>
+                <a href="#" class="btn btn-outline">კონსულტაცია</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2>შედეგები, რომელიც ნდობას ქმნის</h2>
+        <p class="section-desc">სწავლა უფრო ეფექტურია, როცა ხედავ პროგრესს და ზუსტად იცი სად ხარ ძლიერი.</p>
+
+        <div class="results">
+            <div class="result-card"><strong>94%</strong><span>მომზადებული მოსწავლეების მაღალი შედეგი</span></div>
+            <div class="result-card"><strong>30წთ</strong><span>რეალური გამოცდის რეჟიმი</span></div>
+            <div class="result-card"><strong>24/7</strong><span>წვდომა ონლაინ სასწავლო სივრცეზე</span></div>
+        </div>
+    </div>
+</section>
+
+<section class="final-cta">
+    <div class="container">
+        <div class="cta-box">
+            <h2>დაიწყე მომზადება დღეს და გამოცდაზე გადი მშვიდად</h2>
+            <p>შეარჩიე კურსი, გაიარე ტესტები და ისწავლე სისტემით, რომელიც რეალურად გიმზადებს გამოცდისთვის.</p>
+            <div class="actions">
+                <a href="/autoschool/exam" class="btn btn-primary">გამოცდის დაწყება</a>
+                <a href="#packages" class="btn btn-white">კურსების ნახვა</a>
+            </div>
+        </div>
+    </div>
+</section>
+</main>
+
+<footer class="footer" id="contact">
+    <div class="container footer-inner">
+        <a href="/autoschool" class="logo"><span class="logo-mark">A</span><span>Driving Academy</span></a>
+        <div>© {{ date('Y') }} Driving Academy. ყველა უფლება დაცულია.</div>
+        <div class="footer-links"><a href="/autoschool">მთავარი</a><a href="/autoschool/exam">გამოცდა</a><a href="#packages">კურსები</a></div>
+    </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const lenis = new Lenis({duration:1.05,smoothWheel:true,wheelMultiplier:.85});
+    function raf(t){lenis.raf(t);requestAnimationFrame(raf)}
+    requestAnimationFrame(raf);
+
+    if(window.gsap && window.ScrollTrigger){
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.from('.nav',{y:-20,opacity:0,duration:.75,ease:'power3.out'});
+        gsap.from('.kicker,h1,.hero-text,.actions',{y:28,opacity:0,duration:.8,stagger:.08,ease:'power3.out'});
+        gsap.from('.exam-card',{y:32,opacity:0,scale:.97,duration:.9,delay:.15,ease:'power3.out'});
+        gsap.from('.stats',{y:30,opacity:0,duration:.8,delay:.35,ease:'power3.out'});
+        gsap.utils.toArray('.card,.package,.result-card,.cta-box').forEach((el,i)=>{
+            gsap.from(el,{scrollTrigger:{trigger:el,start:'top 88%',once:true},y:28,opacity:0,duration:.7,delay:(i%4)*.04,ease:'power3.out'});
+        });
+    }
+});
+</script>
+
+
+
+
+
+
+
+<script id="smooth-fast-premium-motion-js">
+document.addEventListener('DOMContentLoaded', () => {
+    if(!window.gsap || !window.ScrollTrigger) return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    if(document.querySelector('.after-hero-road-bg')){
+        gsap.to('.after-hero-road-bg', {
+            scrollTrigger:{
+                trigger:'#features',
+                start:'top bottom',
+                end:'top 35%',
+                scrub:.8
+            },
+            opacity:.76,
+            y:-70,
+            ease:'none'
+        });
+    }
+
+    gsap.utils.toArray('.section').forEach((section) => {
+        const title = section.querySelector('h2');
+        const desc = section.querySelector('.section-desc');
+
+        gsap.from([title, desc].filter(Boolean), {
+            scrollTrigger:{
+                trigger:section,
+                start:'top 84%',
+                once:true
+            },
+            y:42,
+            opacity:0,
+            duration:.72,
+            stagger:.08,
+            ease:'power4.out'
+        });
+    });
+
+    ['.grid-4', '.packages', '.results'].forEach(selector => {
+        document.querySelectorAll(selector).forEach(group => {
+            gsap.from(group.children, {
+                scrollTrigger:{
+                    trigger:group,
+                    start:'top 86%',
+                    once:true
+                },
+                y:46,
+                opacity:0,
+                scale:.96,
+                stagger:.075,
+                duration:.68,
+                ease:'power4.out'
+            });
+        });
+    });
+
+    document.querySelectorAll('.cta-box').forEach(box => {
+        gsap.from(box, {
+            scrollTrigger:{
+                trigger:box,
+                start:'top 86%',
+                once:true
+            },
+            y:50,
+            opacity:0,
+            scale:.96,
+            duration:.75,
+            ease:'power4.out'
+        });
+    });
+});
+</script>
+
+
+<script id="premium-polish-gsap-v2">
+document.addEventListener("DOMContentLoaded", function(){
+    if (typeof gsap === "undefined") return;
+
+    gsap.to(".nav, header, .navbar", {
+        scrollTrigger: {
+            trigger: "body",
+            start: "top -40",
+            toggleActions: "play none none reverse"
+        },
+        scale: .985,
+        y: -4,
+        duration: .28,
+        ease: "power2.out"
+    });
+
+    gsap.to(".hero-card, .quiz-card, .exam-card, .simulator-card", {
+        y: -28,
+        ease: "none",
+        scrollTrigger: {
+            trigger: ".hero",
+            start: "top top",
+            end: "bottom top",
+            scrub: .55
+        }
+    });
+
+    gsap.to(".hero h1, .hero p", {
+        y: -18,
+        opacity: .86,
+        ease: "none",
+        scrollTrigger: {
+            trigger: ".hero",
+            start: "top top",
+            end: "bottom top",
+            scrub: .65
+        }
+    });
+
+    gsap.utils.toArray(".stat, .stat-item").forEach(function(el, i){
+        gsap.from(el, {
+            y: 18,
+            opacity: 0,
+            duration: .48,
+            delay: i * .05,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: el,
+                start: "top 90%",
+                once: true
+            }
+        });
+    });
+});
+</script>
+
+
+
+
+<script id="creative-premium-navbar-lock-v10">
+(function(){
+    function lockNav(){
+        var nav = document.querySelector(".nav");
+        if(!nav) return;
+
+        nav.style.setProperty("position","fixed","important");
+        nav.style.setProperty("top","22px","important");
+        nav.style.setProperty("left","50%","important");
+        nav.style.setProperty("transform","translateX(-50%)","important");
+        nav.style.setProperty("transition","none","important");
+        nav.style.setProperty("animation","none","important");
+
+        if(window.gsap){
+            gsap.killTweensOf(nav);
+            gsap.killTweensOf(".nav");
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", lockNav);
+    window.addEventListener("load", lockNav);
+    window.addEventListener("scroll", lockNav, {passive:true});
+})();
+</script>
+
+</body>
+</html>
+
+
+
+
