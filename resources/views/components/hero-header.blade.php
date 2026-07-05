@@ -49,7 +49,7 @@
         <nav class="ast-hero__nav">
             <a href="/autoschool" class="is-active">მთავარი</a>
             <a href="#tickets">ბილეთები</a>
-            <a href="/autoschool/exam">გამოცდა</a>
+            <a href="https://dmgroup.website/autoschool/esvinkofila">გამოცდა</a>
             <a href="#info">ინფორმაცია</a>
             <a href="#contact">კონტაქტი</a>
         </nav>
@@ -173,12 +173,12 @@
             </div>
         @endforeach
 
-            <a href="{{ url('/exam') }}" class="ast-hero__plate ast-hero__plate-action is-exam">
+            <a href="https://dmgroup.website/autoschool/esvinkofila" class="ast-hero__plate ast-hero__plate-action is-exam">
                 <span class="ast-hero__action-icon">✓</span>
                 <span class="ast-hero__plate-code">გამოცდა</span>
             </a>
 
-            <a href="{{ url('/tests') }}" class="ast-hero__plate ast-hero__plate-action is-tests">
+            <a href="https://dmgroup.website/autoschool/esvinkofila/test.html" class="ast-hero__plate ast-hero__plate-action is-tests">
                 <span class="ast-hero__action-icon">?</span>
                 <span class="ast-hero__plate-code">ტესტები</span>
             </a>
