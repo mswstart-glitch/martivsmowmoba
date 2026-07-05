@@ -15,5 +15,6 @@
     <x-process-timeline />
     <x-instructors />
     <x-exam-preview />
+    <x-news-section />
 </body>
 </html>

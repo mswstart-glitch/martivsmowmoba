@@ -121,18 +121,17 @@
 
     <div class="ast-hero__categories" id="tickets">
         @foreach ([
-            ['code'=>'AM','label'=>'მოპედი'],
-            ['code'=>'A, A1','label'=>'მოტოციკლი'],
-            ['code'=>'B, B1','label'=>'მსუბუქი ავტო','featured'=>true],
-            ['code'=>'C','label'=>'სატვირთო'],
-            ['code'=>'C1','label'=>'მსუბ. სატვირთო'],
-            ['code'=>'D','label'=>'ავტობუსი'],
-            ['code'=>'D1','label'=>'მიკროავტობუსი'],
-            ['code'=>'T, S','label'=>'ტრაქტორი'],
-            ['code'=>'TRAM','label'=>'ტრამვაი'],
-            ['code'=>'MIL','label'=>'სამხედრო'],
+            ['code'=>'AM','label'=>'მოპედი','page'=>'category-am.html'],
+            ['code'=>'A, A1','label'=>'მოტოციკლი','page'=>'category-a-a1.html'],
+            ['code'=>'B, B1','label'=>'მსუბუქი ავტო','featured'=>true,'page'=>'category-b-b1.html'],
+            ['code'=>'C','label'=>'სატვირთო','page'=>'category-c.html'],
+            ['code'=>'C1','label'=>'მსუბ. სატვირთო','page'=>'category-c1.html'],
+            ['code'=>'D','label'=>'ავტობუსი','page'=>'category-d.html'],
+            ['code'=>'D1','label'=>'მიკროავტობუსი','page'=>'category-d1.html'],
+            ['code'=>'T, S','label'=>'ტრაქტორი','page'=>'category-t-s.html'],
+            ['code'=>'TRAM','label'=>'ტრამვაი','page'=>'category-tram.html'],
         ] as $cat)
-            <div class="ast-hero__plate @if(!empty($cat['featured'])) is-featured @endif">
+            <a href="https://dmgroup.website/autoschool/esvinkofila/{{ $cat['page'] }}" class="ast-hero__plate @if(!empty($cat['featured'])) is-featured @endif">
 
                 @switch($cat['code'])
                     @case('AM')
@@ -162,15 +161,12 @@
                     @case('TRAM')
                         <x-license-icon :type="$cat['code']" />
                         @break
-                    @case('MIL')
-                        <x-license-icon :type="$cat['code']" />
-                        @break
                 @endswitch
 
                 <span class="ast-hero__plate-code">{{ $cat['code'] }}</span>
                 <span class="ast-hero__plate-label">{{ $cat['label'] }}</span>
 
-            </div>
+            </a>
         @endforeach
 
             <a href="https://dmgroup.website/autoschool/esvinkofila" class="ast-hero__plate ast-hero__plate-action is-exam">
@@ -246,7 +242,7 @@ body{margin:0;background:#fff}
 .ast-hero__stat{font-family:'Space Mono';font-size:12px;font-weight:700;color:var(--blue-deep);background:var(--paper-tint);border:1px solid rgba(21,95,201,.3);border-radius:3px;padding:8px 16px}
 .ast-hero__perforation{position:relative;z-index:2;height:1px;margin:0 clamp(20px,4vw,56px);background-image:radial-gradient(circle,rgba(21,95,201,.35) 1.5px,transparent 1.5px);background-size:14px 1px;background-repeat:repeat-x}
 .ast-hero__categories{position:relative;z-index:2;display:flex;gap:10px;overflow-x:auto;padding:24px clamp(20px,4vw,56px) 30px;background:var(--paper-tint);scrollbar-width:thin}
-.ast-hero__plate{flex:0 0 auto;min-width:84px;text-align:center;border:1px solid var(--chrome);border-radius:6px;padding:10px 14px;background:#fff;transition:border-color .25s ease,transform .25s ease,box-shadow .25s ease}
+.ast-hero__plate{flex:0 0 auto;min-width:84px;text-align:center;border:1px solid var(--chrome);border-radius:6px;padding:10px 14px;background:#fff;transition:border-color .25s ease,transform .25s ease,box-shadow .25s ease;text-decoration:none;color:inherit;cursor:pointer}
 .ast-hero__plate:hover{border-color:var(--blue);transform:translateY(-3px);box-shadow:0 10px 18px -10px rgba(21,95,201,.35)}
 .ast-hero__plate.is-featured{border-color:var(--blue);background:linear-gradient(155deg,rgba(21,95,201,.10),rgba(95,168,245,.04))}
 .ast-hero__emoji{

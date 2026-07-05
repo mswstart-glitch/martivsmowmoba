@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ka">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRAM — ტრამვაი — Drivelab.ge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/category.css">
+</head>
+<body>
+<div class="bg-decor a" aria-hidden="true"></div>
+<div class="bg-decor b" aria-hidden="true"></div>
+<div class="bg-decor c" aria-hidden="true"></div>
+<div class="wrap">
+ <div class="app">
+
+  <div class="catHero" id="catHero">
+   <a class="backLink" href="categories.html">‹ კატეგორიების სია</a>
+   <h1 id="catTitle">TRAM — ტრამვაი</h1>
+   <p id="catDesc">ტრამვაის მართვის მოწმობის კატეგორია. მოიცავს ტრამვაისთან დაკავშირებულ სპეციფიკურ კითხვებს და ყველა კატეგორიისთვის საერთო საგზაო წესებს.</p>
+   <div class="catMeta"><span id="catCount">იტვირთება…</span></div>
+  </div>
+
+  <div class="emptyState" id="emptyState" style="display:none">
+   <h2></h2>
+   <p></p>
+   <a href="categories.html">კატეგორიების სიაში დაბრუნება</a>
+  </div>
+
+  <div id="mainCard">
+   <div class="top">
+    <div class="panel logo">
+     <div class="mark">D</div>
+     <div><b>Drivelab.ge</b><span>TRAM — ტრამვაი — სავარჯიშო რეჟიმი</span></div>
+    </div>
+    <div class="panel">
+     <div class="timerRow">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+      <div class="timer" id="timer">30:00</div>
+     </div>
+     <div class="progress"><i id="progress"></i></div>
+    </div>
+    <div class="panel">
+     <div class="stats">
+      <div>
+       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="color:var(--good)"><path d="M20 6 9 17l-5-5"></path></svg>
+       სწორი <b class="good" id="rightCount">0</b>
+      </div>
+      <div>
+       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="color:var(--bad)"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+       არასწორი <b class="bad" id="wrongCount">0</b>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="card">
+    <div class="media" id="media"><img id="mainMedia" src="" decoding="async" fetchpriority="high"><div class="qOverlay" id="qOverlay"></div><div class="zone" id="zone"></div></div>
+    <div class="content" id="content"><div id="questionSlot"></div><div class="answers" id="answers"></div><button class="next" onclick="nextQuestion()"><span>შემდეგი კითხვა</span><span aria-hidden="true">›</span></button></div>
+   </div>
+  </div>
+
+ </div>
+</div>
+<div class="modal" id="resultModal"><div class="box">
+ <div class="resultIcon">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line><line x1="4" y1="15" x2="4" y2="3"></line></svg>
+ </div>
+ <h2 id="resultTitle"></h2>
+ <p id="resultText"></p>
+ <button onclick="location.reload()">თავიდან ცდა</button>
+ <a class="backBtn" href="categories.html">‹ კატეგორიების სია</a>
+</div></div>
+<div class="modal" id="explainModal"><div class="box explainBox">
+ <button class="explainClose" id="explainClose" aria-label="დახურვა" type="button">✕</button>
+ <div class="explainIcon">!</div>
+ <h3>რატომ არის არასწორი?</h3>
+ <p id="explainText"></p>
+ <button class="explainContinue" id="explainContinue" type="button">გაგრძელება</button>
+</div></div>
+
+<script>window.CATEGORY_ID='TRAM';</script>
+<script src="js/category-filter.js"></script>
+<script src="js/category-engine.js"></script>
+</body>
+</html>

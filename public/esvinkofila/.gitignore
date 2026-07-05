@@ -1,0 +1,6 @@
+.env
+/vendor
+/node_modules
+/backups
+*.log
+.DS_Store

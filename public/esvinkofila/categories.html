@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ka">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>კატეგორიები — Drivelab.ge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/category.css">
+</head>
+<body>
+<div class="bg-decor a" aria-hidden="true"></div>
+<div class="bg-decor b" aria-hidden="true"></div>
+<div class="bg-decor c" aria-hidden="true"></div>
+<div class="wrap">
+ <div class="app">
+
+  <div class="hubIntro">
+   <h1>მართვის მოწმობის კატეგორიები</h1>
+   <p>აირჩიეთ თქვენი კატეგორია და ივარჯიშეთ მხოლოდ მისთვის შერჩეულ კითხვებზე. თითოეული გვერდი იყენებს იმავე კითხვებსა და სურათებს, რაც ძირითად ტესტშია — მხოლოდ გაფილტრულია კატეგორიის მიხედვით.</p>
+   <div class="mainLinks">
+    <a href="index.html">‹ ძირითადი გამოცდის რეჟიმი</a>
+    <a href="test.html">‹ სატესტო რეჟიმი</a>
+   </div>
+  </div>
+
+  <div class="catGrid" id="catGrid"></div>
+
+ </div>
+</div>
+
+<script src="js/category-filter.js"></script>
+<script>
+Promise.all([
+  fetch('data/questions.json?v=' + Date.now()).then(r => r.json()),
+  fetch('data/categories.json?v=' + Date.now()).then(r => r.json())
+]).then(([allQuestions, categoriesData]) => {
+  const grid = document.getElementById('catGrid');
+  categoriesData.categories.forEach(cat => {
+    if (cat.id === 'MTL') return; // hidden from main UI, data kept intact
+    const result = CategoryFilter.getCategoryQuestions(allQuestions, cat.id, categoriesData);
+    const specificCount = result.specific.length;
+    const poolCount = result.pool.length;
+
+    const a = document.createElement('a');
+    a.className = 'catCard';
+    a.href = cat.page;
+
+    const code = document.createElement('span');
+    code.className = 'catCode';
+    code.textContent = cat.id.replace('_', ', ');
+    a.appendChild(code);
+
+    const h3 = document.createElement('h3');
+    h3.textContent = cat.title;
+    a.appendChild(h3);
+
+    const p = document.createElement('p');
+    p.textContent = cat.description;
+    a.appendChild(p);
+
+    const count = document.createElement('span');
+    count.className = 'catCount' + (specificCount === 0 ? ' warn' : '');
+    count.textContent = specificCount + ' სპეციფიკური კითხვა' + (poolCount > specificCount ? ' (+' + (poolCount - specificCount) + ' ზოგადი)' : '');
+    a.appendChild(count);
+
+    grid.appendChild(a);
+  });
+}).catch(err => {
+  console.error(err);
+  document.getElementById('catGrid').textContent = 'კატეგორიების ჩატვირთვა ვერ მოხერხდა.';
+});
+</script>
+</body>
+</html>
