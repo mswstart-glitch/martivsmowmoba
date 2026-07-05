@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ka">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Drivelab Theory — ყველა ტესტის გადახედვა</title>
+<style>
+*{box-sizing:border-box}
+:root{--blue:#073946;--blue2:#052831;--white:#fff;--good:#22c55e;--bad:#ef4444}
+body{margin:0;font-family:Arial,sans-serif;background:#1b1f24;color:#eaeaea}
+header{position:sticky;top:0;z-index:100;background:#0d1013;border-bottom:1px solid #333;padding:12px 16px;box-shadow:0 2px 10px rgba(0,0,0,.5)}
+header h1{margin:0 0 8px;font-size:18px}
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.controls button{padding:7px 14px;border:1px solid #3a4650;background:#161a1f;color:#cfd8df;border-radius:20px;cursor:pointer;font-weight:700;font-size:13px}
+.controls button.active{background:#1f6feb;border-color:#1f6feb;color:#fff}
+.controls .cnt{margin-left:auto;color:#9aa;font-size:13px}
+.controls input{padding:7px 12px;border-radius:8px;border:1px solid #3a4650;background:#161a1f;color:#eee;width:150px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px;padding:16px}
+.tile{background:#0d1013;border:1px solid #2a2f36;border-radius:10px;overflow:hidden;position:relative}
+.tile .tlabel{display:flex;align-items:center;gap:8px;padding:8px 10px;font-size:13px;font-weight:800;background:#12161b;border-bottom:1px solid #23282e}
+.tile .tlabel .tkt{color:#7fd1ff}
+.tile .tlabel .topic{color:#8a949c;font-weight:600;font-size:11px;margin-left:auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:45%}
+.badge{font-size:10px;font-weight:900;padding:2px 7px;border-radius:10px;letter-spacing:.3px}
+.badge.wide{background:#b45309;color:#fff}
+.badge.review{background:#b91c1c;color:#fff}
+.badge.sign{background:#1d4ed8;color:#fff}
+.badge.noimg{background:#374151;color:#fff}
+.badge.normal{background:#334155;color:#cbd5e1}
+
+/* ===== exam CSS — vw შეცვლილია cqw-ით რომ overlay ტაილის სიგანეზე დაშკალდეს ===== */
+.media{position:relative;margin:0;width:100%;background:#050505;overflow:hidden;container-type:inline-size}
+.media img{display:block;width:100%;height:auto;object-fit:contain}
+.media:after{
+ content:"#" attr(data-ticket);
+ position:absolute;left:1.4cqw;top:1.4cqw;z-index:30;
+ padding:2px 6px;display:grid;place-items:center;
+ background:rgba(0,0,0,.55);color:#fff;font-size:3.4cqw;font-weight:950;border-radius:3px;
+}
+.media.normalMode{position:relative;aspect-ratio:1006/632;background:#050505}
+.media.normalMode img{width:100%;height:100%;object-fit:contain;display:block}
+.media.normalMode .zone{position:absolute;left:0;right:0;bottom:0;top:73.3%;display:grid;grid-template-rows:46.4% 53.6%;z-index:15;background:var(--blue2);box-shadow:0 -2px 0 0 var(--blue2)}
+.media.normalMode.wideZone .zone{top:36.9%;grid-template-rows:32.2% 67.8%}
+.media.normalMode .zone .qOverlay{display:flex!important;align-items:center;justify-content:center;text-align:center;min-height:0;overflow:hidden;padding:clamp(3px,1.3cqw,22px) clamp(8px,3cqw,34px);background:linear-gradient(180deg,#0a3846,var(--blue2));color:#fff;font-weight:900;font-size:clamp(9px,1.9cqw,24px);line-height:1.18;border-top:2px solid rgba(255,255,255,.92)}
+.media.normalMode.wideZone .zone .qOverlay{font-size:clamp(11px,2.2cqw,26px)}
+.media.normalMode.cutoff-2 .zone .qOverlay{font-size:clamp(8px,1.6cqw,20px)}
+.media.normalMode.cutoff-3 .zone .qOverlay{font-size:clamp(7px,1.3cqw,16px);line-height:1.12}
+.media.normalMode .zone .answers{display:grid;grid-template-columns:repeat(2,1fr);gap:0;background:#fff;min-height:0;overflow:hidden}
+.media.normalMode .zone .answer{position:relative;display:flex;align-items:center;min-height:0;padding:clamp(1px,0.7cqw,10px) clamp(6px,2cqw,26px) clamp(1px,0.7cqw,10px) clamp(22px,5.6cqw,60px);border:0;border-right:1px solid #fff;border-bottom:1px solid #fff;border-radius:0;background:linear-gradient(135deg,#062a34,#164d5a);color:#fff;font-size:clamp(7.5px,1.35cqw,16px);line-height:1.14;font-weight:800;text-align:left;overflow:hidden}
+.media.normalMode .zone .answer:nth-child(2n){border-right:0}
+.media.normalMode .zone .answer.full{grid-column:1/-1;border-right:0}
+.media.normalMode .zone .num{position:absolute;left:clamp(2px,0.6cqw,5px);top:50%;transform:translateY(-50%);width:clamp(13px,3cqw,30px);height:clamp(12px,2.6cqw,26px);border-radius:2px;display:grid;place-items:center;background:#fff;color:#073946;font-size:clamp(8px,1.5cqw,17px);font-weight:950}
+.media.normalMode .zone .radio{display:none}
+.media.normalMode.ansLen-2 .zone .answer{font-size:clamp(7px,1.15cqw,13px)}
+.media.normalMode.ansLen-3 .zone .answer{font-size:clamp(6.5px,1cqw,11px);line-height:1.08;padding-top:1px;padding-bottom:1px}
+
+.media.signMode{position:relative;aspect-ratio:1006/632;background:#050505}
+.media.signMode img{width:100%;height:100%;object-fit:contain;display:block}
+.media.signMode .zone{position:absolute;left:0;right:0;bottom:0;top:71.2%;display:grid;grid-template-rows:44% 56%;z-index:15;background:var(--blue2);box-shadow:0 -2px 0 0 var(--blue2)}
+.media.signMode.wideZone .zone{top:36.9%;grid-template-rows:32.2% 67.8%}
+.media.signMode .zone .qOverlay{display:flex!important;align-items:center;justify-content:center;text-align:center;min-height:0;overflow:hidden;padding:clamp(4px,1.6cqw,20px) clamp(10px,3cqw,28px);background:rgba(5,35,43,.92);border-top:2px solid rgba(255,255,255,.75);color:#fff;font-weight:900;font-size:clamp(9px,1.9cqw,22px);line-height:1.2}
+.media.signMode.qLen-2 .zone .qOverlay{font-size:clamp(8px,1.5cqw,17px)}
+.media.signMode.qLen-3 .zone .qOverlay{font-size:clamp(7px,1.2cqw,14px);line-height:1.14}
+.media.signMode .zone .answers{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(2px,0.8cqw,10px);padding:clamp(2px,0.8cqw,10px);min-height:0;overflow:hidden}
+.media.signMode .zone .answer{position:relative;display:flex;align-items:center;min-height:0;padding:clamp(2px,0.9cqw,12px) clamp(8px,2.2cqw,22px) clamp(2px,0.9cqw,12px) clamp(24px,5.6cqw,54px);border-radius:clamp(2px,0.6cqw,8px);background:linear-gradient(135deg,#062a34,#164d5a);border:1px solid rgba(255,255,255,.55);color:#fff;font-size:clamp(7.5px,1.3cqw,15px);line-height:1.16;font-weight:800;text-align:left;overflow:hidden}
+.media.signMode .zone .answer.full{grid-column:1/-1}
+.media.signMode .zone .num{position:absolute;left:clamp(2px,0.6cqw,6px);top:50%;transform:translateY(-50%);width:clamp(13px,2.8cqw,28px);height:clamp(12px,2.5cqw,25px);border-radius:2px;display:grid;place-items:center;background:#fff;color:#073946;font-size:clamp(8px,1.4cqw,16px);font-weight:950}
+.media.signMode .zone .radio{display:none}
+.media.signMode.ansLen-2 .zone .answer{font-size:clamp(7px,1.1cqw,13px)}
+.media.signMode.ansLen-3 .zone .answer{font-size:clamp(6.5px,0.95cqw,11px);line-height:1.1}
+
+.answer.correct{background:linear-gradient(135deg,#15803d,#14532d)!important}
+
+.noImageQuestion{margin:0;padding:18px 14px;text-align:center;font-size:15px;line-height:1.4;font-weight:900;background:#073946;color:#fff}
+.niAnswers{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px}
+.niAnswers .answer{position:relative;display:flex;align-items:center;min-height:44px;padding:8px 10px 8px 34px;border-radius:8px;background:linear-gradient(135deg,#062a34,#164d5a);border:1px solid rgba(255,255,255,.4);color:#fff;font-size:12px;font-weight:800}
+.niAnswers .answer.full{grid-column:1/-1}
+.niAnswers .num{position:absolute;left:8px;top:50%;transform:translateY(-50%);width:20px;height:18px;border-radius:3px;display:grid;place-items:center;background:#fff;color:#073946;font-size:12px;font-weight:950}
+.hidden{display:none!important}
+#loading{padding:40px;text-align:center;color:#9aa}
+</style>
+</head>
+<body>
+<header>
+ <h1>Drivelab Theory — ყველა ტესტის გადახედვა <span id="total" style="color:#7fd1ff"></span></h1>
+ <div class="controls">
+  <button data-f="all" class="active">ყველა</button>
+  <button data-f="wide">Wide <span class="c" data-c="wide"></span></button>
+  <button data-f="review">⚠ Review <span class="c" data-c="review"></span></button>
+  <button data-f="normal">ჩვეულებრივი <span class="c" data-c="normal"></span></button>
+  <button data-f="noimg">უფოტო <span class="c" data-c="noimg"></span></button>
+  <input id="search" type="text" placeholder="ბილეთის ნომერი…" inputmode="numeric">
+  <span class="cnt" id="shown"></span>
+ </div>
+</header>
+<div id="loading">იტვირთება…</div>
+<div class="grid" id="grid"></div>
+
+<script>
+function asset(p){return p?p.replace(/^\/+/,''):''}
+function isSignTopic(q){
+  const id=Number(q.topic_id);
+  const txt=((q.topic_name||'')+' '+(q.question||'')).toLowerCase();
+  return (id>=3&&id<=9)||txt.includes('საგზაო ნიშ')||txt.includes('ნიშანი')||txt.includes('ნიშნის')||txt.includes('მოცემული საგზაო');
+}
+function cutoffClass(q){const len=(q.question||'').length;const a=(q.answers||[]).filter(x=>x.text).length;if(len>120||a>=4)return'cutoff-3';if(len>75||a>=3)return'cutoff-2';return'cutoff-1'}
+function answerLenClass(q){const m=Math.max(0,...(q.answers||[]).map(a=>(a.text||'').length));if(m>90)return'ansLen-3';if(m>40)return'ansLen-2';return'ansLen-1'}
+function signQLenClass(q){const len=(q.question||'').length;if(len>200)return'qLen-3';if(len>110)return'qLen-2';return'qLen-1'}
+function esc(s){return (s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
+
+let WIDE=new Set(),REVIEW=new Set(),ZMAP={};
+
+Promise.all([
+  fetch('data/questions.json?v='+Date.now()).then(r=>r.json()),
+  fetch('data/image_zones.json?v='+Date.now()).then(r=>r.json()).catch(()=>({wide:[],review:[],map:{}}))
+]).then(([qs,z])=>{
+  WIDE=new Set(z.wide||[]);REVIEW=new Set(z.review||[]);ZMAP=z.map||{};
+  build(qs);
+});
+
+function answersHTML(q,cls){
+  const ans=q.answers||[];
+  let h='';
+  ans.forEach((a,i)=>{
+    const correct=a.is_correct?' correct':'';
+    const full=(ans.length%2===1&&i===ans.length-1)?' full':'';
+    h+=`<div class="answer${correct}${full}"><span class="num">${i+1}</span><span>${esc(a.text)}</span></div>`;
+  });
+  return h;
+}
+
+function build(qs){
+  const grid=document.getElementById('grid');
+  const counts={wide:0,review:0,normal:0,noimg:0};
+  let html='';
+  qs.forEach(q=>{
+    const hasImg=!!q.image;
+    let kind,badge='';
+    if(!hasImg){kind='noimg';badge='<span class="badge noimg">უფოტო</span>';}
+    else if(REVIEW.has(q.image)){kind='review';badge=`<span class="badge review">REVIEW ${ZMAP[q.image]??'?'}%</span>`;}
+    else if(WIDE.has(q.image)){kind='wide';badge=`<span class="badge wide">WIDE ${ZMAP[q.image]??''}%</span>`;}
+    else {kind='normal';badge=`<span class="badge normal">${ZMAP[q.image]??''}%</span>`;}
+    counts[kind]++;
+    const tkt=q.ticket_number||q.id||'';
+    const topic=esc(q.topic_name||'');
+    let media;
+    if(hasImg){
+      const signMode=isSignTopic(q);
+      let cls='media '+(signMode?'signMode':'normalMode')+' '+cutoffClass(q)+' '+answerLenClass(q);
+      if(signMode)cls+=' '+signQLenClass(q);
+      if(WIDE.has(q.image))cls+=' wideZone';
+      const signB=signMode?'<span class="badge sign">SIGN</span>':'';
+      badge=signB+badge;
+      media=`<div class="${cls}" data-ticket="${tkt}"><img loading="lazy" src="${asset(q.image)}"><div class="zone"><div class="qOverlay">${esc(q.question)}</div><div class="answers">${answersHTML(q)}</div></div></div>`;
+    }else{
+      media=`<div><div class="noImageQuestion">${esc(q.question)}</div><div class="niAnswers">${answersHTML(q)}</div></div>`;
+    }
+    html+=`<div class="tile" data-kind="${kind}" data-tkt="${tkt}"><div class="tlabel"><span class="tkt">#${tkt}</span>${badge}<span class="topic">${topic}</span></div>${media}</div>`;
+  });
+  grid.innerHTML=html;
+  document.getElementById('loading').style.display='none';
+  document.getElementById('total').textContent='('+qs.length+')';
+  for(const k in counts){const el=document.querySelector(`.c[data-c="${k}"]`);if(el)el.textContent='('+counts[k]+')';}
+  updateShown();
+}
+
+let curF='all',curSearch='';
+function applyFilter(){
+  document.querySelectorAll('.tile').forEach(t=>{
+    const okKind=curF==='all'||t.dataset.kind===curF;
+    const okSearch=!curSearch||String(t.dataset.tkt).includes(curSearch);
+    t.classList.toggle('hidden',!(okKind&&okSearch));
+  });
+  updateShown();
+}
+function updateShown(){
+  const n=document.querySelectorAll('.tile:not(.hidden)').length;
+  document.getElementById('shown').textContent=n+' ნაჩვენები';
+}
+document.querySelectorAll('.controls button[data-f]').forEach(b=>{
+  b.onclick=()=>{document.querySelectorAll('.controls button[data-f]').forEach(x=>x.classList.remove('active'));b.classList.add('active');curF=b.dataset.f;applyFilter();};
+});
+document.getElementById('search').oninput=e=>{curSearch=e.target.value.trim();applyFilter();};
+</script>
+</body>
+</html>
