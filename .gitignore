@@ -8,3 +8,5 @@
 /bootstrap/cache/*.php
 /backups
 *.log
+public/autoschool-material.pdf
+public/autoschool-material.pdf
