@@ -1,9 +1,15 @@
 @props([
-    'eyebrow' => 'შედეგზე ორიენტირებული',
-    'title'   => 'მოსწავლე, რომელიც ნამდვილად მზადაა გამოცდისთვის',
-    'desc'    => 'ჩვენთვის მთავარია არა უბრალოდ გაკვეთილების რაოდენობა, არამედ შედეგი — ყოველი შეცდომა გარდაიქმნება მარტივ, გასაგებ ახსნად, სანამ იმავე შეცდომას ნამდვილ გამოცდაზე გაიმეორებდი.',
+    'eyebrow' => null,
+    'title'   => null,
+    'desc'    => null,
     'stats'   => null,
 ])
+
+@php
+    $eyebrow = $eyebrow ?? __('messages.trust.eyebrow');
+    $title = $title ?? __('messages.trust.title');
+    $desc = $desc ?? __('messages.trust.desc');
+@endphp
 
 @once
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,18 +18,8 @@
 @endonce
 
 @php
-    $stats = $stats ?? [
-        ['type' => 'stat',    'value' => '95%', 'label' => 'მზადყოფნა გამოცდისთვის'],
-        ['type' => 'stat',    'value' => '1:1', 'label' => 'პერსონალური ინსტრუქტორი'],
-        ['type' => 'feature', 'icon'  => 'ti-clipboard-check', 'label' => 'გამოცდის სიმულაცია'],
-        ['type' => 'feature', 'icon'  => 'ti-bulb', 'label' => 'შეცდომებზე სწავლა'],
-    ];
-
-    $flow = [
-        ['icon' => 'ti-alert-circle', 'label' => 'შეცდომა'],
-        ['icon' => 'ti-message-2', 'label' => 'მარტივი ახსნა'],
-        ['icon' => 'ti-repeat', 'label' => 'მსგავსი ბილეთები'],
-    ];
+    $stats = $stats ?? __('messages.trust.stats');
+    $flow = __('messages.trust.flow');
 @endphp
 
 <section class="ast-trust">
@@ -64,7 +60,7 @@
 
     <div class="ast-trust__cta-wrap">
         <a href="#pricing" class="ast-trust__cta">
-            აირჩიე სასწავლო პაკეტი
+            {{ __('messages.trust.cta') }}
             <i class="ti ti-arrow-right" aria-hidden="true"></i>
         </a>
     </div>

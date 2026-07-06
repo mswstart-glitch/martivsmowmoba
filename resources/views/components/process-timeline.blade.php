@@ -1,8 +1,13 @@
 @props([
-    'eyebrow' => 'როგორ მუშაობს',
-    'title'   => 'შენი გზა მართვის მოწმობამდე',
+    'eyebrow' => null,
+    'title'   => null,
     'steps'   => null,
 ])
+
+@php
+    $eyebrow = $eyebrow ?? __('messages.timeline.eyebrow');
+    $title = $title ?? __('messages.timeline.title');
+@endphp
 
 @once
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,11 +16,7 @@
 @endonce
 
 @php
-    $steps = $steps ?? [
-        ['icon' => 'ti-user-plus', 'title' => 'რეგისტრაცია', 'desc' => 'აირჩიე პაკეტი და დარეგისტრირდი 5 წუთში, ონლაინ ან ოფისში.'],
-        ['icon' => 'ti-book-2', 'title' => 'თეორია', 'desc' => 'გაიარე საგზაო წესები აპში — ნებისმიერ დროს, ნებისმიერი მოწყობილობიდან.'],
-        ['icon' => 'ti-steering-wheel', 'title' => 'პრაქტიკა', 'desc' => 'ივარჯიშე გზაზე პირად ინსტრუქტორთან ერთად, შენი გრაფიკით.'],
-    ];
+    $steps = $steps ?? __('messages.timeline.steps');
 @endphp
 
 <section class="ast-timeline">
@@ -35,7 +36,7 @@
                 <div class="ast-timeline__node">
                     <i class="ti {{ $step['icon'] }}" aria-hidden="true"></i>
                 </div>
-                <span class="ast-timeline__num">STEP {{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}</span>
+                <span class="ast-timeline__num">{{ __('messages.timeline.step_prefix') }} {{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}</span>
                 <h3 class="ast-timeline__step-title">{{ $step['title'] }}</h3>
                 <p class="ast-timeline__step-desc">{{ $step['desc'] }}</p>
             </div>

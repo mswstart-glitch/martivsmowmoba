@@ -1,10 +1,17 @@
 @props([
-    'eyebrow'       => 'მოსწავლეების შეფასებები',
-    'title'         => 'რას ამბობენ ჩვენი კურსდამთავრებულები',
-    'averageRating' => '4.9',
-    'reviewCount'   => '240+',
+    'eyebrow'       => null,
+    'title'         => null,
+    'averageRating' => null,
+    'reviewCount'   => null,
     'reviews'       => null,
 ])
+
+@php
+    $eyebrow = $eyebrow ?? __('messages.testimonials.eyebrow');
+    $title = $title ?? __('messages.testimonials.title');
+    $averageRating = $averageRating ?? __('messages.testimonials.average_rating');
+    $reviewCount = $reviewCount ?? __('messages.testimonials.review_count');
+@endphp
 
 @once
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,12 +20,7 @@
 @endonce
 
 @php
-    $reviews = $reviews ?? [
-        ['name' => 'თამარ ლომიძე', 'initials' => 'თლ', 'rating' => 5, 'pkg' => 'პრემიუმ პაკეტი', 'quote' => 'შედეგზე ორიენტირებული მიდგომა ნამდვილად მუშაობს — გამოცდა პირველივე მცდელობაზე ჩავაბარე.'],
-        ['name' => 'ლუკა წიკლაური', 'initials' => 'ლწ', 'rating' => 5, 'pkg' => 'სტანდარტი პაკეტი', 'quote' => 'ინსტრუქტორი მშვიდად და გასაგებად ხსნიდა ყველაფერს. პრაქტიკაზე ზეწოლა არ მიგრძვნია.'],
-        ['name' => 'ანა ხუციშვილი', 'initials' => 'ახ', 'rating' => 5, 'pkg' => 'VIP პაკეტი', 'quote' => 'გამოცდის სიმულაციამ ძალიან დამეხმარა. ზუსტად ვიცოდი რა უნდა გამეკეთებინა რეალურ გამოცდაზე.'],
-        ['name' => 'ბექა სვანიძე', 'initials' => 'ბს', 'rating' => 5, 'pkg' => 'პრემიუმ პაკეტი', 'quote' => 'მოსახერხებელი გრაფიკი, პროფესიონალი გუნდი და ძალიან კარგი ახსნა შეცდომებზე. ყველას ვურჩევ.'],
-    ];
+    $reviews = $reviews ?? __('messages.testimonials.reviews');
 @endphp
 
 <section class="ast-reviews">
@@ -38,7 +40,7 @@
                     <i class="ti ti-star-filled" aria-hidden="true"></i>
                 </div>
 
-                <span class="ast-reviews__summary-count">{{ $reviewCount }} შეფასების საფუძველზე</span>
+                <span class="ast-reviews__summary-count">{{ $reviewCount }} {{ __('messages.testimonials.review_count_suffix') }}</span>
             </div>
         </div>
     </div>

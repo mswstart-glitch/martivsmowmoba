@@ -78,9 +78,28 @@ return [
     |
     */
 
-    'locale' => env('APP_LOCALE', 'en'),
+    'locale' => env('APP_LOCALE', 'ka'),
 
-    'fallback_locale' => env('APP_FALLBACK_LOCALE', 'en'),
+    'fallback_locale' => env('APP_FALLBACK_LOCALE', 'ka'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Supported Locales
+    |--------------------------------------------------------------------------
+    |
+    | The locales the site can be switched to via the language selector.
+    | Georgian ("ka") is the default and the ultimate fallback so content
+    | never disappears if a translation is missing in another language.
+    |
+    */
+
+    'supported_locales' => [
+        'ka' => 'ქართული',
+        'en' => 'English',
+        'ru' => 'Русский',
+        'tr' => 'Türkçe',
+        'az' => 'Azərbaycan',
+    ],
 
     'faker_locale' => env('APP_FAKER_LOCALE', 'en_US'),
 

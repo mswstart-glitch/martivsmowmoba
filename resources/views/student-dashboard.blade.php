@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ka">
+<html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>მოსწავლის პანელი — ავტოსკოლა</title>
+    <title>{{ __('messages.student_dashboard.page_title') }}</title>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Georgian:wght@600;700;800&family=Noto+Sans+Georgian:wght@400;500;600;700&family=Space+Mono:wght@700&display=swap">
 
@@ -40,63 +40,63 @@
 <div class="page">
     <div class="wrap">
         <header class="top">
-            <div class="brand">მოსწავლის პანელი</div>
+            <div class="brand">{{ __('messages.student_dashboard.brand') }}</div>
 
             <div class="actions">
-                <a href="{{ url('/') }}">მთავარი</a>
+                <a href="{{ url('/') }}">{{ __('messages.student_dashboard.home') }}</a>
                 <form method="POST" action="{{ route('student.logout') }}">
                     @csrf
-                    <button class="logout" type="submit">გასვლა</button>
+                    <button class="logout" type="submit">{{ __('messages.student_dashboard.logout') }}</button>
                 </form>
             </div>
         </header>
 
         <section class="hero">
-            <span class="tag">STUDENT DASHBOARD</span>
-            <h1>გამარჯობა, {{ $student->full_name }}</h1>
-            <p>აქ გამოჩნდება შენი კურსი, პროგრესი, შეცდომები, გამოცდის სიმულაციები და პრაქტიკული გაკვეთილების სტატუსი.</p>
+            <span class="tag">{{ __('messages.student_dashboard.tag') }}</span>
+            <h1>{{ __('messages.student_dashboard.greeting', ['name' => $student->full_name]) }}</h1>
+            <p>{{ __('messages.student_dashboard.intro') }}</p>
         </section>
 
         <section class="grid">
             <div class="card">
                 <div class="score">0%</div>
-                <b>თეორიის პროგრესი</b>
-                <span>ბილეთების ვარჯიში ჯერ არ დაწყებულა.</span>
+                <b>{{ __('messages.student_dashboard.theory_progress') }}</b>
+                <span>{{ __('messages.student_dashboard.theory_progress_desc') }}</span>
             </div>
 
             <div class="card">
                 <div class="score">0</div>
-                <b>ჩემი შეცდომები</b>
-                <span>არასწორი პასუხები აქ დაგიგროვდება ახსნებით.</span>
+                <b>{{ __('messages.student_dashboard.my_mistakes') }}</b>
+                <span>{{ __('messages.student_dashboard.my_mistakes_desc') }}</span>
             </div>
 
             <div class="card">
                 <div class="score">0</div>
-                <b>გამოცდის ცდები</b>
-                <span>30-კითხვიანი და მორგებული გამოცდები.</span>
+                <b>{{ __('messages.student_dashboard.exam_attempts') }}</b>
+                <span>{{ __('messages.student_dashboard.exam_attempts_desc') }}</span>
             </div>
 
             <div class="card">
-                <div class="score">NEW</div>
-                <b>სტატუსი</b>
-                <span>რეგისტრაცია მიღებულია, გუნდი დაგიკავშირდება.</span>
+                <div class="score">{{ __('messages.student_dashboard.status_new') }}</div>
+                <b>{{ __('messages.student_dashboard.status') }}</b>
+                <span>{{ __('messages.student_dashboard.status_desc') }}</span>
             </div>
 
             <div class="card wide">
-                <b>შენი კურსი</b>
+                <b>{{ __('messages.student_dashboard.my_course') }}</b>
                 <div class="list">
-                    <div class="item"><small>პაკეტი</small><strong>{{ strtoupper($student->course_type) }}</strong></div>
-                    <div class="item"><small>სწავლების ენა</small><strong>{{ strtoupper($student->language) }}</strong></div>
-                    <div class="item"><small>სასურველი დრო</small><strong>{{ $student->preferred_time ?: 'არ არის მითითებული' }}</strong></div>
+                    <div class="item"><small>{{ __('messages.student_dashboard.package') }}</small><strong>{{ strtoupper($student->course_type) }}</strong></div>
+                    <div class="item"><small>{{ __('messages.student_dashboard.teaching_language') }}</small><strong>{{ strtoupper($student->language) }}</strong></div>
+                    <div class="item"><small>{{ __('messages.student_dashboard.preferred_time') }}</small><strong>{{ $student->preferred_time ?: __('messages.student_dashboard.preferred_time_empty') }}</strong></div>
                 </div>
             </div>
 
             <div class="card wide">
-                <b>შემდეგი ნაბიჯები</b>
+                <b>{{ __('messages.student_dashboard.next_steps') }}</b>
                 <div class="list">
-                    <div class="item"><small>1</small><strong>ადმინისტრატორი დაგიკავშირდება</strong></div>
-                    <div class="item"><small>2</small><strong>შეირჩევა გრაფიკი და ინსტრუქტორი</strong></div>
-                    <div class="item"><small>3</small><strong>გაგეხსნება სრული სასწავლო სისტემა</strong></div>
+                    <div class="item"><small>1</small><strong>{{ __('messages.student_dashboard.step_1') }}</strong></div>
+                    <div class="item"><small>2</small><strong>{{ __('messages.student_dashboard.step_2') }}</strong></div>
+                    <div class="item"><small>3</small><strong>{{ __('messages.student_dashboard.step_3') }}</strong></div>
                 </div>
             </div>
         </section>

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ka">
+<html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>რეგისტრაცია — ავტოსკოლა სტარტი</title>
+    <title>{{ __('messages.booking.page_title') }}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Georgian:wght@600;700;800&family=Noto+Sans+Georgian:wght@400;500;600&family=Space+Mono:wght@700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.47.0/iconfont/tabler-icons.min.css">
@@ -16,13 +16,13 @@
     <div class="ast-auth__wrap">
         <a href="{{ url('/') }}" class="ast-auth__logo">
             <span class="ast-auth__logo-mark"><i class="ti ti-steering-wheel" aria-hidden="true"></i></span>
-            <span class="ast-auth__logo-word">ავტოსკოლა სტარტი</span>
+            <span class="ast-auth__logo-word">{{ __('messages.hero.brand') }}</span>
         </a>
 
         <div class="ast-auth__card">
-            <span class="ast-auth__eyebrow">დაწყება</span>
-            <h1 class="ast-auth__title">დარეგისტრირდი კურსზე</h1>
-            <p class="ast-auth__subtitle">შეავსე ფორმა და რეგისტრაციის შემდეგ ავტომატურად გადახვალ მოსწავლის პანელში.</p>
+            <span class="ast-auth__eyebrow">{{ __('messages.booking.eyebrow') }}</span>
+            <h1 class="ast-auth__title">{{ __('messages.booking.title') }}</h1>
+            <p class="ast-auth__subtitle">{{ __('messages.booking.subtitle') }}</p>
 
             @if(session('error'))
                 <div class="ast-auth__alert">
@@ -46,59 +46,69 @@
                 @csrf
 
                 <label class="ast-auth__field">
-                    <span>სახელი გვარი</span>
-                    <input type="text" name="full_name" value="{{ old('full_name') }}" placeholder="გიორგი მაისურაძე" required autofocus>
+                    <span>{{ __('messages.booking.full_name') }}</span>
+                    <input type="text" name="full_name" value="{{ old('full_name') }}" placeholder="{{ __('messages.booking.full_name_placeholder') }}" required autofocus>
                 </label>
 
                 <label class="ast-auth__field">
-                    <span>ტელეფონი</span>
-                    <input type="text" name="phone" value="{{ old('phone') }}" placeholder="555 12 34 56" required>
+                    <span>{{ __('messages.booking.phone') }}</span>
+                    <input type="text" name="phone" value="{{ old('phone') }}" placeholder="{{ __('messages.booking.phone_placeholder') }}" required>
                 </label>
 
                 <label class="ast-auth__field">
-                    <span>ელ-ფოსტა</span>
-                    <input type="email" name="email" value="{{ old('email') }}" placeholder="you@example.com">
+                    <span>{{ __('messages.booking.email') }}</span>
+                    <input type="email" name="email" value="{{ old('email') }}" placeholder="{{ __('messages.booking.email_placeholder') }}" required>
                 </label>
 
                 <label class="ast-auth__field">
-                    <span>კურსი</span>
+                    <span>{{ __('messages.booking.password') }}</span>
+                    <input type="password" name="password" placeholder="{{ __('messages.booking.password_placeholder') }}" required>
+                </label>
+
+                <label class="ast-auth__field">
+                    <span>{{ __('messages.booking.password_confirmation') }}</span>
+                    <input type="password" name="password_confirmation" placeholder="{{ __('messages.booking.password_confirmation_placeholder') }}" required>
+                </label>
+
+                <label class="ast-auth__field">
+                    <span>{{ __('messages.booking.course_type') }}</span>
                     <select name="course_type" required>
-                        <option value="standard">სტანდარტი</option>
-                        <option value="premium" selected>პრემიუმი</option>
-                        <option value="vip">VIP</option>
-                        <option value="individual">ინდივიდუალური</option>
-                        <option value="online">ონლაინ</option>
+                        <option value="standard">{{ __('messages.booking.course_standard') }}</option>
+                        <option value="premium" selected>{{ __('messages.booking.course_premium') }}</option>
+                        <option value="vip">{{ __('messages.booking.course_vip') }}</option>
+                        <option value="individual">{{ __('messages.booking.course_individual') }}</option>
+                        <option value="online">{{ __('messages.booking.course_online') }}</option>
                     </select>
                 </label>
 
                 <label class="ast-auth__field">
-                    <span>სწავლების ენა</span>
+                    <span>{{ __('messages.booking.language') }}</span>
                     <select name="language" required>
-                        <option value="ka" selected>ქართული</option>
-                        <option value="ru">რუსული</option>
-                        <option value="en">ინგლისური</option>
+                        <option value="ka" selected>{{ __('messages.booking.language_ka') }}</option>
+                        <option value="ru">{{ __('messages.booking.language_ru') }}</option>
+                        <option value="en">{{ __('messages.booking.language_en') }}</option>
                     </select>
                 </label>
 
                 <label class="ast-auth__field">
-                    <span>სასურველი დრო</span>
-                    <input type="text" name="preferred_time" value="{{ old('preferred_time') }}" placeholder="მაგ: საღამო / შაბათი">
+                    <span>{{ __('messages.booking.preferred_time') }}</span>
+                    <input type="text" name="preferred_time" value="{{ old('preferred_time') }}" placeholder="{{ __('messages.booking.preferred_time_placeholder') }}">
                 </label>
 
                 <label class="ast-auth__field">
-                    <span>კომენტარი</span>
-                    <textarea name="message" placeholder="მაგ: ჯერ საერთოდ არ მივლია / მხოლოდ პრაქტიკა მინდა">{{ old('message') }}</textarea>
+                    <span>{{ __('messages.booking.message') }}</span>
+                    <textarea name="message" placeholder="{{ __('messages.booking.message_placeholder') }}">{{ old('message') }}</textarea>
                 </label>
 
                 <button type="submit" class="ast-auth__submit">
-                    რეგისტრაცია
+                    {{ __('messages.booking.submit') }}
                     <i class="ti ti-arrow-right" aria-hidden="true"></i>
                 </button>
             </form>
 
             <p class="ast-auth__switch">
-                უკვე დარეგისტრირებული ხარ?
-                <a href="{{ route('student.dashboard') }}">პანელში შესვლა</a>
+                {{ __('messages.booking.switch_text') }}
+                <a href="{{ route('login') }}">{{ __('messages.booking.switch_link') }}</a>
             </p>
         </div>
     </div>

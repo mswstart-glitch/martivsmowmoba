@@ -19,3 +19,23 @@ Route::post('/student/logout', [\App\Http\Controllers\StudentRegistrationControl
 
 Route::view('/materials', 'materials')->name('materials');
 
+
+use App\Http\Controllers\UserAnalyticsController;
+
+Route::middleware('auth')->group(function () {
+    Route::post('/api/attempt', [UserAnalyticsController::class, 'saveAttempt'])->name('attempts.store');
+    Route::get('/profile/analytics', [UserAnalyticsController::class, 'analytics'])->name('profile.analytics');
+});
+
+
+use App\Http\Controllers\AuthController;
+
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.attempt');
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
+
+
+use App\Http\Controllers\LanguageController;
+
+Route::get('/lang/{locale}', [LanguageController::class, 'switch'])->name('lang.switch');
+

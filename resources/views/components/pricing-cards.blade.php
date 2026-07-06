@@ -1,8 +1,13 @@
 @props([
-    'eyebrow' => 'კურსის პაკეტები',
-    'title'   => 'აირჩიე შენი გზა საჭესთან',
+    'eyebrow' => null,
+    'title'   => null,
     'packages' => null,
 ])
+
+@php
+    $eyebrow = $eyebrow ?? __('messages.pricing.eyebrow');
+    $title = $title ?? __('messages.pricing.title');
+@endphp
 
 @once
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,52 +16,9 @@
 @endonce
 
 @php
-    $packages = $packages ?? [
-        [
-            'name' => 'სტანდარტი',
-            'icon' => 'ti-steering-wheel',
-            'price' => '650',
-            'period' => 'სრული კურსი',
-            'desc' => 'საბაზისო პროგრამა მათთვის, ვინც მართვის სწავლას სწორად იწყებს.',
-            'features' => [
-                '30 თეორიული გაკვეთილი',
-                '15 პრაქტიკული საათი',
-                'საგამოცდო ბილეთები',
-                'საბაზისო გამოცდის მომზადება',
-            ],
-            'featured' => false,
-        ],
-        [
-            'name' => 'პრემიუმი',
-            'icon' => 'ti-shield-check',
-            'price' => '950',
-            'period' => 'სრული კურსი',
-            'desc' => 'ყველაზე არჩეული პაკეტი — მეტი პრაქტიკა და გამოცდის სრული სიმულაცია.',
-            'features' => [
-                '30 თეორიული გაკვეთილი',
-                '25 პრაქტიკული საათი',
-                'რეალური გამოცდის სიმულაცია',
-                'პერსონალური ინსტრუქტორი',
-                'დამატებითი პრაქტიკული საათი',
-            ],
-            'featured' => true,
-        ],
-        [
-            'name' => 'VIP',
-            'icon' => 'ti-crown',
-            'price' => '1500',
-            'period' => 'სრული კურსი',
-            'desc' => 'ინდივიდუალური გრაფიკი, მეტი ყურადღება და პრემიუმ მხარდაჭერა.',
-            'features' => [
-                'ინდივიდუალური განრიგი',
-                '40 პრაქტიკული საათი',
-                'პირადი ინსტრუქტორი',
-                'გამოცდამდე სრული შემოწმება',
-                'VIP მხარდაჭერა',
-            ],
-            'featured' => false,
-        ],
-    ];
+    $packages = $packages ?? collect(__('messages.pricing.packages'))
+        ->map(fn ($pkg, $i) => $pkg + ['featured' => $i === 1])
+        ->all();
 @endphp
 
 <section class="ast-pricing" id="pricing">
@@ -69,7 +31,7 @@
         @foreach ($packages as $pkg)
             <article class="ast-pricing__card @if(!empty($pkg['featured'])) is-featured @endif">
                 @if(!empty($pkg['featured']))
-                    <span class="ast-pricing__badge">ყველაზე პოპულარული</span>
+                    <span class="ast-pricing__badge">{{ __('messages.pricing.badge_popular') }}</span>
                 @endif
 
                 <div class="ast-pricing__card-shine" aria-hidden="true"></div>
@@ -83,7 +45,7 @@
 
                 <div class="ast-pricing__price">
                     <span class="ast-pricing__amount">{{ $pkg['price'] }}</span>
-                    <span class="ast-pricing__currency">₾</span>
+                    <span class="ast-pricing__currency">{{ __('messages.pricing.currency') }}</span>
                     <span class="ast-pricing__period">/ {{ $pkg['period'] }}</span>
                 </div>
 
@@ -97,7 +59,7 @@
                 </ul>
 
                 <a href="{{ url('/booking') }}" class="ast-pricing__cta @if(!empty($pkg['featured'])) is-primary @endif">
-                    არჩევა
+                    {{ __('messages.pricing.cta') }}
                     <i class="ti ti-arrow-right" aria-hidden="true"></i>
                 </a>
             </article>

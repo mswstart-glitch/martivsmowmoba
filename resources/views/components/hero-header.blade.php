@@ -1,10 +1,18 @@
 @props([
-    'brand' => 'ავტოსკოლა სტარტი',
-    'eyebrow' => 'EST. 2012 · LICENSE ACADEMY',
-    'title' => 'საჭე შენშია',
-    'subtitle' => 'თეორიული და პრაქტიკული პროგრამა 2012 წლიდან. ივარჯიშე Web, iOS და Android აპლიკაციებში — რეალური საგამოცდო ბილეთებითა და სიმულაციით.',
-    'years' => '13 წელი გამოცდილება',
+    'brand' => null,
+    'eyebrow' => null,
+    'title' => null,
+    'subtitle' => null,
+    'years' => null,
 ])
+
+@php
+    $brand = $brand ?? __('messages.hero.brand');
+    $eyebrow = $eyebrow ?? __('messages.hero.eyebrow');
+    $title = $title ?? __('messages.hero.title');
+    $subtitle = $subtitle ?? __('messages.hero.subtitle');
+    $years = $years ?? __('messages.hero.years');
+@endphp
 
 @once
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,19 +50,35 @@
             <span class="ast-hero__logo-word">{{ $brand }}</span>
         </a>
 
-        <label for="ast-nav-toggle" class="ast-hero__burger" aria-label="მენიუ">
+        <label for="ast-nav-toggle" class="ast-hero__burger" aria-label="{{ __('messages.nav.menu') }}">
             <i class="ti ti-menu-2" aria-hidden="true"></i>
         </label>
 
         <nav class="ast-hero__nav">
-            <a href="/autoschool" class="is-active">მთავარი</a>
-            <a href="#tickets">ბილეთები</a>
-            <a href="https://dmgroup.website/autoschool/esvinkofila">გამოცდა</a>
-            <a href="#info">ინფორმაცია</a>
-            <a href="#contact">კონტაქტი</a>
+            <a href="/autoschool" class="is-active">{{ __('messages.nav.home') }}</a>
+            <a href="#tickets">{{ __('messages.nav.tickets') }}</a>
+            <a href="https://dmgroup.website/autoschool/esvinkofila">{{ __('messages.nav.exam') }}</a>
+            <a href="#info">{{ __('messages.nav.info') }}</a>
+            <a href="#contact">{{ __('messages.nav.contact') }}</a>
         </nav>
 
-        <a href="/autoschool/exam" class="ast-hero__cta-ghost">დაჯავშნა</a>
+        <div class="ast-lang">
+            <input type="checkbox" id="ast-lang-toggle" class="ast-lang__toggle-input">
+            <label for="ast-lang-toggle" class="ast-lang__current">
+                <i class="ti ti-world" aria-hidden="true"></i>
+                <span>{{ __('messages.switcher.' . app()->getLocale()) }}</span>
+                <i class="ti ti-chevron-down ast-lang__chevron" aria-hidden="true"></i>
+            </label>
+            <div class="ast-lang__menu">
+                @foreach(config('app.supported_locales', []) as $code => $label)
+                    <a href="{{ route('lang.switch', $code) }}" class="@if(app()->getLocale() === $code) is-active @endif">
+                        {{ $label }}
+                    </a>
+                @endforeach
+            </div>
+        </div>
+
+        <a href="/autoschool/exam" class="ast-hero__cta-ghost">{{ __('messages.nav.booking_cta') }}</a>
     </header>
 
     <div class="ast-hero__body">
@@ -66,15 +90,20 @@
             <div class="ast-hero__actions">
                 <a href="/autoschool/exam" class="ast-hero__store-btn">
                     <i class="ti ti-brand-google-play" aria-hidden="true"></i>
-                    <span><small>დაწყება</small>Google Play</span>
+                    <span><small>{{ __('messages.hero.start_small') }}</small>Google Play</span>
                 </a>
                 <a href="#tickets" class="ast-hero__store-btn">
                     <i class="ti ti-brand-apple" aria-hidden="true"></i>
-                    <span><small>ნახვა</small>App Store</span>
-                
+                    <span><small>{{ __('messages.hero.view_small') }}</small>App Store</span>
+
                 <a href="{{ route('booking') }}" class="hero-register-btn">
                     <i class="ti ti-user-plus"></i>
-                    დარეგისტრირდი
+                    {{ __('messages.hero.register') }}
+                </a>
+
+                <a href="{{ route('login') }}" class="hero-register-btn">
+                    <i class="ti ti-login"></i>
+                    {{ __('messages.hero.login') }}
                 </a>
 </a>
             </div>
@@ -121,15 +150,15 @@
 
     <div class="ast-hero__categories" id="tickets">
         @foreach ([
-            ['code'=>'AM','label'=>'მოპედი','page'=>'category-am.html'],
-            ['code'=>'A, A1','label'=>'მოტოციკლი','page'=>'category-a-a1.html'],
-            ['code'=>'B, B1','label'=>'მსუბუქი ავტო','featured'=>true,'page'=>'category-b-b1.html'],
-            ['code'=>'C','label'=>'სატვირთო','page'=>'category-c.html'],
-            ['code'=>'C1','label'=>'მსუბ. სატვირთო','page'=>'category-c1.html'],
-            ['code'=>'D','label'=>'ავტობუსი','page'=>'category-d.html'],
-            ['code'=>'D1','label'=>'მიკროავტობუსი','page'=>'category-d1.html'],
-            ['code'=>'T, S','label'=>'ტრაქტორი','page'=>'category-t-s.html'],
-            ['code'=>'TRAM','label'=>'ტრამვაი','page'=>'category-tram.html'],
+            ['code'=>'AM','label'=>__('messages.categories.am'),'page'=>'category-am.html'],
+            ['code'=>'A, A1','label'=>__('messages.categories.a_a1'),'page'=>'category-a-a1.html'],
+            ['code'=>'B, B1','label'=>__('messages.categories.b_b1'),'featured'=>true,'page'=>'category-b-b1.html'],
+            ['code'=>'C','label'=>__('messages.categories.c'),'page'=>'category-c.html'],
+            ['code'=>'C1','label'=>__('messages.categories.c1'),'page'=>'category-c1.html'],
+            ['code'=>'D','label'=>__('messages.categories.d'),'page'=>'category-d.html'],
+            ['code'=>'D1','label'=>__('messages.categories.d1'),'page'=>'category-d1.html'],
+            ['code'=>'T, S','label'=>__('messages.categories.t_s'),'page'=>'category-t-s.html'],
+            ['code'=>'TRAM','label'=>__('messages.categories.tram'),'page'=>'category-tram.html'],
         ] as $cat)
             <a href="https://dmgroup.website/autoschool/esvinkofila/{{ $cat['page'] }}" class="ast-hero__plate @if(!empty($cat['featured'])) is-featured @endif">
 
@@ -171,12 +200,12 @@
 
             <a href="https://dmgroup.website/autoschool/esvinkofila" class="ast-hero__plate ast-hero__plate-action is-exam">
                 <span class="ast-hero__action-icon">✓</span>
-                <span class="ast-hero__plate-code">გამოცდა</span>
+                <span class="ast-hero__plate-code">{{ __('messages.hero.exam_plate') }}</span>
             </a>
 
             <a href="https://dmgroup.website/autoschool/esvinkofila/test.html" class="ast-hero__plate ast-hero__plate-action is-tests">
                 <span class="ast-hero__action-icon">?</span>
-                <span class="ast-hero__plate-code">ტესტები</span>
+                <span class="ast-hero__plate-code">{{ __('messages.hero.tests_plate') }}</span>
             </a>
     </div>
 </section>
@@ -195,7 +224,7 @@ body{margin:0;background:#fff}
 .ast-hero__particle{position:absolute;width:5px;height:5px;border-radius:50%;background:var(--blue-light);opacity:.5;z-index:0;animation:astFloat 6s ease-in-out infinite}
 .ast-hero__route{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:.9;pointer-events:none}
 .ast-hero__nav-toggle-input{display:none}
-.ast-hero__bar{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:20px clamp(20px,4vw,56px);border-bottom:1px solid rgba(21,95,201,.14);background:rgba(255,255,255,.7);backdrop-filter:blur(10px)}
+.ast-hero__bar{position:relative;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:20px clamp(20px,4vw,56px);border-bottom:1px solid rgba(21,95,201,.14);background:rgba(255,255,255,.7);backdrop-filter:blur(10px)}
 .ast-hero__logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
 .ast-hero__logo-mark{width:38px;height:38px;border-radius:50%;background:linear-gradient(155deg,var(--blue-light),var(--blue-deep));display:flex;align-items:center;justify-content:center;color:#fff;font-size:19px;box-shadow:0 6px 16px -6px rgba(21,95,201,.5)}
 .ast-hero__logo-word{font-family:'Noto Serif Georgian';font-weight:700;font-size:18px;letter-spacing:.2px;color:var(--ink)}
@@ -209,6 +238,22 @@ body{margin:0;background:#fff}
 .ast-hero__cta-ghost{font-family:'Space Mono';font-size:12px;font-weight:700;letter-spacing:.5px;color:#fff;background:linear-gradient(135deg,var(--blue-light),var(--blue-deep));border-radius:3px;padding:10px 20px;text-decoration:none;box-shadow:0 10px 22px -10px rgba(11,62,134,.65);transition:transform .25s ease,box-shadow .25s ease}
 .ast-hero__cta-ghost:hover{transform:translateY(-1px);box-shadow:0 14px 26px -10px rgba(11,62,134,.75)}
 .ast-hero__burger{display:none;color:var(--blue);font-size:22px;cursor:pointer}
+
+.ast-lang{position:relative}
+.ast-lang__toggle-input{position:absolute;opacity:0;pointer-events:none}
+.ast-lang__current{display:flex;align-items:center;gap:7px;cursor:pointer;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:var(--blue-deep);background:var(--paper-tint);border:1px solid var(--chrome);border-radius:999px;padding:9px 14px;user-select:none;transition:border-color .2s ease,background .2s ease}
+.ast-lang__current:hover{border-color:var(--blue-light);background:#fff}
+.ast-lang__current i{font-size:15px}
+.ast-lang__chevron{transition:transform .2s ease;font-size:13px !important}
+.ast-lang__menu{position:absolute;top:calc(100% + 10px);right:0;min-width:170px;background:#fff;border:1px solid var(--chrome);border-radius:14px;box-shadow:0 24px 48px -22px rgba(11,30,61,.35);padding:8px;display:flex;flex-direction:column;gap:2px;opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .2s ease,transform .2s ease,visibility .2s ease;z-index:40}
+.ast-lang__menu a{display:block;padding:9px 12px;border-radius:9px;font-size:13px;font-weight:600;color:var(--ink);text-decoration:none;transition:background .15s ease}
+.ast-lang__menu a:hover{background:var(--paper-tint)}
+.ast-lang__menu a.is-active{color:var(--blue-deep);background:var(--paper-tint)}
+.ast-lang__toggle-input:checked ~ .ast-lang__current .ast-lang__chevron{transform:rotate(180deg)}
+.ast-lang__toggle-input:checked ~ .ast-lang__menu{opacity:1;visibility:visible;transform:translateY(0)}
+@media(max-width:720px){
+    .ast-lang__menu{right:auto;left:0}
+}
 .ast-hero__body{position:relative;z-index:2;display:grid;grid-template-columns:1fr 70px 1fr;gap:24px;align-items:center;padding:clamp(36px,6vw,76px) clamp(20px,4vw,56px) clamp(32px,5vw,60px)}
 .ast-hero__roadside{display:flex;flex-direction:column;align-items:center;justify-self:center;animation:astRise 1s .3s cubic-bezier(.2,.7,.2,1) both}
 .ast-hero__copy{animation:astRise .8s cubic-bezier(.2,.7,.2,1) both}

@@ -1,16 +1,13 @@
 @props([
-    'eyebrow' => 'ჩვენი გუნდი',
-    'title' => 'გაიცანი შენი ინსტრუქტორი',
+    'eyebrow' => null,
+    'title' => null,
     'instructors' => null,
 ])
 
 @php
-    $instructors = $instructors ?? [
-        ['name'=>'გიორგი მაისურაძე','initials'=>'გმ','cats'=>'B, B1','years'=>9,'students'=>310,'rating'=>5,'quote'=>'"მთავარია მოსწავლემ შიში კი არა, გზის პატივისცემა ისწავლოს."'],
-        ['name'=>'ნინო ბერიძე','initials'=>'ნბ','cats'=>'B, A1','years'=>6,'students'=>240,'rating'=>5,'quote'=>'"ყოველი მოსწავლე საკუთარი ტემპით სწავლობს — ჩქარობა არასდროს ღირს."'],
-        ['name'=>'დავით კვარაცხელია','initials'=>'დკ','cats'=>'C, C1','years'=>12,'students'=>410,'rating'=>4,'quote'=>'"სატვირთო მართვა დისციპლინით იწყება, არა ძალით."'],
-        ['name'=>'მარიამ გელაშვილი','initials'=>'მგ','cats'=>'B, D','years'=>7,'students'=>265,'rating'=>5,'quote'=>'"საუკეთესო გამოცდა მშვიდი თავია, არა დასწავლილი პასუხები."'],
-    ];
+    $eyebrow = $eyebrow ?? __('messages.instructors.eyebrow');
+    $title = $title ?? __('messages.instructors.title');
+    $instructors = $instructors ?? __('messages.instructors.list');
 @endphp
 
 <section class="ast-instructors" id="instructors">
@@ -27,9 +24,9 @@
                 <div class="ast-instructors__avatar">{{ $person['initials'] }}</div>
 
                 <h3 class="ast-instructors__name">{{ $person['name'] }}</h3>
-                <span class="ast-instructors__cats">კატეგორია {{ $person['cats'] }}</span>
+                <span class="ast-instructors__cats">{{ __('messages.instructors.category_label') }} {{ $person['cats'] }}</span>
 
-                <div class="ast-instructors__stars" aria-label="რეიტინგი {{ $person['rating'] }} ვარსკვლავიდან 5">
+                <div class="ast-instructors__stars" aria-label="{{ __('messages.instructors.rating_aria', ['rating' => $person['rating']]) }}">
                     @for ($s = 1; $s <= 5; $s++)
                         <i class="ti {{ $s <= $person['rating'] ? 'ti-star-filled' : 'ti-star' }}" aria-hidden="true"></i>
                     @endfor
@@ -40,11 +37,11 @@
                 <div class="ast-instructors__stats">
                     <div class="ast-instructors__stat">
                         <span class="ast-instructors__stat-num">{{ $person['years'] }}</span>
-                        <span class="ast-instructors__stat-label">წელი გამოცდილება</span>
+                        <span class="ast-instructors__stat-label">{{ __('messages.instructors.years_label') }}</span>
                     </div>
                     <div class="ast-instructors__stat">
                         <span class="ast-instructors__stat-num">{{ $person['students'] }}+</span>
-                        <span class="ast-instructors__stat-label">მოსწავლე</span>
+                        <span class="ast-instructors__stat-label">{{ __('messages.instructors.students_label') }}</span>
                     </div>
                 </div>
             </div>

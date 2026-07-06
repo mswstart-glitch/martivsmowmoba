@@ -511,7 +511,7 @@ body{
   <div class="top">
    <div class="panel logo">
     <div class="mark">D</div>
-    <div><b>Drivelab.ge</b><span>წარმატებებს გისურვებთ გამოცდაზე</span></div>
+    <div><b>Drivelab.ge</b><span data-i18n="tagline_exam">წარმატებებს გისურვებთ გამოცდაზე</span></div>
    </div>
    <div class="panel">
     <div class="timerRow">
@@ -524,18 +524,18 @@ body{
     <div class="stats">
      <div>
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="color:var(--good)"><path d="M20 6 9 17l-5-5"></path></svg>
-      სწორი <b class="good" id="rightCount">0</b>
+      <span data-i18n="correct_label">სწორი</span> <b class="good" id="rightCount">0</b>
      </div>
      <div>
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="color:var(--bad)"><path d="M18 6 6 18M6 6l12 12"></path></svg>
-      არასწორი <b class="bad" id="wrongCount">0</b>
+      <span data-i18n="wrong_label">არასწორი</span> <b class="bad" id="wrongCount">0</b>
      </div>
     </div>
    </div>
   </div>
   <div class="card">
    <div class="media" id="media"><img id="mainMedia" src="" decoding="async" fetchpriority="high"><div class="qOverlay" id="qOverlay"></div><div class="zone" id="zone"></div></div>
-   <div class="content" id="content"><div id="questionSlot"></div><div class="answers" id="answers"></div><button class="next" onclick="nextQuestion()"><span>შემდეგი კითხვა</span><span aria-hidden="true">›</span></button></div>
+   <div class="content" id="content"><div id="questionSlot"></div><div class="answers" id="answers"></div><button class="next" onclick="nextQuestion()"><span data-i18n="next_question">შემდეგი კითხვა</span><span aria-hidden="true">›</span></button></div>
   </div>
  </div>
 </div>
@@ -545,16 +545,17 @@ body{
  </div>
  <h2 id="resultTitle"></h2>
  <p id="resultText"></p>
- <button onclick="location.reload()">ახალი გამოცდა</button>
+ <button onclick="location.reload()" data-i18n="new_exam">ახალი გამოცდა</button>
 </div></div>
 <div class="modal" id="explainModal"><div class="box explainBox">
- <button class="explainClose" id="explainClose" aria-label="დახურვა" type="button">✕</button>
+ <button class="explainClose" id="explainClose" aria-label="დახურვა" data-i18n-attr="aria-label:close" type="button">✕</button>
  <div class="explainIcon">!</div>
- <h3>რატომ არის არასწორი?</h3>
+ <h3 data-i18n="why_wrong">რატომ არის არასწორი?</h3>
  <p id="explainText"></p>
- <button class="explainContinue" id="explainContinue" type="button">გაგრძელება</button>
+ <button class="explainContinue" id="explainContinue" type="button" data-i18n="continue_label">გაგრძელება</button>
 </div></div>
 
+<script src="js/i18n.js"></script>
 <script>
 let questions=[],examQuestions=[],current=0,locked=false,right=0,wrong=0,answered=0,timeLeft=1800,finished=false;
 const TOTAL=30,PASS=25,MAX_WRONG=5;
@@ -565,7 +566,7 @@ function asset(p){return p?p.replace(/^\/+/,''):''}
 function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function isSignTopic(q){
   const id = Number(q.topic_id);
-  const txt = ((q.topic_name||'')+' '+(q.question||'')).toLowerCase();
+  const txt = ((q._origTopicName||q.topic_name||'')+' '+(q._origQuestion||q.question||'')).toLowerCase();
   return (id>=3 && id<=9)
     || txt.includes('საგზაო ნიშ')
     || txt.includes('ნიშანი')
@@ -606,8 +607,10 @@ let WIDE_ZONE_IMAGES = new Set();
 
 Promise.all([
   fetch('data/questions.json?v='+Date.now()).then(r=>r.json()),
-  fetch('data/image_zones.json?v='+Date.now()).then(r=>r.json()).catch(()=>({wide:[]}))
-]).then(([d,zones])=>{
+  fetch('data/image_zones.json?v='+Date.now()).then(r=>r.json()).catch(()=>({wide:[]})),
+  window.DrivelabI18n.loadTranslationData()
+]).then(([d,zones,i18nData])=>{
+  d=window.DrivelabI18n.translateQuestions(d,i18nData.topics,i18nData.questions);
   questions=d;
   WIDE_ZONE_IMAGES=new Set((zones&&zones.wide)||[]);
   examQuestions=shuffle(d).slice(0,TOTAL);
@@ -686,7 +689,7 @@ function choose(btn,a,q){
 function nextQuestion(){if(finished)return;if(answered>=TOTAL){finish(right>=PASS);return}current=(current+1)%examQuestions.length;render()}
 function update(){rightEl.textContent=right;wrongEl.textContent=wrong;progress.style.width=Math.min(100,answered/TOTAL*100)+'%'}
 function startTimer(){setInterval(()=>{if(finished)return;timeLeft--;let m=String(Math.floor(timeLeft/60)).padStart(2,'0'),s=String(timeLeft%60).padStart(2,'0');timer.textContent=m+':'+s;if(timeLeft<=0)finish(right>=PASS)},1000)}
-function finish(pass){finished=true;$('resultTitle').textContent=pass?'გილოცავთ, გამოცდა ჩაბარებულია!':'გამოცდა ვერ ჩააბარეთ';$('resultText').textContent=`სწორი: ${right}/${TOTAL}, არასწორი: ${wrong}. ჩასაბარებლად საჭიროა ${PASS}.`;$('resultModal').classList.add('show')}
+function finish(pass){finished=true;$('resultTitle').textContent=pass?DrivelabI18n.t('exam_pass_title'):DrivelabI18n.t('exam_fail_title');$('resultText').textContent=`${DrivelabI18n.t('correct_label')}: ${right}/${TOTAL}, ${DrivelabI18n.t('wrong_label')}: ${wrong}. ${DrivelabI18n.t('pass_requirement').replace('%d',PASS)}`;$('resultModal').classList.add('show')}
 </script>
 <script>
 /* Wrong-answer explanation popup. Purely additive: listens for clicks that
@@ -698,7 +701,7 @@ function finish(pass){finished=true;$('resultTitle').textContent=pass?'გილ
  var explainClose=document.getElementById('explainClose');
  var explainContinue=document.getElementById('explainContinue');
  var answersEl=document.getElementById('answers');
- var FALLBACK='ეს პასუხი არასწორია. სცადეთ დაიმახსოვროთ სწორი წესი შემდეგი კითხვისთვის.';
+ var FALLBACK=DrivelabI18n.t('explain_fallback');
 
  function openExplain(text){
   explainText.textContent=text||FALLBACK;

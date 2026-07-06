@@ -1,0 +1,170 @@
+{
+  "en": {
+    "AM": {
+      "title": "AM — Moped",
+      "description": "Moped driving license category. Includes questions specific to mopeds as well as general traffic rules common to all categories."
+    },
+    "A_A1": {
+      "title": "A, A1 — Motorcycle",
+      "description": "Motorcycle driving license category. Includes questions specific to motorcycles as well as general traffic rules common to all categories."
+    },
+    "B_B1": {
+      "title": "B, B1 — Passenger car",
+      "description": "The base passenger car driving license category. Includes the full, original question set (921 questions) exactly as sourced, with no filtering."
+    },
+    "C": {
+      "title": "C — Truck",
+      "description": "Truck driving license category. Includes questions specific to trucks as well as general traffic rules common to all categories."
+    },
+    "C1": {
+      "title": "C1 — Light truck",
+      "description": "Light truck (up to 3.5 tonnes) driving license category. Includes questions specific to this vehicle type as well as general traffic rules common to all categories."
+    },
+    "D": {
+      "title": "D — Bus",
+      "description": "Bus driving license category. Includes questions specific to buses as well as general traffic rules common to all categories."
+    },
+    "D1": {
+      "title": "D1 — Minibus",
+      "description": "Minibus driving license category. Includes questions specific to minibuses/buses as well as general traffic rules common to all categories."
+    },
+    "T_S": {
+      "title": "T, S — Tractor",
+      "description": "Tractor and self-propelled agricultural machinery driving license category. Includes the relevant specific questions as well as general traffic rules common to all categories."
+    },
+    "TRAM": {
+      "title": "TRAM — Tram",
+      "description": "Tram driving license category. Includes questions specific to trams as well as general traffic rules common to all categories."
+    },
+    "MTL": {
+      "title": "MTL — Military",
+      "description": "Military vehicle driving category. No questions specific to this category were found in the current database, so the page shows the general traffic rules common to all categories."
+    }
+  },
+  "ru": {
+    "AM": {
+      "title": "AM — Мопед",
+      "description": "Категория водительских прав на мопед. Включает вопросы, специфичные для мопедов, а также общие правила дорожного движения для всех категорий."
+    },
+    "A_A1": {
+      "title": "A, A1 — Мотоцикл",
+      "description": "Категория водительских прав на мотоцикл. Включает вопросы, специфичные для мотоциклов, а также общие правила дорожного движения для всех категорий."
+    },
+    "B_B1": {
+      "title": "B, B1 — Легковой автомобиль",
+      "description": "Базовая категория водительских прав на легковой автомобиль. Включает полный, оригинальный набор вопросов (921 вопрос) — в точности как в источнике, без какой-либо фильтрации."
+    },
+    "C": {
+      "title": "C — Грузовой автомобиль",
+      "description": "Категория водительских прав на грузовой автомобиль. Включает вопросы, специфичные для грузового транспорта, а также общие правила дорожного движения для всех категорий."
+    },
+    "C1": {
+      "title": "C1 — Лёгкий грузовой автомобиль",
+      "description": "Категория водительских прав на лёгкий грузовой автомобиль (до 3,5 тонн). Включает вопросы, специфичные для этого вида транспорта, а также общие правила дорожного движения для всех категорий."
+    },
+    "D": {
+      "title": "D — Автобус",
+      "description": "Категория водительских прав на автобус. Включает вопросы, специфичные для автобусов, а также общие правила дорожного движения для всех категорий."
+    },
+    "D1": {
+      "title": "D1 — Микроавтобус",
+      "description": "Категория водительских прав на микроавтобус. Включает вопросы, специфичные для микроавтобусов/автобусов, а также общие правила дорожного движения для всех категорий."
+    },
+    "T_S": {
+      "title": "T, S — Трактор",
+      "description": "Категория водительских прав на трактор и самоходную сельскохозяйственную технику. Включает соответствующие специфичные вопросы, а также общие правила дорожного движения для всех категорий."
+    },
+    "TRAM": {
+      "title": "TRAM — Трамвай",
+      "description": "Категория водительских прав на трамвай. Включает вопросы, специфичные для трамваев, а также общие правила дорожного движения для всех категорий."
+    },
+    "MTL": {
+      "title": "MTL — Военный",
+      "description": "Категория управления военными автомобилями. В текущей базе данных не найдено вопросов, специфичных для этой категории, поэтому страница показывает общие правила дорожного движения для всех категорий."
+    }
+  },
+  "tr": {
+    "AM": {
+      "title": "AM — Moped",
+      "description": "Moped sürücü belgesi kategorisi. Mopedlere özgü sorular ile tüm kategoriler için ortak trafik kurallarını içerir."
+    },
+    "A_A1": {
+      "title": "A, A1 — Motosiklet",
+      "description": "Motosiklet sürücü belgesi kategorisi. Motosikletlere özgü sorular ile tüm kategoriler için ortak trafik kurallarını içerir."
+    },
+    "B_B1": {
+      "title": "B, B1 — Binek otomobil",
+      "description": "Binek otomobil sürücü belgesinin temel kategorisi. Herhangi bir filtreleme yapılmadan, kaynaktaki haliyle tam soru setini (921 soru) içerir."
+    },
+    "C": {
+      "title": "C — Kamyon",
+      "description": "Kamyon sürücü belgesi kategorisi. Kamyon taşımacılığına özgü sorular ile tüm kategoriler için ortak trafik kurallarını içerir."
+    },
+    "C1": {
+      "title": "C1 — Hafif kamyon",
+      "description": "Hafif kamyon (3,5 tona kadar) sürücü belgesi kategorisi. Bu araç türüne özgü sorular ile tüm kategoriler için ortak trafik kurallarını içerir."
+    },
+    "D": {
+      "title": "D — Otobüs",
+      "description": "Otobüs sürücü belgesi kategorisi. Otobüslere özgü sorular ile tüm kategoriler için ortak trafik kurallarını içerir."
+    },
+    "D1": {
+      "title": "D1 — Minibüs",
+      "description": "Minibüs sürücü belgesi kategorisi. Minibüs/otobüse özgü sorular ile tüm kategoriler için ortak trafik kurallarını içerir."
+    },
+    "T_S": {
+      "title": "T, S — Traktör",
+      "description": "Traktör ve kendi yürür tarım makineleri sürücü belgesi kategorisi. İlgili özel sorular ile tüm kategoriler için ortak trafik kurallarını içerir."
+    },
+    "TRAM": {
+      "title": "TRAM — Tramvay",
+      "description": "Tramvay sürücü belgesi kategorisi. Tramvaylara özgü sorular ile tüm kategoriler için ortak trafik kurallarını içerir."
+    },
+    "MTL": {
+      "title": "MTL — Askeri",
+      "description": "Askeri araç kullanma kategorisi. Mevcut veritabanında bu kategoriye özgü sorular bulunamadığından, sayfa tüm kategoriler için ortak trafik kurallarını gösterir."
+    }
+  },
+  "az": {
+    "AM": {
+      "title": "AM — Moped",
+      "description": "Moped sürücülük vəsiqəsi kateqoriyası. Mopedlərlə bağlı spesifik sualları və bütün kateqoriyalar üçün ümumi yol hərəkəti qaydalarını əhatə edir."
+    },
+    "A_A1": {
+      "title": "A, A1 — Motosiklet",
+      "description": "Motosiklet sürücülük vəsiqəsi kateqoriyası. Motosikletlərlə bağlı spesifik sualları və bütün kateqoriyalar üçün ümumi yol hərəkəti qaydalarını əhatə edir."
+    },
+    "B_B1": {
+      "title": "B, B1 — Minik avtomobil",
+      "description": "Minik avtomobil sürücülük vəsiqəsinin əsas kateqoriyası. Heç bir süzgəcdən keçirilmədən, mənbədə olduğu kimi tam, orijinal sual dəstini (921 sual) əhatə edir."
+    },
+    "C": {
+      "title": "C — Yük maşını",
+      "description": "Yük maşını sürücülük vəsiqəsi kateqoriyası. Yük nəqliyyatı ilə bağlı spesifik sualları və bütün kateqoriyalar üçün ümumi yol hərəkəti qaydalarını əhatə edir."
+    },
+    "C1": {
+      "title": "C1 — Yüngül yük maşını",
+      "description": "Yüngül yük maşını (3,5 tona qədər) sürücülük vəsiqəsi kateqoriyası. Bu nəqliyyat növü ilə bağlı spesifik sualları və bütün kateqoriyalar üçün ümumi yol hərəkəti qaydalarını əhatə edir."
+    },
+    "D": {
+      "title": "D — Avtobus",
+      "description": "Avtobus sürücülük vəsiqəsi kateqoriyası. Avtobuslarla bağlı spesifik sualları və bütün kateqoriyalar üçün ümumi yol hərəkəti qaydalarını əhatə edir."
+    },
+    "D1": {
+      "title": "D1 — Mikroavtobus",
+      "description": "Mikroavtobus sürücülük vəsiqəsi kateqoriyası. Mikroavtobus/avtobusla bağlı spesifik sualları və bütün kateqoriyalar üçün ümumi yol hərəkəti qaydalarını əhatə edir."
+    },
+    "T_S": {
+      "title": "T, S — Traktor",
+      "description": "Traktor və özüyeriyən kənd təsərrüfatı texnikası sürücülük vəsiqəsi kateqoriyası. Müvafiq spesifik sualları və bütün kateqoriyalar üçün ümumi yol hərəkəti qaydalarını əhatə edir."
+    },
+    "TRAM": {
+      "title": "TRAM — Tramvay",
+      "description": "Tramvay sürücülük vəsiqəsi kateqoriyası. Tramvaylarla bağlı spesifik sualları və bütün kateqoriyalar üçün ümumi yol hərəkəti qaydalarını əhatə edir."
+    },
+    "MTL": {
+      "title": "MTL — Hərbi",
+      "description": "Hərbi nəqliyyat vasitələrinin idarə edilməsi kateqoriyası. Cari məlumat bazasında bu kateqoriya üçün spesifik suallar tapılmadığından, səhifə bütün kateqoriyalar üçün ümumi yol hərəkəti qaydalarını göstərir."
+    }
+  }
+}

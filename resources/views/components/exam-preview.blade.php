@@ -1,8 +1,16 @@
 @props([
-    'eyebrow' => 'სცადე ახლავე',
-    'title' => 'გამოცდის სიმულატორი',
-    'desc' => 'ივარჯიშე რეალურ საგამოცდო ბილეთებზე, ისეთივე დროის ლიმიტითა და ფორმატით, როგორიც სააგენტოშია — სანამ ნამდვილ გამოცდაზე მიხვალ.',
+    'eyebrow' => null,
+    'title' => null,
+    'desc' => null,
 ])
+
+@php
+    $eyebrow = $eyebrow ?? __('messages.exam_preview.eyebrow');
+    $title = $title ?? __('messages.exam_preview.title');
+    $desc = $desc ?? __('messages.exam_preview.desc');
+    $points = __('messages.exam_preview.points');
+    $device = __('messages.exam_preview.device');
+@endphp
 
 <section class="ast-exam" id="exam-preview">
     <div class="ast-exam__inner">
@@ -12,13 +20,13 @@
             <p class="ast-exam__desc">{{ $desc }}</p>
 
             <ul class="ast-exam__points">
-                <li><i class="ti ti-check" aria-hidden="true"></i>500+ რეალური საგამოცდო ბილეთი</li>
-                <li><i class="ti ti-check" aria-hidden="true"></i>დროის ნამდვილი ლიმიტი</li>
-                <li><i class="ti ti-check" aria-hidden="true"></i>დეტალური განმარტება არასწორ პასუხებზე</li>
+                @foreach ($points as $point)
+                    <li><i class="ti ti-check" aria-hidden="true"></i>{{ $point }}</li>
+                @endforeach
             </ul>
 
             <a href="{{ route('exam.index') }}" class="ast-exam__cta">
-                სცადე უფასოდ
+                {{ __('messages.exam_preview.cta') }}
                 <i class="ti ti-arrow-right" aria-hidden="true"></i>
             </a>
         </div>
@@ -26,7 +34,7 @@
         <div class="ast-exam__preview">
             <div class="ast-exam__device">
                 <div class="ast-exam__device-top">
-                    <span class="ast-exam__progress-label">კითხვა 7 / 30</span>
+                    <span class="ast-exam__progress-label">{{ $device['question_progress'] }}</span>
                     <span class="ast-exam__timer"><i class="ti ti-clock" aria-hidden="true"></i> 00:42</span>
                 </div>
 
@@ -37,30 +45,30 @@
                 <div class="ast-exam__sign"><i class="ti ti-octagon" aria-hidden="true"></i></div>
 
                 <p class="ast-exam__question">
-                    რომელ შემთხვევაში გაქვს გასწრების უფლება ორმხრივი მოძრაობის გზაზე?
+                    {{ $device['sample_question'] }}
                 </p>
 
                 <div class="ast-exam__options">
                     <div class="ast-exam__option">
                         <span class="ast-exam__option-letter">A</span>
-                        <span class="ast-exam__option-text">ნებისმიერ მონაკვეთზე, თუ გზა თავისუფალია</span>
+                        <span class="ast-exam__option-text">{{ $device['options'][0] }}</span>
                     </div>
 
                     <div class="ast-exam__option is-wrong">
                         <span class="ast-exam__option-letter">B</span>
-                        <span class="ast-exam__option-text">გადასასვლელთან, თუ ჩქარობ</span>
+                        <span class="ast-exam__option-text">{{ $device['options'][1] }}</span>
                         <i class="ti ti-x" aria-hidden="true"></i>
                     </div>
 
                     <div class="ast-exam__option is-correct">
                         <span class="ast-exam__option-letter">C</span>
-                        <span class="ast-exam__option-text">როცა საკმარისი ხილვადობა და თავისუფალი ზოლია</span>
+                        <span class="ast-exam__option-text">{{ $device['options'][2] }}</span>
                         <i class="ti ti-check" aria-hidden="true"></i>
                     </div>
 
                     <div class="ast-exam__option">
                         <span class="ast-exam__option-letter">D</span>
-                        <span class="ast-exam__option-text">მხოლოდ მოსახვევში</span>
+                        <span class="ast-exam__option-text">{{ $device['options'][3] }}</span>
                     </div>
                 </div>
 

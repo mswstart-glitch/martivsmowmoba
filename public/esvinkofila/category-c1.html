@@ -17,23 +17,23 @@
  <div class="app">
 
   <div class="catHero" id="catHero">
-   <a class="backLink" href="categories.html">‹ კატეგორიების სია</a>
+   <a class="backLink" href="categories.html">‹ <span data-i18n="category_list_short">კატეგორიების სია</span></a>
    <h1 id="catTitle">C1 — მსუბუქი სატვირთო</h1>
    <p id="catDesc">მსუბუქი სატვირთო ავტომობილის (3,5 ტონამდე) მართვის მოწმობის კატეგორია. მოიცავს ამ სახეობასთან დაკავშირებულ სპეციფიკურ კითხვებს და ყველა კატეგორიისთვის საერთო საგზაო წესებს.</p>
-   <div class="catMeta"><span id="catCount">იტვირთება…</span></div>
+   <div class="catMeta"><span id="catCount" data-i18n="loading">იტვირთება…</span></div>
   </div>
 
   <div class="emptyState" id="emptyState" style="display:none">
    <h2></h2>
    <p></p>
-   <a href="categories.html">კატეგორიების სიაში დაბრუნება</a>
+   <a href="categories.html" data-i18n="back_to_categories">კატეგორიების სიაში დაბრუნება</a>
   </div>
 
   <div id="mainCard">
    <div class="top">
     <div class="panel logo">
      <div class="mark">D</div>
-     <div><b>Drivelab.ge</b><span>C1 — მსუბუქი სატვირთო — სავარჯიშო რეჟიმი</span></div>
+     <div><b>Drivelab.ge</b><span id="catSubtitle">C1 — მსუბუქი სატვირთო — სავარჯიშო რეჟიმი</span></div>
     </div>
     <div class="panel">
      <div class="timerRow">
@@ -46,18 +46,18 @@
      <div class="stats">
       <div>
        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="color:var(--good)"><path d="M20 6 9 17l-5-5"></path></svg>
-       სწორი <b class="good" id="rightCount">0</b>
+       <span data-i18n="correct_label">სწორი</span> <b class="good" id="rightCount">0</b>
       </div>
       <div>
        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="color:var(--bad)"><path d="M18 6 6 18M6 6l12 12"></path></svg>
-       არასწორი <b class="bad" id="wrongCount">0</b>
+       <span data-i18n="wrong_label">არასწორი</span> <b class="bad" id="wrongCount">0</b>
       </div>
      </div>
     </div>
    </div>
    <div class="card">
     <div class="media" id="media"><img id="mainMedia" src="" decoding="async" fetchpriority="high"><div class="qOverlay" id="qOverlay"></div><div class="zone" id="zone"></div></div>
-    <div class="content" id="content"><div id="questionSlot"></div><div class="answers" id="answers"></div><button class="next" onclick="nextQuestion()"><span>შემდეგი კითხვა</span><span aria-hidden="true">›</span></button></div>
+    <div class="content" id="content"><div id="questionSlot"></div><div class="answers" id="answers"></div><button class="next" onclick="nextQuestion()"><span data-i18n="next_question">შემდეგი კითხვა</span><span aria-hidden="true">›</span></button></div>
    </div>
   </div>
 
@@ -69,18 +69,19 @@
  </div>
  <h2 id="resultTitle"></h2>
  <p id="resultText"></p>
- <button onclick="location.reload()">თავიდან ცდა</button>
- <a class="backBtn" href="categories.html">‹ კატეგორიების სია</a>
+ <button onclick="location.reload()" data-i18n="retry">თავიდან ცდა</button>
+ <a class="backBtn" href="categories.html">‹ <span data-i18n="category_list_short">კატეგორიების სია</span></a>
 </div></div>
 <div class="modal" id="explainModal"><div class="box explainBox">
- <button class="explainClose" id="explainClose" aria-label="დახურვა" type="button">✕</button>
+ <button class="explainClose" id="explainClose" aria-label="დახურვა" data-i18n-attr="aria-label:close" type="button">✕</button>
  <div class="explainIcon">!</div>
- <h3>რატომ არის არასწორი?</h3>
+ <h3 data-i18n="why_wrong">რატომ არის არასწორი?</h3>
  <p id="explainText"></p>
- <button class="explainContinue" id="explainContinue" type="button">გაგრძელება</button>
+ <button class="explainContinue" id="explainContinue" type="button" data-i18n="continue_label">გაგრძელება</button>
 </div></div>
 
 <script>window.CATEGORY_ID='C1';</script>
+<script src="js/i18n.js"></script>
 <script src="js/category-filter.js"></script>
 <script src="js/category-engine.js"></script>
 </body>

@@ -1,8 +1,15 @@
 @props([
-    'eyebrow' => 'სიახლეები',
-    'title' => 'რა ხდება Autoschool Start-ში',
-    'desc' => 'ბოლო განახლებები ბილეთებზე, კატეგორიებსა და აქციებზე — რომ ყოველთვის ინფორმირებული იყო.',
+    'eyebrow' => null,
+    'title' => null,
+    'desc' => null,
 ])
+
+@php
+    $eyebrow = $eyebrow ?? __('messages.news.eyebrow');
+    $title = $title ?? __('messages.news.title');
+    $desc = $desc ?? __('messages.news.desc');
+    $items = __('messages.news.items');
+@endphp
 
 <section class="ast-news" id="news">
     <div class="ast-news__aurora ast-news__aurora--a" aria-hidden="true"></div>
@@ -17,30 +24,30 @@
 
         <div class="ast-news__grid">
             <a href="{{ route('exam.index') }}" class="ast-news__card ast-news__card--feature">
-                <span class="ast-news__tag ast-news__tag--new"><i class="ti ti-sparkles" aria-hidden="true"></i> ახალი</span>
+                <span class="ast-news__tag ast-news__tag--new"><i class="ti ti-sparkles" aria-hidden="true"></i> {{ __('messages.news.new_badge') }}</span>
                 <div class="ast-news__icon ast-news__icon--feature"><i class="ti ti-category-2" aria-hidden="true"></i></div>
-                <span class="ast-news__date">05 ივლისი, 2026</span>
-                <h3 class="ast-news__card-title">დაემატა 9 ცალკე კატეგორიის სავარჯიშო</h3>
-                <p class="ast-news__card-text">AM, A/A1, B/B1, C, C1, D, D1, T/S და ტრამვაის კატეგორიებისთვის უკვე ხელმისაწვდომია ცალკე, კატეგორიაზე მორგებული ბილეთების ბაზა — ივარჯიშე ზუსტად შენი კატეგორიით.</p>
-                <span class="ast-news__link">გახსენი სავარჯიშო <i class="ti ti-arrow-right" aria-hidden="true"></i></span>
+                <span class="ast-news__date">{{ $items[0]['date'] }}</span>
+                <h3 class="ast-news__card-title">{{ $items[0]['title'] }}</h3>
+                <p class="ast-news__card-text">{{ $items[0]['text'] }}</p>
+                <span class="ast-news__link">{{ __('messages.news.open_practice') }} <i class="ti ti-arrow-right" aria-hidden="true"></i></span>
             </a>
 
             <div class="ast-news__side">
                 <a href="#tickets" class="ast-news__card">
                     <div class="ast-news__icon"><i class="ti ti-refresh" aria-hidden="true"></i></div>
                     <div class="ast-news__card-body">
-                        <span class="ast-news__date">28 ივნისი, 2026</span>
-                        <h3 class="ast-news__card-title">ბილეთების ბაზა განახლდა</h3>
-                        <p class="ast-news__card-text">ყველა კითხვა და პასუხი გადამოწმებულია უახლეს საგამოცდო სტანდარტთან.</p>
+                        <span class="ast-news__date">{{ $items[1]['date'] }}</span>
+                        <h3 class="ast-news__card-title">{{ $items[1]['title'] }}</h3>
+                        <p class="ast-news__card-text">{{ $items[1]['text'] }}</p>
                     </div>
                 </a>
 
                 <a href="{{ route('booking') }}" class="ast-news__card">
                     <div class="ast-news__icon ast-news__icon--accent"><i class="ti ti-discount-2" aria-hidden="true"></i></div>
                     <div class="ast-news__card-body">
-                        <span class="ast-news__date">15 ივნისი, 2026</span>
-                        <h3 class="ast-news__card-title">ფასდაკლება ჯგუფური რეგისტრაციისას</h3>
-                        <p class="ast-news__card-text">დარეგისტრირდი მეგობართან ერთად და ორივემ დაზოგე კურსის ღირებულებაზე.</p>
+                        <span class="ast-news__date">{{ $items[2]['date'] }}</span>
+                        <h3 class="ast-news__card-title">{{ $items[2]['title'] }}</h3>
+                        <p class="ast-news__card-text">{{ $items[2]['text'] }}</p>
                     </div>
                 </a>
             </div>

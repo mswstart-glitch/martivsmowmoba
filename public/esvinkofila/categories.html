@@ -17,11 +17,11 @@
  <div class="app">
 
   <div class="hubIntro">
-   <h1>მართვის მოწმობის კატეგორიები</h1>
-   <p>აირჩიეთ თქვენი კატეგორია და ივარჯიშეთ მხოლოდ მისთვის შერჩეულ კითხვებზე. თითოეული გვერდი იყენებს იმავე კითხვებსა და სურათებს, რაც ძირითად ტესტშია — მხოლოდ გაფილტრულია კატეგორიის მიხედვით.</p>
+   <h1 data-i18n="categories_hub_title">მართვის მოწმობის კატეგორიები</h1>
+   <p data-i18n="categories_hub_intro">აირჩიეთ თქვენი კატეგორია და ივარჯიშეთ მხოლოდ მისთვის შერჩეულ კითხვებზე. თითოეული გვერდი იყენებს იმავე კითხვებსა და სურათებს, რაც ძირითად ტესტშია — მხოლოდ გაფილტრულია კატეგორიის მიხედვით.</p>
    <div class="mainLinks">
-    <a href="index.html">‹ ძირითადი გამოცდის რეჟიმი</a>
-    <a href="test.html">‹ სატესტო რეჟიმი</a>
+    <a href="index.html">‹ <span data-i18n="main_exam_link">ძირითადი გამოცდის რეჟიმი</span></a>
+    <a href="test.html">‹ <span data-i18n="main_test_link">სატესტო რეჟიმი</span></a>
    </div>
   </div>
 
@@ -30,18 +30,21 @@
  </div>
 </div>
 
+<script src="js/i18n.js"></script>
 <script src="js/category-filter.js"></script>
 <script>
 Promise.all([
   fetch('data/questions.json?v=' + Date.now()).then(r => r.json()),
-  fetch('data/categories.json?v=' + Date.now()).then(r => r.json())
-]).then(([allQuestions, categoriesData]) => {
+  fetch('data/categories.json?v=' + Date.now()).then(r => r.json()),
+  window.DrivelabI18n.loadTranslationData()
+]).then(([allQuestions, categoriesData, i18nData]) => {
   const grid = document.getElementById('catGrid');
   categoriesData.categories.forEach(cat => {
     if (cat.id === 'MTL') return; // hidden from main UI, data kept intact
     const result = CategoryFilter.getCategoryQuestions(allQuestions, cat.id, categoriesData);
     const specificCount = result.specific.length;
     const poolCount = result.pool.length;
+    const displayCat = window.DrivelabI18n.translateCategory(cat, i18nData.categories);
 
     const a = document.createElement('a');
     a.className = 'catCard';
@@ -53,23 +56,24 @@ Promise.all([
     a.appendChild(code);
 
     const h3 = document.createElement('h3');
-    h3.textContent = cat.title;
+    h3.textContent = displayCat.title;
     a.appendChild(h3);
 
     const p = document.createElement('p');
-    p.textContent = cat.description;
+    p.textContent = displayCat.description;
     a.appendChild(p);
 
     const count = document.createElement('span');
     count.className = 'catCount' + (specificCount === 0 ? ' warn' : '');
-    count.textContent = specificCount + ' სპეციფიკური კითხვა' + (poolCount > specificCount ? ' (+' + (poolCount - specificCount) + ' ზოგადი)' : '');
+    count.textContent = window.DrivelabI18n.t('hub_specific_count').replace('%d', specificCount)
+      + (poolCount > specificCount ? window.DrivelabI18n.t('hub_generic_suffix').replace('%d', poolCount - specificCount) : '');
     a.appendChild(count);
 
     grid.appendChild(a);
   });
 }).catch(err => {
   console.error(err);
-  document.getElementById('catGrid').textContent = 'კატეგორიების ჩატვირთვა ვერ მოხერხდა.';
+  document.getElementById('catGrid').textContent = window.DrivelabI18n.t('hub_load_error');
 });
 </script>
 </body>

@@ -8,9 +8,10 @@
 
    Requires, in this order, before this script on the page:
      <script>window.CATEGORY_ID = 'AM';</script>
+     <script src="js/i18n.js"></script>
      <script src="js/category-filter.js"></script>
    and these elements to exist in the DOM (see category-am.html etc.):
-     #catTitle #catDesc #catCount #catHero #mainCard #emptyState
+     #catTitle #catDesc #catSubtitle #catCount #catHero #mainCard #emptyState
      #media #mainMedia #qOverlay #zone #questionSlot #answers #content
      #progress #timer #rightCount #wrongCount
      #resultModal #resultTitle #resultText
@@ -25,7 +26,7 @@ function asset(p) { return p ? p.replace(/^\/+/, '') : ''; }
 function shuffle(a) { a = [...a]; for (let i = a.length - 1; i > 0; i--) { let j = Math.floor(Math.random() * (i + 1));[a[i], a[j]] = [a[j], a[i]]; } return a; }
 function isSignTopic(q) {
   const id = Number(q.topic_id);
-  const txt = ((q.topic_name || '') + ' ' + (q.question || '')).toLowerCase();
+  const txt = ((q._origTopicName || q.topic_name || '') + ' ' + (q._origQuestion || q.question || '')).toLowerCase();
   return (id >= 3 && id <= 9)
     || txt.includes('საგზაო ნიშ')
     || txt.includes('ნიშანი')
@@ -56,28 +57,35 @@ let WIDE_ZONE_IMAGES = new Set();
 Promise.all([
   fetch('data/questions.json?v=' + Date.now()).then(r => r.json()),
   fetch('data/categories.json?v=' + Date.now()).then(r => r.json()),
-  fetch('data/image_zones.json?v=' + Date.now()).then(r => r.json()).catch(() => ({ wide: [] }))
-]).then(([allQuestions, categoriesData, zones]) => {
+  fetch('data/image_zones.json?v=' + Date.now()).then(r => r.json()).catch(() => ({ wide: [] })),
+  window.DrivelabI18n.loadTranslationData()
+]).then(([allQuestions, categoriesData, zones, i18nData]) => {
   questions = allQuestions;
   WIDE_ZONE_IMAGES = new Set((zones && zones.wide) || []);
 
   const catId = window.CATEGORY_ID;
+  // Filtering runs on the raw Georgian data (category-filter.js keyword
+  // matching is Georgian-only), *before* any translation is applied.
   const result = CategoryFilter.getCategoryQuestions(allQuestions, catId, categoriesData);
   const category = result.category;
 
   if (!category) {
-    showEmpty('კატეგორია ვერ მოიძებნა.', '');
+    showEmpty(window.DrivelabI18n.t('category_not_found'), '');
     return;
   }
 
-  $('catTitle').textContent = category.title;
-  $('catDesc').textContent = category.description;
+  const displayCategory = window.DrivelabI18n.translateCategory(category, i18nData.categories);
+  $('catTitle').textContent = displayCategory.title;
+  $('catDesc').textContent = displayCategory.description;
+  const subtitleEl = $('catSubtitle');
+  if (subtitleEl) subtitleEl.textContent = displayCategory.title + ' — ' + window.DrivelabI18n.t('practice_mode');
+  document.title = displayCategory.title + ' — Drivelab.ge';
 
   const specificCount = result.specific.length;
   const poolCount = result.pool.length;
-  let countLabel = specificCount + ' სპეციფიკური კითხვა ბაზაში';
+  let countLabel = window.DrivelabI18n.t('specific_count_label').replace('%d', specificCount);
   if (poolCount > specificCount) {
-    countLabel += ' + ' + (poolCount - specificCount) + ' ზოგადი საგზაო წესი (სავარჯიშოს შესავსებად)';
+    countLabel += window.DrivelabI18n.t('generic_filler_label').replace('%d', poolCount - specificCount);
   }
   $('catCount').textContent = countLabel;
   if (specificCount === 0) {
@@ -86,22 +94,23 @@ Promise.all([
 
   if (poolCount === 0) {
     showEmpty(
-      'ამ კატეგორიისთვის კითხვები ვერ მოიძებნა',
-      'ამჟამინდელ მონაცემთა ბაზაში (' + questions.length + ' კითხვა, B/B1 ბილეთების ბაზაზე დაფუძნებული) ამ კატეგორიისთვის სპეციფიკური ან ზოგადი კითხვები ვერ დაფიქსირდა.'
+      window.DrivelabI18n.t('no_category_questions_title'),
+      window.DrivelabI18n.t('no_category_questions_text').replace('%d', questions.length)
     );
     return;
   }
 
   TOTAL = Math.min(30, poolCount);
   PASS_MAX_WRONG = Math.max(1, Math.round(TOTAL * 5 / 30));
-  examQuestions = shuffle(result.pool).slice(0, TOTAL);
+  const translatedPool = window.DrivelabI18n.translateQuestions(result.pool, i18nData.topics, i18nData.questions);
+  examQuestions = shuffle(translatedPool).slice(0, TOTAL);
 
   render();
   preloadExam();
   startTimer();
 }).catch(err => {
   console.error(err);
-  showEmpty('კითხვების ჩატვირთვა ვერ მოხერხდა', 'სცადეთ გვერდის განახლება.');
+  showEmpty(window.DrivelabI18n.t('load_error_title'), window.DrivelabI18n.t('load_error_text'));
 });
 
 function showEmpty(title, text) {
@@ -189,8 +198,8 @@ function startTimer() {
 function finish() {
   finished = true;
   const passed = wrong <= PASS_MAX_WRONG;
-  $('resultTitle').textContent = passed ? 'ჩააბარეთ' : 'ვერ ჩააბარეთ';
-  $('resultText').textContent = `სწორი: ${right}/${TOTAL}, არასწორი: ${wrong}.`;
+  $('resultTitle').textContent = passed ? window.DrivelabI18n.t('test_pass_title') : window.DrivelabI18n.t('test_fail_title');
+  $('resultText').textContent = `${window.DrivelabI18n.t('correct_label')}: ${right}/${TOTAL}, ${window.DrivelabI18n.t('wrong_label')}: ${wrong}.`;
   $('resultModal').classList.add('show');
 }
 
@@ -202,10 +211,9 @@ function finish() {
   var explainClose = document.getElementById('explainClose');
   var explainContinue = document.getElementById('explainContinue');
   var answersEl = document.getElementById('answers');
-  var FALLBACK = 'ეს პასუხი არასწორია. სცადეთ დაიმახსოვროთ სწორი წესი შემდეგი კითხვისთვის.';
 
   function openExplain(text) {
-    explainText.textContent = text || FALLBACK;
+    explainText.textContent = text || window.DrivelabI18n.t('explain_fallback');
     explainModal.classList.add('show');
     document.addEventListener('keydown', onKeydown);
   }

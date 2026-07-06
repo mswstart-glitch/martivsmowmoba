@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ka">
+<html lang="{{ app()->getLocale() }}">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>სასწავლო მასალები</title>
+<title>{{ __('messages.materials.page_title') }}</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;700&display=swap" rel="stylesheet">
@@ -71,7 +71,7 @@ display:block;
 <body>
 
 <div class="header">
-📘 სასწავლო მასალები
+📘 {{ __('messages.materials.header') }}
 </div>
 
 <div class="wrap">
@@ -81,15 +81,15 @@ display:block;
 <div class="top">
 
 <div>
-<h2>თეორიის სრული წიგნი</h2>
-<p>სრული PDF სასწავლო მასალა.</p>
+<h2>{{ __('messages.materials.book_title') }}</h2>
+<p>{{ __('messages.materials.book_desc') }}</p>
 </div>
 
 <a
 class="btn"
 href="{{ asset('autoschool-material.pdf') }}"
 download>
-გადმოწერა
+{{ __('messages.materials.download') }}
 </a>
 
 </div>
