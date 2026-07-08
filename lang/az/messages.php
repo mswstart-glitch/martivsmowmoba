@@ -20,16 +20,23 @@ return [
         'booking_cta' => 'Qeydiyyat',
     ],
 
+    'footer' => [
+        'tagline' => '2012-ci ildən nəzəri və praktiki sürücülük təhsili.',
+        'links_title' => 'Sürətli Keçidlər',
+        'rights' => 'Bütün hüquqlar qorunur.',
+    ],
+
     'hero' => [
-        'brand' => 'Start Sürücülük Məktəbi',
+        'brand' => 'DriveLab.ge',
         'eyebrow' => '2012-Cİ İLDƏN · SÜRÜCÜLÜK AKADEMİYASI',
-        'title' => 'Sükan Sənin Əlindədir',
-        'subtitle' => '2012-ci ildən bəri davam edən nəzəri və praktiki proqram. Web, iOS və Android tətbiqlərində məşq et — real imtahan biletləri və simulyasiya ilə.',
-        'years' => '13 illik təcrübə',
+        'title' => 'Sürüş Səndən Başlayır',
+        'subtitle' => 'Yeni nəsil rəqəmsal sürücülük məktəbi — nəzəriyyə, praktika və real imtahan simulyasiyası bir məkanda.',
+        'card_license' => 'SÜRÜCÜLÜK VƏSİQƏSİ',
+        'years' => 'Sürücülük vəsiqən burada',
         'start_small' => 'Başla',
         'view_small' => 'Bax',
         'register' => 'Qeydiyyat',
-        'login' => 'Daxil ol',
+        'login' => 'Avtorizasiya',
         'exam_plate' => 'İmtahan',
         'tests_plate' => 'Testlər',
     ],
@@ -177,12 +184,61 @@ return [
         ],
     ],
 
+    'friend_challenge' => [
+        'eyebrow' => 'Çağırış Rejimi',
+        'title' => 'Dostunu Çağır',
+        'subtitle' => 'Dostuna link göndər və eyni 30 sualda yarışın.',
+        'desc' => 'Hər ikiniz tamamilə eyni imtahanı verirsiniz. Sonda nəticə xal və vaxta görə müqayisə olunur.',
+        'cta' => 'Çağırışı Başlat',
+        'you' => 'Sən',
+        'friend' => 'Dost',
+        'chips' => [
+            'questions' => '30 Sual',
+            'time' => 'Vaxt',
+            'compare' => 'Nəticələrin Müqayisəsi',
+        ],
+    ],
+
+    'challenge' => [
+        'code_label' => 'Çağırış Kodu',
+        'share_hint' => 'Bu linki dostuna göndər:',
+        'copy_link' => 'Linki Kopyala',
+        'link_copied' => 'Link kopyalandı',
+        'progress_label' => 'Cavablanmış',
+        'waiting_for_friend' => 'Sən bitirdin! Dostunun eyni çağırışı bitirməsi gözlənilir...',
+        'your_result' => 'Sənin nəticən',
+        'score_label' => 'Xal',
+        'time_label' => 'Vaxt',
+        'seconds_suffix' => 'san',
+        'you' => 'Sən',
+        'friend' => 'Dost',
+        'winner_you' => 'Sən qazandın!',
+        'winner_opponent' => 'Dostun qazandı!',
+        'draw' => 'Heç-heçə!',
+        'not_found' => 'Çağırış tapılmadı və ya vaxtı bitib.',
+        'invite_title' => 'Dost səni çağırışa dəvət etdi',
+        'invite_desc' => 'Eyni 30 sualı həll et və gör kim imtahanı keçəcək və kim daha sürətli olacaq.',
+        'start_button' => 'İmtahana başla',
+        'results_title' => 'Nəticələr',
+        'no_results_yet' => 'Hələ heç kim çağırışı bitirməyib. Birinci ol!',
+        'single_result_mine_title' => 'Sənin nəticən yadda saxlanıldı.',
+        'single_result_mine_desc' => 'Linki dostuna göndər və onun nəticəsini gözlə.',
+        'single_result_theirs_title' => 'Dostun artıq çağırışı bitirib.',
+        'single_result_theirs_desc' => 'Növbə səndədir — imtahana başla və kimin qazandığını gör!',
+        'leaderboard_participant' => 'İştirakçı',
+        'view_full_results' => 'Bütün nəticələr səhifəsi',
+        'passed' => 'Keçdi',
+        'failed' => 'Keçmədi',
+        'wrong_label' => 'Səhv',
+    ],
+
     'news' => [
         'eyebrow' => 'Xəbərlər',
-        'title' => 'Autoschool Start-da Nə Baş Verir',
+        'title' => 'DriveLab.ge-da Nə Baş Verir',
         'desc' => 'Biletlər, kateqoriyalar və aksiyalar üzrə son yeniliklər — həmişə xəbərdar ol.',
         'new_badge' => 'Yeni',
         'open_practice' => 'Məşqi Aç',
+        'read_more' => 'Ətraflı oxu',
         'items' => [
             [
                 'date' => '5 iyul 2026',
@@ -203,7 +259,7 @@ return [
     ],
 
     'booking' => [
-        'page_title' => 'Qeydiyyat — Start Sürücülük Məktəbi',
+        'page_title' => 'Qeydiyyat — DriveLab.ge',
         'eyebrow' => 'Başlanğıc',
         'title' => 'Kursa Qeydiyyatdan Keç',
         'subtitle' => 'Formu doldur, qeydiyyatdan sonra avtomatik olaraq profilinə keçəcəksən.',
@@ -238,7 +294,7 @@ return [
     ],
 
     'login' => [
-        'page_title' => 'Daxil ol — Start Sürücülük Məktəbi',
+        'page_title' => 'Daxil ol — DriveLab.ge',
         'eyebrow' => 'Yenidən Xoş Gəldin',
         'title' => 'Daxil ol',
         'subtitle' => 'İrəliləyişini və statistikanı görmək üçün e-poçt və şifrəni daxil et.',
@@ -254,7 +310,7 @@ return [
     ],
 
     'analytics' => [
-        'page_title' => 'Statistikam — Sürücülük Məktəbi',
+        'page_title' => 'Statistikam — DriveLab.ge',
         'brand' => 'Statistikam',
         'home' => 'Ana səhifə',
         'logout' => 'Çıxış',
@@ -314,7 +370,7 @@ return [
     ],
 
     'student_dashboard' => [
-        'page_title' => 'Tələbə Paneli — Sürücülük Məktəbi',
+        'page_title' => 'Tələbə Paneli — DriveLab.ge',
         'brand' => 'Tələbə Paneli',
         'home' => 'Ana səhifə',
         'logout' => 'Çıxış',

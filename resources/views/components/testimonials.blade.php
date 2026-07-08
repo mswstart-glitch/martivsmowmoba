@@ -60,11 +60,17 @@
                 <p class="ast-reviews__text">{{ $review['quote'] }}</p>
 
                 <div class="ast-reviews__person">
-                    <span class="ast-reviews__avatar">{{ $review['initials'] }}</span>
+                    @if(!empty($review['photo']))
+                        <img src="{{ $review['photo'] }}" class="ast-reviews__avatar ast-reviews__avatar--photo" alt="">
+                    @else
+                        <span class="ast-reviews__avatar">{{ $review['initials'] }}</span>
+                    @endif
 
                     <div class="ast-reviews__person-info">
                         <span class="ast-reviews__name">{{ $review['name'] }}</span>
-                        <span class="ast-reviews__pkg">{{ $review['pkg'] }}</span>
+                        @if(!empty($review['pkg']))
+                            <span class="ast-reviews__pkg">{{ $review['pkg'] }}</span>
+                        @endif
                     </div>
                 </div>
             </article>
@@ -249,6 +255,10 @@
     font-weight:700;
     font-size:14px;
     box-shadow:0 8px 16px -8px rgba(21,95,201,0.5);
+}
+
+.ast-reviews__avatar--photo{
+    object-fit:cover;
 }
 
 .ast-reviews__person-info{

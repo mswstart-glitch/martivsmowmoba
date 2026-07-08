@@ -14,6 +14,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->web(append: [SetLocale::class]);
         $middleware->encryptCookies(except: ['site_locale']);
+        $middleware->redirectGuestsTo(fn ($request) => $request->is('admin*')
+            ? route('admin.login')
+            : route('login'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

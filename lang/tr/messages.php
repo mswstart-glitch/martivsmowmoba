@@ -20,16 +20,23 @@ return [
         'booking_cta' => 'Randevu Al',
     ],
 
+    'footer' => [
+        'tagline' => '2012\'den beri teorik ve pratik sürücü eğitimi.',
+        'links_title' => 'Hızlı Bağlantılar',
+        'rights' => 'Tüm hakları saklıdır.',
+    ],
+
     'hero' => [
-        'brand' => 'Start Sürücü Okulu',
+        'brand' => 'DriveLab.ge',
         'eyebrow' => 'KURULUŞ 2012 · SÜRÜCÜ AKADEMİSİ',
-        'title' => 'Direksiyon Sende',
-        'subtitle' => '2012\'den beri teori ve pratik programı. Web, iOS ve Android uygulamalarında pratik yap — gerçek sınav soruları ve simülasyonla.',
-        'years' => '13 yıllık deneyim',
+        'title' => 'Direksiyon Senden Başlar',
+        'subtitle' => 'Yeni nesil dijital sürücü okulu — teori, pratik ve gerçek sınav simülasyonu tek bir alanda.',
+        'card_license' => 'SÜRÜCÜ BELGESİ',
+        'years' => 'Sürücü belgen burada',
         'start_small' => 'Başla',
         'view_small' => 'Görüntüle',
         'register' => 'Kayıt Ol',
-        'login' => 'Giriş Yap',
+        'login' => 'Yetkilendirme',
         'exam_plate' => 'Sınav',
         'tests_plate' => 'Testler',
     ],
@@ -177,12 +184,61 @@ return [
         ],
     ],
 
+    'friend_challenge' => [
+        'eyebrow' => 'Meydan Okuma Modu',
+        'title' => 'Bir Arkadaşına Meydan Oku',
+        'subtitle' => 'Arkadaşına bir link gönder ve aynı 30 soruda yarışın.',
+        'desc' => 'İkiniz de tamamen aynı sınava girersiniz. Sonunda puan ve süre karşılaştırılır.',
+        'cta' => 'Meydan Okumayı Başlat',
+        'you' => 'Sen',
+        'friend' => 'Arkadaş',
+        'chips' => [
+            'questions' => '30 Soru',
+            'time' => 'Süre',
+            'compare' => 'Sonuç Karşılaştırma',
+        ],
+    ],
+
+    'challenge' => [
+        'code_label' => 'Meydan Okuma Kodu',
+        'share_hint' => 'Bu bağlantıyı bir arkadaşınla paylaş:',
+        'copy_link' => 'Bağlantıyı Kopyala',
+        'link_copied' => 'Bağlantı kopyalandı',
+        'progress_label' => 'Cevaplanan',
+        'waiting_for_friend' => 'Bitirdin! Arkadaşının aynı meydan okumayı bitirmesi bekleniyor...',
+        'your_result' => 'Sonucun',
+        'score_label' => 'Puan',
+        'time_label' => 'Süre',
+        'seconds_suffix' => 'sn',
+        'you' => 'Sen',
+        'friend' => 'Arkadaş',
+        'winner_you' => 'Kazandın!',
+        'winner_opponent' => 'Arkadaşın kazandı!',
+        'draw' => 'Berabere!',
+        'not_found' => 'Meydan okuma bulunamadı ya da süresi doldu.',
+        'invite_title' => 'Bir arkadaşın seni meydan okumaya davet etti',
+        'invite_desc' => 'Aynı 30 soruyu çöz ve kimin geçtiğini ve kimin daha hızlı olduğunu gör.',
+        'start_button' => 'Sınavı başlat',
+        'results_title' => 'Sonuçlar',
+        'no_results_yet' => 'Henüz kimse meydan okumayı tamamlamadı. İlk sen ol!',
+        'single_result_mine_title' => 'Sonucun kaydedildi.',
+        'single_result_mine_desc' => 'Bağlantıyı arkadaşına gönder ve sonucunu bekle.',
+        'single_result_theirs_title' => 'Arkadaşın meydan okumayı zaten tamamladı.',
+        'single_result_theirs_desc' => 'Sıra sende — sınavı başlat ve kimin kazandığını gör!',
+        'leaderboard_participant' => 'Katılımcı',
+        'view_full_results' => 'Tüm sonuçlar sayfası',
+        'passed' => 'Geçti',
+        'failed' => 'Geçemedi',
+        'wrong_label' => 'Yanlış',
+    ],
+
     'news' => [
         'eyebrow' => 'Haberler',
-        'title' => 'Autoschool Start\'ta Neler Oluyor',
+        'title' => 'DriveLab.ge\'ta Neler Oluyor',
         'desc' => 'Sorular, kategoriler ve kampanyalarla ilgili en son güncellemeler — her zaman haberdar ol.',
         'new_badge' => 'Yeni',
         'open_practice' => 'Pratiği Aç',
+        'read_more' => 'Devamını Oku',
         'items' => [
             [
                 'date' => '5 Temmuz 2026',
@@ -203,7 +259,7 @@ return [
     ],
 
     'booking' => [
-        'page_title' => 'Kayıt — Start Sürücü Okulu',
+        'page_title' => 'Kayıt — DriveLab.ge',
         'eyebrow' => 'Başla',
         'title' => 'Kursa Kayıt Ol',
         'subtitle' => 'Formu doldur, kayıttan sonra otomatik olarak profiline yönlendirileceksin.',
@@ -238,7 +294,7 @@ return [
     ],
 
     'login' => [
-        'page_title' => 'Giriş Yap — Start Sürücü Okulu',
+        'page_title' => 'Giriş Yap — DriveLab.ge',
         'eyebrow' => 'Tekrar Hoş Geldin',
         'title' => 'Giriş Yap',
         'subtitle' => 'İlerlemeni ve istatistiklerini görmek için e-posta ve şifreni gir.',
@@ -254,7 +310,7 @@ return [
     ],
 
     'analytics' => [
-        'page_title' => 'İstatistiklerim — Sürücü Okulu',
+        'page_title' => 'İstatistiklerim — DriveLab.ge',
         'brand' => 'İstatistiklerim',
         'home' => 'Ana Sayfa',
         'logout' => 'Çıkış Yap',
@@ -314,7 +370,7 @@ return [
     ],
 
     'student_dashboard' => [
-        'page_title' => 'Öğrenci Paneli — Sürücü Okulu',
+        'page_title' => 'Öğrenci Paneli — DriveLab.ge',
         'brand' => 'Öğrenci Paneli',
         'home' => 'Ana Sayfa',
         'logout' => 'Çıkış Yap',

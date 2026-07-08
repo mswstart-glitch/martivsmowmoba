@@ -2,13 +2,15 @@
     'eyebrow' => null,
     'title' => null,
     'desc' => null,
+    'newsItems' => null,
 ])
 
 @php
     $eyebrow = $eyebrow ?? __('messages.news.eyebrow');
     $title = $title ?? __('messages.news.title');
     $desc = $desc ?? __('messages.news.desc');
-    $items = __('messages.news.items');
+    $items = $newsItems ?? __('messages.news.items');
+    $isDynamic = $newsItems !== null;
 @endphp
 
 <section class="ast-news" id="news">
@@ -23,17 +25,17 @@
         </div>
 
         <div class="ast-news__grid">
-            <a href="{{ route('exam.index') }}" class="ast-news__card ast-news__card--feature">
+            <a href="{{ $isDynamic ? route('news.show', $items[0]['slug']) : route('exam.index') }}" class="ast-news__card ast-news__card--feature">
                 <span class="ast-news__tag ast-news__tag--new"><i class="ti ti-sparkles" aria-hidden="true"></i> {{ __('messages.news.new_badge') }}</span>
                 <div class="ast-news__icon ast-news__icon--feature"><i class="ti ti-category-2" aria-hidden="true"></i></div>
                 <span class="ast-news__date">{{ $items[0]['date'] }}</span>
                 <h3 class="ast-news__card-title">{{ $items[0]['title'] }}</h3>
                 <p class="ast-news__card-text">{{ $items[0]['text'] }}</p>
-                <span class="ast-news__link">{{ __('messages.news.open_practice') }} <i class="ti ti-arrow-right" aria-hidden="true"></i></span>
+                <span class="ast-news__link">{{ $isDynamic ? __('messages.news.read_more') : __('messages.news.open_practice') }} <i class="ti ti-arrow-right" aria-hidden="true"></i></span>
             </a>
 
             <div class="ast-news__side">
-                <a href="#tickets" class="ast-news__card">
+                <a href="{{ $isDynamic ? route('news.show', $items[1]['slug']) : '#tickets' }}" class="ast-news__card">
                     <div class="ast-news__icon"><i class="ti ti-refresh" aria-hidden="true"></i></div>
                     <div class="ast-news__card-body">
                         <span class="ast-news__date">{{ $items[1]['date'] }}</span>
@@ -42,7 +44,7 @@
                     </div>
                 </a>
 
-                <a href="{{ route('booking') }}" class="ast-news__card">
+                <a href="{{ $isDynamic ? route('news.show', $items[2]['slug']) : route('booking') }}" class="ast-news__card">
                     <div class="ast-news__icon ast-news__icon--accent"><i class="ti ti-discount-2" aria-hidden="true"></i></div>
                     <div class="ast-news__card-body">
                         <span class="ast-news__date">{{ $items[2]['date'] }}</span>
@@ -52,6 +54,12 @@
                 </a>
             </div>
         </div>
+
+        @if($isDynamic)
+            <div class="ast-news__viewall">
+                <a href="{{ route('news.index') }}">{{ __('messages.news.title') }} <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
+            </div>
+        @endif
     </div>
 </section>
 
@@ -148,4 +156,7 @@
     .ast-news__side .ast-news__card{flex-direction:column}
     .ast-news__tag{position:static;align-self:flex-start;margin-bottom:14px}
 }
+.ast-news__viewall{text-align:center;margin-top:32px}
+.ast-news__viewall a{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-family:'Space Mono';font-size:13px;font-weight:700;color:var(--blue-deep);border:1px solid var(--chrome);border-radius:999px;padding:11px 22px;transition:border-color .2s ease,background .2s ease}
+.ast-news__viewall a:hover{border-color:var(--blue);background:var(--paper-tint)}
 </style>

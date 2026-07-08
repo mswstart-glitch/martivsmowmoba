@@ -21,29 +21,56 @@
             <div class="ast-instructors__card">
                 <div class="ast-instructors__card-shine"></div>
 
-                <div class="ast-instructors__avatar">{{ $person['initials'] }}</div>
+                @if(!empty($person['photo']))
+                    <img src="{{ $person['photo'] }}" class="ast-instructors__avatar ast-instructors__avatar--photo" alt="">
+                @else
+                    <div class="ast-instructors__avatar">{{ $person['initials'] }}</div>
+                @endif
 
                 <h3 class="ast-instructors__name">{{ $person['name'] }}</h3>
-                <span class="ast-instructors__cats">{{ __('messages.instructors.category_label') }} {{ $person['cats'] }}</span>
+                @if(!empty($person['cats']))
+                    <span class="ast-instructors__cats">{{ __('messages.instructors.category_label') }} {{ $person['cats'] }}</span>
+                @endif
 
-                <div class="ast-instructors__stars" aria-label="{{ __('messages.instructors.rating_aria', ['rating' => $person['rating']]) }}">
-                    @for ($s = 1; $s <= 5; $s++)
-                        <i class="ti {{ $s <= $person['rating'] ? 'ti-star-filled' : 'ti-star' }}" aria-hidden="true"></i>
-                    @endfor
-                </div>
-
-                <p class="ast-instructors__quote">{{ $person['quote'] }}</p>
-
-                <div class="ast-instructors__stats">
-                    <div class="ast-instructors__stat">
-                        <span class="ast-instructors__stat-num">{{ $person['years'] }}</span>
-                        <span class="ast-instructors__stat-label">{{ __('messages.instructors.years_label') }}</span>
+                @if(($person['rating'] ?? null) !== null)
+                    <div class="ast-instructors__stars" aria-label="{{ __('messages.instructors.rating_aria', ['rating' => $person['rating']]) }}">
+                        @for ($s = 1; $s <= 5; $s++)
+                            <i class="ti {{ $s <= $person['rating'] ? 'ti-star-filled' : 'ti-star' }}" aria-hidden="true"></i>
+                        @endfor
                     </div>
-                    <div class="ast-instructors__stat">
-                        <span class="ast-instructors__stat-num">{{ $person['students'] }}+</span>
-                        <span class="ast-instructors__stat-label">{{ __('messages.instructors.students_label') }}</span>
+                @endif
+
+                @if(!empty($person['quote']))
+                    <p class="ast-instructors__quote">{{ $person['quote'] }}</p>
+                @endif
+
+                @if(!empty($person['years']) || !empty($person['students']))
+                    <div class="ast-instructors__stats">
+                        @if(!empty($person['years']))
+                            <div class="ast-instructors__stat">
+                                <span class="ast-instructors__stat-num">{{ $person['years'] }}</span>
+                                <span class="ast-instructors__stat-label">{{ __('messages.instructors.years_label') }}</span>
+                            </div>
+                        @endif
+                        @if(!empty($person['students']))
+                            <div class="ast-instructors__stat">
+                                <span class="ast-instructors__stat-num">{{ $person['students'] }}+</span>
+                                <span class="ast-instructors__stat-label">{{ __('messages.instructors.students_label') }}</span>
+                            </div>
+                        @endif
                     </div>
-                </div>
+                @endif
+
+                @if(!empty($person['phone']) || !empty($person['social']))
+                    <div class="ast-instructors__contact">
+                        @if(!empty($person['phone']))
+                            <a href="tel:{{ $person['phone'] }}" aria-label="Phone"><i class="ti ti-phone" aria-hidden="true"></i></a>
+                        @endif
+                        @if(!empty($person['social']))
+                            <a href="{{ $person['social'] }}" target="_blank" rel="noopener" aria-label="Social link"><i class="ti ti-link" aria-hidden="true"></i></a>
+                        @endif
+                    </div>
+                @endif
             </div>
         @endforeach
     </div>
@@ -67,6 +94,10 @@
 .ast-instructors__card-shine{position:absolute;top:-60%;left:-70%;width:50%;height:220%;background:linear-gradient(75deg,transparent,rgba(95,168,245,.16),transparent);transform:rotate(20deg);pointer-events:none;opacity:0;transition:opacity .3s ease}
 .ast-instructors__card:hover .ast-instructors__card-shine{opacity:1;animation:astInstructorSweep 1.1s ease-in-out}
 .ast-instructors__avatar{width:64px;height:64px;border-radius:50%;margin:0 auto 16px;background:linear-gradient(155deg,var(--blue-light),var(--blue-deep));display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Noto Serif Georgian';font-weight:700;font-size:20px;box-shadow:0 10px 22px -10px rgba(21,95,201,.5)}
+.ast-instructors__avatar--photo{object-fit:cover}
+.ast-instructors__contact{display:flex;justify-content:center;gap:10px;margin-top:16px;padding-top:14px;border-top:1px solid var(--paper-tint)}
+.ast-instructors__contact a{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--paper-tint);color:var(--blue-deep);text-decoration:none;font-size:15px;transition:background .2s ease,color .2s ease}
+.ast-instructors__contact a:hover{background:var(--blue);color:#fff}
 .ast-instructors__name{font-family:'Noto Serif Georgian';font-weight:700;font-size:16.5px;margin:0 0 4px;color:var(--ink)}
 .ast-instructors__cats{display:inline-block;font-family:'Space Mono';font-size:10px;font-weight:700;letter-spacing:.5px;color:var(--blue-deep);border:1px solid rgba(21,95,201,.3);border-radius:3px;padding:2px 8px;margin-bottom:14px}
 .ast-instructors__stars{display:flex;justify-content:center;gap:3px;margin-bottom:14px;font-size:14px;color:var(--gold)}

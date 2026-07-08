@@ -20,16 +20,23 @@ return [
         'booking_cta' => 'Book Now',
     ],
 
+    'footer' => [
+        'tagline' => 'Theoretical and practical driver training since 2012.',
+        'links_title' => 'Quick Links',
+        'rights' => 'All rights reserved.',
+    ],
+
     'hero' => [
-        'brand' => 'Start Driving School',
-        'eyebrow' => 'EST. 2012 · LICENSE ACADEMY',
-        'title' => 'You\'re In The Driver\'s Seat',
-        'subtitle' => 'A theory and practice program running since 2012. Practice on Web, iOS and Android — with real exam tickets and simulation.',
-        'years' => '13 years of experience',
+        'brand' => 'DriveLab.ge',
+        'eyebrow' => 'DRIVELAB DRIVING ACADEMY',
+        'title' => 'Driving Starts With You',
+        'subtitle' => 'A new-generation digital driving school — theory, practice, and real exam simulation in one place.',
+        'card_license' => 'DRIVING LICENSE',
+        'years' => 'Your driving license is here',
         'start_small' => 'Start',
         'view_small' => 'View',
         'register' => 'Register',
-        'login' => 'Log In',
+        'login' => 'Authorization',
         'exam_plate' => 'Exam',
         'tests_plate' => 'Tests',
     ],
@@ -177,12 +184,61 @@ return [
         ],
     ],
 
+    'friend_challenge' => [
+        'eyebrow' => 'Challenge Mode',
+        'title' => 'Challenge a Friend',
+        'subtitle' => 'Send your friend a link and compete on the same 30 questions.',
+        'desc' => 'You both take the exact same exam. At the end, your score and time are compared.',
+        'cta' => 'Start the Challenge',
+        'you' => 'You',
+        'friend' => 'Friend',
+        'chips' => [
+            'questions' => '30 Questions',
+            'time' => 'Time',
+            'compare' => 'Compare Results',
+        ],
+    ],
+
+    'challenge' => [
+        'code_label' => 'Challenge Code',
+        'share_hint' => 'Share this link with a friend:',
+        'copy_link' => 'Copy Link',
+        'link_copied' => 'Link copied',
+        'progress_label' => 'Answered',
+        'waiting_for_friend' => 'You finished! Waiting for your friend to finish the same challenge...',
+        'your_result' => 'Your Result',
+        'score_label' => 'Score',
+        'time_label' => 'Time',
+        'seconds_suffix' => 's',
+        'you' => 'You',
+        'friend' => 'Friend',
+        'winner_you' => 'You won!',
+        'winner_opponent' => 'Your friend won!',
+        'draw' => 'It\'s a draw!',
+        'not_found' => 'Challenge not found or expired.',
+        'invite_title' => 'A friend challenged you',
+        'invite_desc' => 'Take the same 30 questions and see who passes — and who\'s faster.',
+        'start_button' => 'Start the exam',
+        'results_title' => 'Results',
+        'no_results_yet' => 'No one has finished this challenge yet. Be the first!',
+        'single_result_mine_title' => 'Your result is saved.',
+        'single_result_mine_desc' => 'Send the link to your friend and wait for their result.',
+        'single_result_theirs_title' => 'Your friend already finished the challenge.',
+        'single_result_theirs_desc' => 'It\'s your turn — start the exam and see who wins!',
+        'leaderboard_participant' => 'Participant',
+        'view_full_results' => 'Full results page',
+        'passed' => 'Passed',
+        'failed' => 'Failed',
+        'wrong_label' => 'Wrong',
+    ],
+
     'news' => [
         'eyebrow' => 'News',
-        'title' => 'What\'s New At Autoschool Start',
+        'title' => 'What\'s New At DriveLab.ge',
         'desc' => 'The latest updates on tickets, categories and promotions — so you\'re always in the know.',
         'new_badge' => 'New',
         'open_practice' => 'Open Practice',
+        'read_more' => 'Read More',
         'items' => [
             [
                 'date' => 'July 5, 2026',
@@ -203,7 +259,7 @@ return [
     ],
 
     'booking' => [
-        'page_title' => 'Register — Start Driving School',
+        'page_title' => 'Register — DriveLab.ge',
         'eyebrow' => 'Get Started',
         'title' => 'Register For A Course',
         'subtitle' => 'Fill in the form and after registering you\'ll be taken straight to your profile.',
@@ -238,7 +294,7 @@ return [
     ],
 
     'login' => [
-        'page_title' => 'Log In — Start Driving School',
+        'page_title' => 'Log In — DriveLab.ge',
         'eyebrow' => 'Welcome Back',
         'title' => 'Log In',
         'subtitle' => 'Enter your email and password to see your progress and statistics.',
@@ -254,7 +310,7 @@ return [
     ],
 
     'analytics' => [
-        'page_title' => 'My Statistics — Autoschool',
+        'page_title' => 'My Statistics — DriveLab.ge',
         'brand' => 'My Statistics',
         'home' => 'Home',
         'logout' => 'Log Out',
@@ -314,7 +370,7 @@ return [
     ],
 
     'student_dashboard' => [
-        'page_title' => 'Student Panel — Autoschool',
+        'page_title' => 'Student Panel — DriveLab.ge',
         'brand' => 'Student Panel',
         'home' => 'Home',
         'logout' => 'Log Out',

@@ -19,6 +19,7 @@
 */
 let questions = [], examQuestions = [], current = 0, locked = false, right = 0, wrong = 0, answered = 0, timeLeft = 1800, finished = false;
 let TOTAL = 20, PASS_MAX_WRONG = 5;
+let RAW_POOL = [], RAW_CATEGORY = null, RAW_RESULT = null;
 const $ = id => document.getElementById(id);
 const media = $('media'), img = $('mainMedia'), qOverlay = $('qOverlay'), zone = $('zone'), qSlot = $('questionSlot'), answers = $('answers'), content = $('content'), progress = $('progress'), timer = $('timer'), rightEl = $('rightCount'), wrongEl = $('wrongCount');
 
@@ -68,12 +69,40 @@ Promise.all([
   // matching is Georgian-only), *before* any translation is applied.
   const result = CategoryFilter.getCategoryQuestions(allQuestions, catId, categoriesData);
   const category = result.category;
+  RAW_CATEGORY = category;
+  RAW_RESULT = result;
 
   if (!category) {
     showEmpty(window.DrivelabI18n.t('category_not_found'), '');
     return;
   }
 
+  renderCategoryLabels(category, result, i18nData);
+
+  const poolCount = result.pool.length;
+  if (poolCount === 0) {
+    showEmpty(
+      window.DrivelabI18n.t('no_category_questions_title'),
+      window.DrivelabI18n.t('no_category_questions_text').replace('%d', questions.length)
+    );
+    return;
+  }
+
+  RAW_POOL = result.pool;
+  TOTAL = Math.min(30, poolCount);
+  PASS_MAX_WRONG = Math.max(1, Math.round(TOTAL * 5 / 30));
+  const translatedPool = window.DrivelabI18n.translateQuestions(result.pool, i18nData.topics, i18nData.questions);
+  examQuestions = shuffle(translatedPool).slice(0, TOTAL);
+
+  render();
+  preloadExam();
+  startTimer();
+}).catch(err => {
+  console.error(err);
+  showEmpty(window.DrivelabI18n.t('load_error_title'), window.DrivelabI18n.t('load_error_text'));
+});
+
+function renderCategoryLabels(category, result, i18nData) {
   const displayCategory = window.DrivelabI18n.translateCategory(category, i18nData.categories);
   $('catTitle').textContent = displayCategory.title;
   $('catDesc').textContent = displayCategory.description;
@@ -91,26 +120,25 @@ Promise.all([
   if (specificCount === 0) {
     $('catCount').parentElement.querySelector('span').classList.add('warn');
   }
+}
 
-  if (poolCount === 0) {
-    showEmpty(
-      window.DrivelabI18n.t('no_category_questions_title'),
-      window.DrivelabI18n.t('no_category_questions_text').replace('%d', questions.length)
-    );
-    return;
-  }
-
-  TOTAL = Math.min(30, poolCount);
-  PASS_MAX_WRONG = Math.max(1, Math.round(TOTAL * 5 / 30));
-  const translatedPool = window.DrivelabI18n.translateQuestions(result.pool, i18nData.topics, i18nData.questions);
-  examQuestions = shuffle(translatedPool).slice(0, TOTAL);
-
-  render();
-  preloadExam();
-  startTimer();
-}).catch(err => {
-  console.error(err);
-  showEmpty(window.DrivelabI18n.t('load_error_title'), window.DrivelabI18n.t('load_error_text'));
+/* Re-translates the in-progress category practice session in place when
+   the language switcher changes locale, instead of reloading the page
+   (which would reshuffle the question set and reset progress/timer).
+   Falls back to the switcher's own page reload if the page hasn't
+   finished its first load yet (see i18n.js setLocale()). */
+document.addEventListener('drivelab:localechange', function (e) {
+  if (!RAW_CATEGORY) return;
+  e.preventDefault();
+  window.DrivelabI18n.loadTranslationData().then(function (i18nData) {
+    renderCategoryLabels(RAW_CATEGORY, RAW_RESULT, i18nData);
+    if (!RAW_POOL.length) return;
+    const translatedPool = window.DrivelabI18n.translateQuestions(RAW_POOL, i18nData.topics, i18nData.questions);
+    const byId = {};
+    translatedPool.forEach(q => { byId[q.id] = q; });
+    examQuestions = examQuestions.map(q => byId[q.id] || q);
+    render();
+  });
 });
 
 function showEmpty(title, text) {

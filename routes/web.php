@@ -2,9 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+use App\Http\Controllers\HomeController;
+
+Route::get('/', [HomeController::class, 'index']);
+
+use App\Http\Controllers\NewsController;
+
+Route::get('/news', [NewsController::class, 'index'])->name('news.index');
+Route::get('/news/{slug}', [NewsController::class, 'show'])->name('news.show');
 
 use App\Http\Controllers\ExamController;
 
@@ -38,4 +43,16 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->n
 use App\Http\Controllers\LanguageController;
 
 Route::get('/lang/{locale}', [LanguageController::class, 'switch'])->name('lang.switch');
+
+
+use App\Http\Controllers\ChallengeController;
+
+Route::post('/challenge/create', [ChallengeController::class, 'create'])->name('challenge.create');
+Route::get('/challenge/{code}', [ChallengeController::class, 'show'])->name('challenge.show');
+Route::get('/challenge/{code}/start', [ChallengeController::class, 'start'])->name('challenge.start');
+Route::post('/challenge/{code}/result', [ChallengeController::class, 'storeResult'])->name('challenge.result');
+Route::get('/challenge/{code}/results', [ChallengeController::class, 'results'])->name('challenge.results');
+
+
+require __DIR__.'/admin.php';
 

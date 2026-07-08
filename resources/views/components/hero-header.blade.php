@@ -88,24 +88,14 @@
             <p class="ast-hero__subtitle">{{ $subtitle }}</p>
 
             <div class="ast-hero__actions">
-                <a href="/autoschool/exam" class="ast-hero__store-btn">
-                    <i class="ti ti-brand-google-play" aria-hidden="true"></i>
-                    <span><small>{{ __('messages.hero.start_small') }}</small>Google Play</span>
+                <a href="{{ route('booking') }}" class="ast-hero__store-btn">
+                    <i class="ti ti-user-plus" aria-hidden="true"></i>
+                    <span>{{ __('messages.hero.register') }}</span>
                 </a>
-                <a href="#tickets" class="ast-hero__store-btn">
-                    <i class="ti ti-brand-apple" aria-hidden="true"></i>
-                    <span><small>{{ __('messages.hero.view_small') }}</small>App Store</span>
-
-                <a href="{{ route('booking') }}" class="hero-register-btn">
-                    <i class="ti ti-user-plus"></i>
-                    {{ __('messages.hero.register') }}
+                <a href="{{ route('login') }}" class="ast-hero__store-btn">
+                    <i class="ti ti-login" aria-hidden="true"></i>
+                    <span>{{ __('messages.hero.login') }}</span>
                 </a>
-
-                <a href="{{ route('login') }}" class="hero-register-btn">
-                    <i class="ti ti-login"></i>
-                    {{ __('messages.hero.login') }}
-                </a>
-</a>
             </div>
         </div>
 
@@ -123,7 +113,7 @@
             <div class="ast-hero__card" id="astCard">
                 <div class="ast-hero__card-shine"></div>
                 <div class="ast-hero__card-top">
-                    <span>PLATINUM MEMBER LICENSE</span>
+                    <span>{{ __('messages.hero.card_license') }}</span>
                     <span class="ast-hero__card-cat">CAT B1</span>
                 </div>
                 <div class="ast-hero__card-mid">
@@ -135,14 +125,18 @@
                     </div>
                 </div>
                 <div class="ast-hero__card-bottom">
-                    <span>AVTOSCHOOL START</span>
-                    <span>№ 0001 2012</span>
+                    <span>DriveLab Autoschool</span>
                 </div>
             </div>
             <div class="ast-hero__seal">
-                <span>START<br>2012</span>
+                <span>START</span>
             </div>
             <div class="ast-hero__stat">{{ $years }}</div>
+            <div class="ast-hero__cardsign" aria-hidden="true">
+                <span class="ast-hero__lplate-badge">L</span>
+                <div class="ast-hero__pole ast-hero__pole--short"></div>
+                <div class="ast-hero__pole-base"></div>
+            </div>
         </div>
     </div>
 
@@ -264,6 +258,9 @@ body{margin:0;background:#fff}
 .ast-hero__light--green{animation:astLightGreen 7s ease-in-out infinite}
 .ast-hero__pole{width:3px;height:120px;background:linear-gradient(180deg,var(--chrome-deep),var(--chrome))}
 .ast-hero__pole-base{width:30px;height:8px;border-radius:50%;background:rgba(11,30,61,.18);filter:blur(2px);margin-top:-3px}
+.ast-hero__lplate-badge{width:36px;height:36px;border-radius:7px;background:#fff;border:3px solid #E5483F;display:flex;align-items:center;justify-content:center;font-family:'Space Mono';font-weight:800;font-size:19px;color:#E5483F;box-shadow:0 8px 16px -6px rgba(11,30,61,.35);animation:astSignPulse 3s ease-in-out infinite}
+.ast-hero__cardsign{position:absolute;right:-26px;bottom:0;display:flex;flex-direction:column;align-items:center;z-index:3}
+.ast-hero__cardsign .ast-hero__pole{height:56px !important}
 .ast-hero__eyebrow{display:inline-block;font-family:'Space Mono';font-size:11px;font-weight:700;letter-spacing:2px;color:var(--blue-deep);background:var(--paper-tint);border:1px solid rgba(21,95,201,.25);border-radius:2px;padding:5px 12px;margin-bottom:22px}
 .ast-hero__title{font-family:'Noto Serif Georgian';font-weight:800;font-size:clamp(40px,5.6vw,64px);line-height:1.04;margin:0 0 20px;background:linear-gradient(100deg,var(--ink) 25%,var(--blue) 50%,var(--ink) 75%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:astShine 7s linear infinite}
 .ast-hero__subtitle{font-size:15.5px;line-height:1.75;color:var(--ink-soft);max-width:460px;margin:0 0 32px}
@@ -272,7 +269,7 @@ body{margin:0;background:#fff}
 .ast-hero__store-btn i{font-size:21px;color:var(--blue)}
 .ast-hero__store-btn small{display:block;font-size:10px;color:var(--ink-soft);font-weight:400}
 .ast-hero__store-btn:hover{border-color:var(--blue);transform:translateY(-2px)}
-.ast-hero__card-wrap{display:flex;flex-direction:column;align-items:center;gap:18px;perspective:900px;animation:astRise .9s .15s cubic-bezier(.2,.7,.2,1) both}
+.ast-hero__card-wrap{position:relative;display:flex;flex-direction:column;align-items:center;gap:18px;perspective:900px;animation:astRise .9s .15s cubic-bezier(.2,.7,.2,1) both}
 .ast-hero__card{position:relative;width:270px;background:linear-gradient(155deg,#FFFFFF,#EAF0F8);border:1px solid var(--chrome);border-radius:14px;padding:20px;box-shadow:0 30px 60px -24px rgba(11,30,61,.28),inset 0 0 0 1px rgba(255,255,255,.6);transform:rotate(-4deg);transition:transform .4s ease;overflow:hidden}
 .ast-hero__card-shine{position:absolute;top:-50%;left:-60%;width:60%;height:200%;background:linear-gradient(75deg,transparent,rgba(95,168,245,.35),transparent);transform:rotate(20deg);animation:astSweep 4.5s ease-in-out infinite}
 .ast-hero__card-top{display:flex;justify-content:space-between;align-items:flex-start;font-family:'Space Mono';font-size:9.5px;letter-spacing:1px;color:var(--blue-deep);margin-bottom:16px}
@@ -325,6 +322,7 @@ margin-bottom:8px;
 @keyframes astLightRed{0%,33%{background:#E5483F;box-shadow:0 0 10px 2px rgba(229,72,63,.75)}33.01%,100%{background:rgba(255,255,255,.08);box-shadow:none}}
 @keyframes astLightYellow{0%,24.9%{background:rgba(255,255,255,.08);box-shadow:none}25%,33%{background:#F2B72E;box-shadow:0 0 10px 2px rgba(242,183,46,.75)}33.01%,82.9%{background:rgba(255,255,255,.08);box-shadow:none}83%,100%{background:#F2B72E;box-shadow:0 0 10px 2px rgba(242,183,46,.75)}}
 @keyframes astLightGreen{0%,33%{background:rgba(255,255,255,.08);box-shadow:none}33.01%,83%{background:#3FBF6E;box-shadow:0 0 10px 2px rgba(63,191,110,.75)}83.01%,100%{background:rgba(255,255,255,.08);box-shadow:none}}
+@keyframes astSignPulse{0%,100%{box-shadow:0 8px 16px -6px rgba(11,30,61,.35)}50%{box-shadow:0 10px 22px -4px rgba(229,72,63,.5)}}
 @media(max-width:920px){.ast-hero__body{grid-template-columns:1fr}.ast-hero__roadside{order:1}.ast-hero__card-wrap{order:2}.ast-hero__pole{height:50px}.ast-hero__seal{margin-left:182px}}
 @media(max-width:720px){.ast-hero__nav{position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:#fff;border-bottom:1px solid var(--chrome);max-height:0;overflow:hidden;transition:max-height .3s ease}.ast-hero__nav a{padding:14px clamp(20px,4vw,56px);border-bottom:1px solid var(--paper-tint)}.ast-hero__burger{display:block}#ast-nav-toggle:checked ~ .ast-hero__bar .ast-hero__nav{max-height:300px}}
 

@@ -214,12 +214,34 @@ window.DrivelabI18n = (function () {
         },
     };
 
+    var STORAGE_KEY = 'site_locale';
+
     function readCookie(name) {
         var match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
         return match ? decodeURIComponent(match[1]) : null;
     }
 
-    var locale = readCookie('site_locale');
+    function writeCookie(name, value) {
+        document.cookie = name + '=' + encodeURIComponent(value) +
+            ';path=/;max-age=' + (60 * 60 * 24 * 365) + ';SameSite=Lax';
+    }
+
+    function readStoredLocale() {
+        try {
+            var ls = window.localStorage && window.localStorage.getItem(STORAGE_KEY);
+            if (ls && DICT[ls]) return ls;
+        } catch (e) { /* localStorage unavailable (privacy mode, etc.) */ }
+        return readCookie(STORAGE_KEY);
+    }
+
+    function persistLocale(code) {
+        try {
+            window.localStorage && window.localStorage.setItem(STORAGE_KEY, code);
+        } catch (e) { /* localStorage unavailable (privacy mode, etc.) */ }
+        writeCookie(STORAGE_KEY, code);
+    }
+
+    var locale = readStoredLocale();
     if (!locale || !DICT[locale]) {
         locale = 'ka';
     }
@@ -237,6 +259,50 @@ window.DrivelabI18n = (function () {
             var spec = el.getAttribute('data-i18n-attr').split(':');
             el.setAttribute(spec[0], t(spec[1]));
         });
+    }
+
+    function updateChromeActive() {
+        var bar = document.getElementById('dlChrome');
+        if (!bar) return;
+        bar.querySelectorAll('.dlLangs a').forEach(function (a) {
+            var isActive = a.lang === locale;
+            a.classList.toggle('active', isActive);
+            if (isActive) a.setAttribute('aria-current', 'true');
+            else a.removeAttribute('aria-current');
+        });
+    }
+
+    /**
+     * Switches the active locale without a full page navigation. Persists
+     * the choice, refreshes the static [data-i18n] labels and switcher
+     * highlight immediately, then fires a cancelable
+     * "drivelab:localechange" event: pages that listen for it (index.html,
+     * test.html, category-engine.js) re-translate their in-memory question
+     * set from the Georgian source and re-render the current question in
+     * place — no reshuffle, no lost progress/timer. If nothing on the page
+     * handles the event (or it hasn't finished its first load yet), this
+     * falls back to a same-URL page reload, which still picks up the new
+     * locale correctly, just resetting exam progress.
+     */
+    function setLocale(code) {
+        if (!DICT[code] || code === locale) return;
+        locale = code;
+        persistLocale(code);
+        applyStatic();
+        updateChromeActive();
+
+        var evt;
+        try {
+            evt = new CustomEvent('drivelab:localechange', {detail: {locale: code}, cancelable: true});
+        } catch (e) {
+            evt = document.createEvent('CustomEvent');
+            evt.initCustomEvent('drivelab:localechange', false, true, {locale: code});
+        }
+        var handledInPlace = !document.dispatchEvent(evt);
+        if (!handledInPlace) {
+            window.location.reload();
+        }
+        api.locale = locale;
     }
 
     /**
@@ -308,10 +374,11 @@ window.DrivelabI18n = (function () {
         if (locale === 'ka') {
             return Promise.resolve({topics: null, questions: null, categories: null});
         }
+        var v = Date.now();
         return Promise.all([
-            fetch('data/topics_i18n.json').then(function (r) { return r.json(); }).catch(function () { return null; }),
-            fetch('data/questions_i18n.json').then(function (r) { return r.json(); }).catch(function () { return null; }),
-            fetch('data/categories_i18n.json').then(function (r) { return r.json(); }).catch(function () { return null; }),
+            fetch('data/topics_i18n.json?v=' + v).then(function (r) { return r.json(); }).catch(function () { return null; }),
+            fetch('data/questions_i18n.json?v=' + v).then(function (r) { return r.json(); }).catch(function () { return null; }),
+            fetch('data/categories_i18n.json?v=' + v).then(function (r) { return r.json(); }).catch(function () { return null; }),
         ]).then(function (results) {
             return {topics: results[0], questions: results[1], categories: results[2]};
         });
@@ -320,12 +387,14 @@ window.DrivelabI18n = (function () {
     /**
      * Injects a small, identical-on-every-page top bar with a "back to
      * home" link (to the main Laravel site root) and a language switcher.
-     * The switcher links are plain server round trips to /lang/{code}
-     * (App\Http\Controllers\LanguageController), the same route the main
-     * site's own homepage switcher uses — it sets the shared "site_locale"
-     * cookie (1 year, path "/") and redirects back to the current page,
-     * so the choice persists across every page and across refreshes with
-     * no client-side state to keep in sync.
+     * The switcher used to link to /lang/{code}, a Laravel route that only
+     * exists in this app's own routes/web.php — but that path is never
+     * actually routed here in production (the web server proxies
+     * non-static requests to the main site's app instead), so every click
+     * ended in a 404. The switcher now sets the shared "site_locale"
+     * cookie (1 year, path "/") directly with JS and reloads the current
+     * page in place, so the choice takes effect immediately and persists
+     * across refreshes without any server round trip.
      */
     function injectChrome() {
         if (document.getElementById('dlChrome')) return;
@@ -338,13 +407,17 @@ window.DrivelabI18n = (function () {
             '#dlChrome a{color:#fff;text-decoration:none}' +
             '#dlChrome .dlHome{font-weight:700;display:inline-flex;align-items:center;gap:5px;opacity:.92}' +
             '#dlChrome .dlHome:hover{opacity:1;text-decoration:underline}' +
-            '#dlChrome .dlLangs{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}' +
-            '#dlChrome .dlLangs a{padding:3px 9px;border-radius:999px;background:rgba(255,255,255,.14);' +
-            'font-weight:600;letter-spacing:.02em}' +
-            '#dlChrome .dlLangs a:hover{background:rgba(255,255,255,.26);text-decoration:none}' +
-            '#dlChrome .dlLangs a.active{background:#fff;color:#33297a;opacity:1}' +
+            '#dlChrome .dlLangs{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end;' +
+            'background:#fff;padding:4px;border-radius:999px;box-shadow:0 2px 10px rgba(20,10,60,.18)}' +
+            '#dlChrome .dlLangs a{position:relative;padding:6px 13px;border-radius:999px;' +
+            'background:#fff;color:#4a3aa3;font-weight:600;letter-spacing:.02em;' +
+            'border:1.5px solid transparent;transition:background .15s ease,border-color .15s ease,color .15s ease}' +
+            '#dlChrome .dlLangs a:hover{background:#f1edfb;text-decoration:none}' +
+            '#dlChrome .dlLangs a.active{background:#fff;color:#33297a;border-color:#8b6fe6;opacity:1}' +
+            '#dlChrome .dlLangs a.active::after{content:"";position:absolute;left:50%;bottom:4px;' +
+            'transform:translateX(-50%);width:14px;height:2px;border-radius:2px;background:#8b6fe6}' +
             '@media(max-width:480px){#dlChrome{font-size:12px;padding:6px 10px}' +
-            '#dlChrome .dlLangs a{padding:3px 7px}}';
+            '#dlChrome .dlLangs a{padding:4px 9px}}';
         document.head.appendChild(style);
 
         var bar = document.createElement('div');
@@ -353,14 +426,14 @@ window.DrivelabI18n = (function () {
         var home = document.createElement('a');
         home.className = 'dlHome';
         home.href = '/';
-        home.innerHTML = '<span aria-hidden="true">←</span> <span>' + t('home_label') + '</span>';
+        home.innerHTML = '<span aria-hidden="true">←</span> <span data-i18n="home_label">' + t('home_label') + '</span>';
         bar.appendChild(home);
 
         var langs = document.createElement('div');
         langs.className = 'dlLangs';
         LOCALES.forEach(function (code) {
             var a = document.createElement('a');
-            a.href = '/lang/' + code;
+            a.href = '#';
             a.textContent = code.toUpperCase();
             a.title = LOCALE_NAMES[code];
             a.lang = code;
@@ -368,6 +441,10 @@ window.DrivelabI18n = (function () {
                 a.classList.add('active');
                 a.setAttribute('aria-current', 'true');
             }
+            a.addEventListener('click', function (e) {
+                e.preventDefault();
+                setLocale(code);
+            });
             langs.appendChild(a);
         });
         bar.appendChild(langs);
@@ -375,7 +452,7 @@ window.DrivelabI18n = (function () {
         document.body.insertBefore(bar, document.body.firstChild);
     }
 
-    return {
+    var api = {
         locale: locale,
         t: t,
         applyStatic: applyStatic,
@@ -383,7 +460,9 @@ window.DrivelabI18n = (function () {
         translateCategory: translateCategory,
         loadTranslationData: loadTranslationData,
         injectChrome: injectChrome,
+        setLocale: setLocale,
     };
+    return api;
 })();
 
 document.addEventListener('DOMContentLoaded', function () {

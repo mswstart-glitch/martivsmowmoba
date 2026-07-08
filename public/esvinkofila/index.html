@@ -555,9 +555,10 @@ body{
  <button class="explainContinue" id="explainContinue" type="button" data-i18n="continue_label">გაგრძელება</button>
 </div></div>
 
-<script src="js/i18n.js"></script>
+<script src="js/i18n.js?v=1783367680"></script>
 <script>
 let questions=[],examQuestions=[],current=0,locked=false,right=0,wrong=0,answered=0,timeLeft=1800,finished=false;
+let RAW_QUESTIONS=[];
 const TOTAL=30,PASS=25,MAX_WRONG=5;
 const $=id=>document.getElementById(id);
 const media=$('media'),img=$('mainMedia'),qOverlay=$('qOverlay'),zone=$('zone'),qSlot=$('questionSlot'),answers=$('answers'),content=$('content'),progress=$('progress'),timer=$('timer'),rightEl=$('rightCount'),wrongEl=$('wrongCount');
@@ -610,13 +611,30 @@ Promise.all([
   fetch('data/image_zones.json?v='+Date.now()).then(r=>r.json()).catch(()=>({wide:[]})),
   window.DrivelabI18n.loadTranslationData()
 ]).then(([d,zones,i18nData])=>{
-  d=window.DrivelabI18n.translateQuestions(d,i18nData.topics,i18nData.questions);
-  questions=d;
+  RAW_QUESTIONS=d;
+  questions=window.DrivelabI18n.translateQuestions(d,i18nData.topics,i18nData.questions);
   WIDE_ZONE_IMAGES=new Set((zones&&zones.wide)||[]);
-  examQuestions=shuffle(d).slice(0,TOTAL);
+  examQuestions=shuffle(questions).slice(0,TOTAL);
   render();
   preloadExam();
   startTimer();
+});
+
+/* Re-translates the in-progress exam in place when the language switcher
+   changes locale, instead of reloading the page (which would reshuffle
+   the question set and reset progress/timer). Falls back to the
+   switcher's own page reload if the exam hasn't finished its first load
+   yet (see i18n.js setLocale()). */
+document.addEventListener('drivelab:localechange', function(e){
+  if(!RAW_QUESTIONS.length) return;
+  e.preventDefault();
+  window.DrivelabI18n.loadTranslationData().then(function(i18nData){
+    questions=window.DrivelabI18n.translateQuestions(RAW_QUESTIONS,i18nData.topics,i18nData.questions);
+    const byId={};
+    questions.forEach(q=>{byId[q.id]=q});
+    examQuestions=examQuestions.map(q=>byId[q.id]||q);
+    render();
+  });
 });
 
 /* ამ სესიის ყველა ფოტოს ფონური წინასწარ ჩატვირთვა — მიმდინარე კითხვის
